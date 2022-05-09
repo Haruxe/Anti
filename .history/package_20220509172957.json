@@ -44,9 +44,11 @@
     ]
   },
   "devDependencies": {
+<<<<<<< HEAD
     "autoprefixer": "^10.4.7",
     "postcss": "^8.4.13",
-    "tailwindcss": "^3.0.24",
+    "tailwindcss": "^3.0.24"
+=======
     "@nomiclabs/hardhat-ethers": "^2.0.5",
     "@nomiclabs/hardhat-etherscan": "^3.0.3",
     "@nomiclabs/hardhat-waffle": "^2.0.3",
@@ -77,5 +79,6 @@
     "ts-node": "^10.7.0",
     "typechain": "^5.2.0",
     "typescript": "^4.6.4"
+>>>>>>> Bryce-Work
   }
 }

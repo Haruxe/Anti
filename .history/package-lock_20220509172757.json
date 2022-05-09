@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "lockfileVersion": 1,
   "requires": true,
+<<<<<<< HEAD
   "packages": {
     "": {
       "name": "mediasite",
@@ -20354,6 +20355,8 @@
       }
     }
   },
+=======
+>>>>>>> Bryce-Work
   "dependencies": {
     "@ampproject/remapping": {
       "version": "2.2.0",
@@ -46424,11 +46427,13 @@
         "safe-buffer": "^5.0.1"
       }
     },
+<<<<<<< HEAD
     "shallowequal": {
       "version": "1.1.0",
       "resolved": "https://registry.npmjs.org/shallowequal/-/shallowequal-1.1.0.tgz",
       "integrity": "sha512-y0m1JoUZSlPAjXVtPPW70aZWfIL/dSP7AFkRnniLCrK/8MDKog3TySTBmckD+RObVxH0v4Tox67+F14PdED2oQ==",
-      "peer": true,
+      "peer": true
+=======
     "sha1": {
       "version": "1.1.1",
       "resolved": "https://registry.npmjs.org/sha1/-/sha1-1.1.1.tgz",
@@ -46438,6 +46443,7 @@
         "charenc": ">= 0.0.1",
         "crypt": ">= 0.0.1"
       }
+>>>>>>> Bryce-Work
     },
     "shebang-command": {
       "version": "2.0.0",
@@ -50758,5 +50764,4 @@
       "integrity": "sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q=="
     }
   }
-}
 }

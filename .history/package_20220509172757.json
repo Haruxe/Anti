@@ -9,8 +9,11 @@
     "@types/jest": "^27.5.0",
     "@types/react": "^18.0.9",
     "@types/react-dom": "^18.0.3",
+<<<<<<< HEAD
     "framer-motion": "^6.3.3",
     "hardhat": "^2.9.3",
+=======
+>>>>>>> Bryce-Work
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-router-dom": "^6.3.0",
@@ -44,9 +47,11 @@
     ]
   },
   "devDependencies": {
+<<<<<<< HEAD
     "autoprefixer": "^10.4.7",
     "postcss": "^8.4.13",
-    "tailwindcss": "^3.0.24",
+    "tailwindcss": "^3.0.24"
+=======
     "@nomiclabs/hardhat-ethers": "^2.0.5",
     "@nomiclabs/hardhat-etherscan": "^3.0.3",
     "@nomiclabs/hardhat-waffle": "^2.0.3",
@@ -77,5 +82,6 @@
     "ts-node": "^10.7.0",
     "typechain": "^5.2.0",
     "typescript": "^4.6.4"
+>>>>>>> Bryce-Work
   }
 }
