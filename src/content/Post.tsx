@@ -10,11 +10,11 @@ function Post() {
         <div className='align-middle space-y-5'>
                 <div className="flex flex-row align-middle space-x-5">
                     <Profile className='w-[3rem]'/>
-                    <h1 className="my-auto text-xl ">
+                    <h1 className="my-auto text-xl text-white">
                         <Verified className='w-[1rem] '/> Doodles
                     </h1>
                 </div>
-                <h1 className='text-xl'>
+                <h1 className='text-xl text-white'>
                     This is a post.
                 </h1>
                 <p className='text'>

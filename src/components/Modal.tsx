@@ -15,7 +15,7 @@ function Modal() {
 
     function Tag(props){
         return(
-            <h1 className='bg-[#1A1A1B] outline outline-1 outline-[#343536] rounded-2xl px-4 py-2'>
+            <h1 className='bg-[#1A1A1B] text-white outline outline-1 outline-[#343536] rounded-2xl px-4 py-2'>
                 {props.name}
             </h1>
         )
@@ -36,7 +36,7 @@ function Modal() {
                 <div className='flex justify-center h-screen'>
                 <div className='bg-[#1A1A1B] w-[50rem] outline outline-1 outline-[#343536] flex flex-col space-y-10 h-[30rem] p-8 m-auto rounded-md justify-self-center self-center'>
                     <div className='flex'>
-                        <h1 className='align-middle my-auto'>
+                        <h1 className='align-middle my-auto text-white'>
                         New Post
                         </h1>
                         <button className='self-end ml-auto' onClick={ClosePost}>
