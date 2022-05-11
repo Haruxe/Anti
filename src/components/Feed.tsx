@@ -1,30 +1,29 @@
+import { useEffect } from "react";
+import { useState } from "react";
 import Post from "../content/Post"
 import Sidebar from "../content/Sidebar"
 
 
 function Feed() {
 
-    const SidebarTitle = () => {
-        return (<div className="text bg-[#1A1A1B] h-auto p-4 flex marker:justify-center">
-        <h1 className='mx-auto text-lg'>
-            Trending Content
-        </h1>
-        </div>) 
-    }
+    const [sidebarVisible, setSidebarVisible] = useState(false);
 
-  return (
-    <div className='p-10 flex flex-row'>
-        <div className='w-3/4 h-full flex flex-col p-5 space-y-5'>
-            <Post />
-            <Post />
-            <Post />
-            <Post />
-            <Post />
-            <Post />
-            <Post />
-        </div>
-        <div className="flex w-1/4 auto mx-9 p-5 flex-col space-y-5">
-        
+    const screenWidth = window.innerWidth;
+
+    useEffect(() =>
+    {
+        if (screenWidth < 1600){
+            setSidebarVisible(false);
+        }
+        if (screenWidth > 1600){
+            setSidebarVisible(true);
+        }
+    }, [screenWidth])
+
+    const SidebarContent = () => {
+        return(
+            <>
+        <div className="flex auto flex-col pt-5 space-y-5 w-1/4">
         <div className="flex-col space-y-2">
             <Sidebar />
             <Sidebar />
@@ -34,6 +33,21 @@ function Feed() {
             <Sidebar />
         </div>
         </div>
+        </>
+        )
+    }
+    return (
+    <div className='p-5 flex flex-row'>
+        <div className='w-full h-full flex flex-col p-5 space-y-5'>
+            <Post />
+            <Post />
+            <Post />
+            <Post />
+            <Post />
+            <Post />
+            <Post />
+        </div>
+        {sidebarVisible && <SidebarContent />}
     </div>
   )
 }

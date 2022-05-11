@@ -8,6 +8,7 @@ import { SelectOutlined } from "@ant-design/icons";
 import { getExplorer } from "../helpers/networks";
 import Text from "antd/lib/typography/Text";
 import { connectors } from "./config";
+import {motion} from 'framer-motion';
 const styles = {
   account: {
     height: "42px",
@@ -36,7 +37,7 @@ const styles = {
   },
   icon: {
     alignSelf: "center",
-    fill: "rgb(40, 13, 95)",
+    fill: "#202020",
     flexShrink: "0",
     marginBottom: "8px",
     height: "30px",
@@ -52,9 +53,9 @@ function Account() {
   if (!isAuthenticated || !account) {
     return (
       <>
-        <div onClick={() => setIsAuthModalVisible(true)}>
-          <p style={styles.text}>Authenticate</p>
-        </div>
+        <motion.button onClick={() => setIsAuthModalVisible(true)} whileHover={{scale: 1.05}} className='bg-[#181818] align-middle outline-white outline outline-1 rounded-lg px-2 h-3/4 my-auto'>
+          <p className="p-0 m-0">Connect Your Wallet!</p>
+        </motion.button >
         <Modal
           visible={isAuthModalVisible}
           footer={null}
@@ -105,8 +106,8 @@ function Account() {
 
   return (
     <>
-      <div style={styles.account} className='outline outline-1 outline-[#343536] rounded-2xl' onClick={() => setIsModalVisible(true)}>
-        <p style={{ marginRight: "5px", ...styles.text }}>
+      <div style={styles.account} className='outline outline-1 outline-[#343536] align-middle rounded-2xl my-auto' onClick={() => setIsModalVisible(true)}>
+        <p style={{ marginRight: "5px", ...styles.text }} className='my-auto'>
           {getEllipsisTxt(account, 6)}
         </p>
         <Blockie currentWallet scale={3} />

@@ -14,17 +14,17 @@ function Navbar() {
             <div className='my-auto text-4xl space-x-10 flex flex-row'>
               <motion.button className='tracking-widest' whileHover={{scale: 1.1}}>
                   <Link to='/home'>
-                  <div className='flex flex-row space-x-3 align-middle'>
-                    <Triangle className='w-8 fill-white'/>
-                    <p className='my-auto text-white'>Anti</p>
+                  <div className='flex flex-row space-x-2 align-middle'>
+                    <Triangle className='w-7 fill-white mt-1'/>
+                    <p className='my-auto text-white'>nti</p>
                   </div>
                   </Link>
               </motion.button>
             </div>
-            <div className='flex flex-row justify-self-end'>
-              <Chains />
-              <NativeBalance />
-              <Account />
+            <div className='flex flex-row justify-self-end space-x-5'>
+                  <NativeBalance />
+                  <Account />
+                  <Chains />
             </div>
         </div> 
     </div>

@@ -7,7 +7,7 @@ function NativeBalance(props) {
   if (!account || !isAuthenticated) return null;
 
   return (
-    <div style={{ textAlign: "center", whiteSpace: "nowrap" }} className='bg-[#202020]'>
+    <div style={{ textAlign: "center", whiteSpace: "nowrap" }} className='bg-[#202020] my-auto'>
       {balance.formatted}
     </div>
   );

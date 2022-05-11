@@ -1,6 +1,6 @@
 import React from 'react'
 import { motion } from 'framer-motion';
-import { X } from 'styled-icons/bootstrap';
+import { Plus, X } from 'styled-icons/bootstrap';
 
 function Modal() {
 
@@ -15,9 +15,14 @@ function Modal() {
 
     function Tag(props){
         return(
-            <h1 className='bg-[#1A1A1B] text-white outline outline-1 outline-[#343536] rounded-2xl px-4 py-2'>
-                {props.name}
-            </h1>
+            <motion.div className='bg-[#1A1A1B] outline outline-1 flex shadow-lg space-x-1 flex-row align-middle outline-[#343536] rounded-2xl px-4 py-2 cursor-pointer' whileHover={{backgroundColor: '#2F2F2F', outlineColor: '#4E4E4E'}}>
+                <button>
+                    <Plus className='w-5 my-auto'/>
+                </button>
+                <h1 className='my-auto text-white text-lg'>
+                    {props.name}
+                </h1>
+            </motion.div>
         )
     }
 
@@ -25,8 +30,8 @@ function Modal() {
         return(
             <div className='flex flex-row space-x-5'>
                 <Tag name='Promotional' />
-                <Tag name='Dev-Log' />
-                <Tag name='Spoiler' />
+                <Tag name='PSA' />
+                <Tag name='Mint' />
             </div>
         )
     }
@@ -36,16 +41,16 @@ function Modal() {
             <div className='flex justify-center h-screen'>
                 <div className='bg-[#1A1A1B] w-[50rem] outline outline-1 outline-[#343536] flex flex-col space-y-10 h-[30rem] p-8 m-auto rounded-md justify-self-center self-center'>
                     <div className='flex'>
-                        <h1 className='align-middle my-auto text-white'>
+                        <h1 className='align-middle my-auto text-white text-lg'>
                         New Post
                         </h1>
-                        <button className='self-end ml-auto' onClick={ClosePost}>
-                            <X className='w-10 self-end'/>
-                        </button>
+                        <motion.button className='self-end ml-auto' onClick={ClosePost} whileHover={{scale: 1.05}}>
+                            <X className='w-10 self-end' />
+                        </motion.button>
                     </div>
                     <textarea className='mx-auto w-full outline outline-1 outline-[#343536] resize-none h-full bg-[#181818] text-white p-4 rounded-sm shadow-lg' placeholder='Your post'/>
                     <Tags />
-                    <motion.button className='px-6 py-3 bg-slate-100 text-black self-end rounded-sm '>
+                    <motion.button className='px-6 py-3 bg-white text-black self-end rounded-sm outline outline-1 outline-[#343536]'>
                         enter
                     </motion.button>
                 </div>
