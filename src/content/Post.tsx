@@ -5,16 +5,16 @@ import { motion } from 'framer-motion';
 
 function Post() {
   return (
-    <motion.div className='bg-[#0000003f] w-full h-full flex flex-col p-10 space-y-5'
+    <motion.div className='bg-[#0000003f] rounded-sm outline outline-1 outline-[#343536] w-full h-full flex flex-col p-10 space-y-5'
     whileHover={{cursor: 'pointer'}}>
         <div className='align-middle space-y-5'>
                 <div className="flex flex-row align-middle space-x-5">
                     <Profile className='w-[3rem]'/>
-                    <h1 className="my-auto text-xl ">
+                    <h1 className="my-auto text-xl text-white">
                         <Verified className='w-[1rem] '/> Doodles
                     </h1>
                 </div>
-                <h1 className='text-xl'>
+                <h1 className='text-xl text-white'>
                     This is a post.
                 </h1>
                 <p className='text'>

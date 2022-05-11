@@ -17,6 +17,8 @@ const App = ({isServerInfo}) => {
   }, [isAuthenticated, isWeb3Enabled]);
 
   return (
+    <>
+    <div id='modal' />
     <div id='page'>
       <Router>
         <Navbar />
@@ -27,6 +29,7 @@ const App = ({isServerInfo}) => {
         </Routes>
       </Router>
     </div>
+    </>
   );
 
 }

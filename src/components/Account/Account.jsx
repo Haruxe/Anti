@@ -17,7 +17,7 @@ const styles = {
     alignItems: "center",
     width: "fit-content",
     borderRadius: "12px",
-    backgroundColor: "rgb(244, 244, 244)",
+    backgroundColor: "#202020",
     cursor: "pointer",
   },
   text: {
@@ -105,7 +105,7 @@ function Account() {
 
   return (
     <>
-      <div style={styles.account} onClick={() => setIsModalVisible(true)}>
+      <div style={styles.account} className='outline outline-1 outline-[#343536] rounded-2xl' onClick={() => setIsModalVisible(true)}>
         <p style={{ marginRight: "5px", ...styles.text }}>
           {getEllipsisTxt(account, 6)}
         </p>
@@ -136,6 +136,7 @@ function Account() {
             size={6}
             copyable
             style={{ fontSize: "20px" }}
+            
           />
           <div style={{ marginTop: "10px", padding: "0 10px" }}>
             <a
