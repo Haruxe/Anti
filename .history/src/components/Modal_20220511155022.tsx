@@ -32,8 +32,8 @@ function Modal() {
     }
 
   return (
-        <motion.div className='h-full w-full align-middle justify-center fixed z-40' animate={{scale: 1}} initial={{scale: 0}} exit={{scale: 0}}>
-            <div className='flex justify-center h-screen'>
+            <motion.div className='h-full w-full align-middle justify-center fixed z-40' animate={{scale: 1}} initial={{scale: 0}} exit={{scale: 0}}>
+                <div className='flex justify-center h-screen'>
                 <div className='bg-[#1A1A1B] w-[50rem] outline outline-1 outline-[#343536] flex flex-col space-y-10 h-[30rem] p-8 m-auto rounded-md justify-self-center self-center'>
                     <div className='flex'>
                         <h1 className='align-middle my-auto text-white'>
@@ -49,10 +49,10 @@ function Modal() {
                         enter
                     </motion.button>
                 </div>
-             </div>
-        </motion.div>
-        
-    )
+            </div>
+            </motion.div>
+            
+        )
 }
 
 export default Modal
