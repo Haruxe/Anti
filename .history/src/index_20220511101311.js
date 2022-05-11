@@ -1,11 +1,11 @@
-import React, { StrictMode } from "react";
-import ReactDOM from "react-dom";
-import App from "./App";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
 import { MoralisProvider } from "react-moralis";
-import "./index.css";
-import Home from "./pages/Home"
-
-/** Get your free Moralis Account https://moralis.io/ */
+// import { MoralisDappProvider } from "./MoralisDappProvider/MoralisDappProvider"
+import App from './App';
+import reportWebVitals from './reportWebVitals';
+import Home from "./pages/Home";
 
 const APP_ID = process.env.REACT_APP_MORALIS_APPLICATION_ID;
 const SERVER_URL = process.env.REACT_APP_MORALIS_SERVER_URL;
@@ -32,9 +32,17 @@ const Application = () => {
   }
 };
 
-ReactDOM.render(
-  <StrictMode>
-    <Application />
-  </StrictMode>,
-  document.getElementById("root"),
+const root = ReactDOM.createRoot(
+  document.getElementById('root') as HTMLElement
 );
+
+root.render(
+  <React.StrictMode>
+      <Application/>
+  </React.StrictMode>
+);
+
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals();

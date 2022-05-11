@@ -11,7 +11,7 @@ const { Header } = Layout;
 
 const styles = {
   header: {
-    // position: "fixed",
+    position: "fixed",
     zIndex: 1,
     width: "100%",
     background: "#fff",

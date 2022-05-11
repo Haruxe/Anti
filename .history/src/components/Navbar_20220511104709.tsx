@@ -11,7 +11,7 @@ const { Header } = Layout;
 
 const styles = {
   header: {
-    // position: "fixed",
+    position: "fixed",
     zIndex: 1,
     width: "100%",
     background: "#fff",
@@ -46,7 +46,7 @@ function Navbar() {
             </div>
         </div> 
         <div style={styles.headerRight}>
-          {/* <Chains /> */}
+          <Chains />
           <NativeBalance />
           <Account />
         </div>

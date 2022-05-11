@@ -11,7 +11,7 @@ const { Header } = Layout;
 
 const styles = {
   header: {
-    // position: "fixed",
+    position: "fixed",
     zIndex: 1,
     width: "100%",
     background: "#fff",
@@ -36,22 +36,27 @@ function Navbar() {
   return (
     <Layout style={{ height: "100vh", overflow: "auto" }}>
       <Header style={styles.header}>
-        <div className='bg-[#0000000] w-screen h-[4rem] flex align-middle'>
-          <div className='mx-10 my-auto text-4xl space-x-10'>
-              <motion.button className='tracking-widest' whileHover={{scale: 1.1}}>
-                  <Link to='/home'>
-                  Anti
-                  </Link>
-              </motion.button>
-            </div>
-        </div> 
         <div style={styles.headerRight}>
-          {/* <Chains /> */}
-          <NativeBalance />
+          {/* <Chains />
+          <NativeBalance /> */}
           <Account />
         </div>
       </Header>
     </Layout>
+
+
+  //   <div className='bg-[#0000003f] w-screen h-[4rem] flex align-middle'>
+  //       <div className='mx-10 my-auto text-4xl space-x-10'>
+  //           <motion.button className='tracking-widest' whileHover={{scale: 1.1}}>
+  //               <Link to='/home'>
+  //               Anti
+  //               </Link>
+  //           </motion.button>
+  //           <div >
+  //             <Account />
+  //           </div>
+  //      </div>
+  //  </div> 
   )
 }
 
