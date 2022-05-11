@@ -2,20 +2,24 @@ import {Route, BrowserRouter as Router, Routes} from 'react-router-dom';
 import Home from './pages/Home';
 import Navbar from './components/Navbar';
 import NotFound from './pages/NotFound';
-import { useState } from 'react';
+import Modal from './components/Modal';
 
 function App() {
 
   return (
-    <div id='page'>
+    <div>
+      <div id='modal'>
+      </div>
+      <div id='page'>
       <Router>
-      <Navbar />
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/home' element={<Home />} />
-        <Route path='*' element={<NotFound />} />
-      </Routes>
-    </Router>
+        <Navbar />
+        <Routes >
+          <Route path='/' element={<Home />} />
+          <Route path='/home' element={<Home />} />
+          <Route path='*' element={<NotFound />} />
+        </Routes>
+      </Router>
+      </div>
     </div>
   );
 }

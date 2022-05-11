@@ -1,7 +1,9 @@
 import { motion } from 'framer-motion';
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
+import { X } from 'styled-icons/bootstrap';
 import { Add } from 'styled-icons/material';
+import Modal from './Modal';
 
 function AddPost() {
 
@@ -10,24 +12,14 @@ function AddPost() {
         const blurRoot = document.getElementById('page');
         blurRoot?.classList.add('blur-md')
         // @dev creates and renders new modal
-        const modal = React.createElement(ModalElement);
-        const modalRoot = document.getElementById('modalRoot');
-        ReactDOM.render(modal, modalRoot);
-    }
-
-    const ModalElement = () => {
-        return(
-            <div className='flex justify-self-center self-center'>
-                <div className='bg-black w-[30rem] h-[20rem] p-10 m-auto rounded-sm justify-self-center self-center'>
-                    Hey!
-                </div>
-            </div>
-        )
+        const container = document.getElementById('modal');
+        const root = ReactDOM.createRoot(container);
+        root.render(<Modal />);
     }
 
 
   return (
-            <div className='bg-[#0000003f] rounded-full p-2'>
+            <div className='bg-[#202020] rounded-2xl p-2 outline outline-1 outline-[#343536]'>
                 <motion.button whileHover={{cursor: 'pointer'}} onClick={MakePost}>
                     <Add className='w-[3rem]'/>
                 </motion.button>

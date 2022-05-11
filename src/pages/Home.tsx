@@ -9,8 +9,7 @@ function Home() {
         <div className='mt-5'>
             <AddPost />
         </div>
-        <div className='bg-[#00000016] w-[1200px] h-auto rounded-sm flex justify-center flex-col'>
-            <FeedTitle />
+        <div className='bg-[#202020] outline outline-1 outline-[#343536] w-[1200px] h-auto rounded-sm flex justify-center flex-col'>
             <Feed />
         </div>
     </div>
