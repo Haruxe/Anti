@@ -91,7 +91,7 @@ function Chains() {
   console.log("chain", chain);
 
   useEffect(() => {
-    if (!chainId) return undefined;
+    if (!chainId) return null;
     const newSelected = menuItems.find((item) => item.key === chainId);
     setSelected(newSelected);
     console.log("current chainId: ", chainId);
