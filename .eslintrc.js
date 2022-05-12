@@ -11,11 +11,4 @@ module.exports = {
     parserOptions: {
       ecmaVersion: 12,
     },
-    rules: {
-      "variable-name": [
-        true,
-        // ...
-        "allow-leading-underscore"
-      ]
-    },
   };
