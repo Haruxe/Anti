@@ -7,13 +7,13 @@ import Sidebar from "../content/Sidebar"
 function Feed() {
 
     const [sidebarVisible, setSidebarVisible] = useState(false);
-    
+
     useEffect(() => {
         function handleResize() {
-            if (window.innerWidth < 1600){
+            if (window.innerWidth < 1300){
                 setSidebarVisible(false);
             }
-            if (window.innerWidth > 1600){
+            if (window.innerWidth > 1300){
                 setSidebarVisible(true);
             }
         }

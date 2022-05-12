@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { motion } from 'framer-motion';
 import { Plus, X } from 'styled-icons/bootstrap';
+import { MoralisProvider, useMoralis } from 'react-moralis';
+import Moralis from 'moralis';
+
 
 function Modal() {
-
     function ClosePost() {
         // @dev de-blurs the page
         const blurRoot = document.getElementById('page');
@@ -36,6 +38,27 @@ function Modal() {
         )
     }
 
+    async function postMessage() {
+        const PostObject = Moralis.Object.extend("Post");
+        const post = new PostObject();
+        const owner = account;
+        const data = document.getElementById('postContent').value;
+        post.set('owner', owner);
+        post.set('data', data)
+
+        const metadata = {
+            owner: owner,
+            data: data
+        };
+
+        const metadataFile = new Moralis.File('metadata.json', data.json());
+        await metadataFile.saveIPFS();
+        post.set('ipfs_url', metadataFile);
+        
+        await post.save();
+        return post;
+    }
+
   return (
             <motion.div className='h-full w-full align-middle justify-center fixed z-40' animate={{scale: 1}} initial={{scale: 0}} exit={{scale: 0}}>
                 <div className='flex justify-center h-screen'>
@@ -48,9 +71,9 @@ function Modal() {
                             <X className='w-10 self-end' />
                         </motion.button>
                     </div>
-                    <textarea className='mx-auto w-full outline outline-1 outline-[#343536] resize-none h-full bg-[#181818] text-white p-4 rounded-sm shadow-lg' placeholder='Your post'/>
+                    <textarea className='mx-auto w-full outline outline-1 outline-[#343536] resize-none h-full bg-[#181818] text-white p-4 rounded-sm shadow-lg' placeholder='Your post' id='postContent'/>
                     <Tags />
-                    <motion.button className='px-6 py-3 bg-white text-black self-end rounded-sm outline outline-1 outline-[#343536]'>
+                    <motion.button className='px-6 py-3 bg-white text-black self-end rounded-sm outline outline-1 outline-[#343536]' onClick={postMessage}>
                         enter
                     </motion.button>
                 </div>

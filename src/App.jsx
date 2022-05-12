@@ -4,6 +4,7 @@ import { useMoralis } from "react-moralis";
 import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
 import NotFound from "./pages/NotFound";
+import { MoralisProvider } from 'react-moralis';
 
 const App = ({isServerInfo}) => {
   

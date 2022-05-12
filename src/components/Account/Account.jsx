@@ -50,10 +50,10 @@ function Account() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isAuthModalVisible, setIsAuthModalVisible] = useState(false);
 
-  if (!isAuthenticated || !account) {
+  if (!isAuthenticated || account == null) {
     return (
       <>
-        <motion.button onClick={() => setIsAuthModalVisible(true)} whileHover={{scale: 1.05}} className='bg-[#181818] align-middle outline-white outline outline-1 rounded-lg px-2 h-3/4 my-auto'>
+        <motion.button onClick={() => setIsAuthModalVisible(true)} whileHover={{scale: 1.05, backgroundColor: '#2F2F2F', outlineColor: '#4E4E4E'}} className='bg-[#181818] align-middle outline-white outline outline-1 rounded-lg px-2 h-3/4 my-auto'>
           <p className="p-0 m-0">Connect Your Wallet!</p>
         </motion.button >
         <Modal
@@ -106,12 +106,12 @@ function Account() {
 
   return (
     <>
-      <div style={styles.account} className='outline outline-1 outline-[#343536] align-middle rounded-2xl my-auto' onClick={() => setIsModalVisible(true)}>
+      <motion.div style={styles.account} className='outline outline-1 outline-[#343536] align-middle rounded-2xl my-auto' onClick={() => setIsModalVisible(true)} whileHover={{backgroundColor: '#2F2F2F', outlineColor: '#4E4E4E'}}>
         <p style={{ marginRight: "5px", ...styles.text }} className='my-auto'>
           {getEllipsisTxt(account, 6)}
         </p>
         <Blockie currentWallet scale={3} />
-      </div>
+      </motion.div>
       <Modal
         visible={isModalVisible}
         footer={null}
