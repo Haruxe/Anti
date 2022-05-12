@@ -1,9 +1,10 @@
-import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import { Route, BrowserRouter as Router, Routes, Navigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useMoralis } from "react-moralis";
 import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
 import NotFound from "./pages/NotFound";
+import NonAuthenticated from "./pages/NonAuthenticated";
 
 const App = ({isServerInfo}) => {
   
@@ -26,7 +27,9 @@ const App = ({isServerInfo}) => {
           <Route path='/' element={<Home />} />
           <Route path='/home' element={<Home />} />
           <Route path='*' element={<NotFound />} />
+          <Route path='/NonAuthenticated' element={<NonAuthenticated />} />
         </Routes>
+        {isAuthenticated ? <Navigate to="/home" /> : <Navigate to="/NonAuthenticated" />}
       </Router>
     </div>
     </>
