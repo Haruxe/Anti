@@ -24,6 +24,7 @@ function Navbar() {
             <div className='flex flex-row justify-self-end space-x-5'>
                   <NativeBalance />
                   <Account />
+                  <Chains />
             </div>
         </div> 
     </div>

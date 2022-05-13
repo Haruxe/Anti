@@ -3,6 +3,7 @@ import { Menu, Dropdown, Button } from "antd";
 import { DownOutlined } from "@ant-design/icons";
 import { AvaxLogo, PolygonLogo, BSCLogo, ETHLogo } from "./Logos";
 import { useChain, useMoralis } from "react-moralis";
+import { motion } from 'framer-motion';
 
 const styles = {
   item: {
@@ -10,13 +11,8 @@ const styles = {
     alignItems: "center",
     height: "42px",
     fontWeight: "500",
-    fontFamily: "Roboto, sans-serif",
     fontSize: "14px",
     padding: "0 10px",
-  },
-  button: {
-    border: "2px solid rgb(231, 234, 243)",
-    borderRadius: "12px",
   },
 };
 
@@ -89,7 +85,7 @@ function Chains() {
   const [selected, setSelected] = useState({});
 
   useEffect(() => {
-    if (!chainId) return null;
+    if (!chainId) return undefined;
     const newSelected = menuItems.find((item) => item.key === chainId);
     setSelected(newSelected);
     console.log("current chainId: ", chainId);
@@ -113,16 +109,17 @@ function Chains() {
   if (!chainId || !isAuthenticated) return null;
 
   return (
-    <div>
+    <div className="my-auto">
       <Dropdown overlay={menu} trigger={["click"]}>
-        <Button
+        <motion.button 
           key={selected?.key}
           icon={selected?.icon}
           style={{ ...styles.button, ...styles.item }}
+          whileHover={{backgroundColor: '#2F2F2F', outlineColor: '#4E4E4E'}} className='bg-[#202020] outline-[#343536] outline outline-1 rounded-lg my-auto'
         >
           <span style={{ marginLeft: "5px" }}>{selected?.value}</span>
           <DownOutlined />
-        </Button>
+        </motion.button>
       </Dropdown>
     </div>
   );
