@@ -53,8 +53,8 @@ function Account() {
   if (!isAuthenticated || account == null) {
     return (
       <>
-        <motion.button onClick={() => setIsAuthModalVisible(true)} whileHover={{scale: 1.05, backgroundColor: '#2F2F2F', outlineColor: '#4E4E4E'}} className='bg-[#181818] align-middle outline-white outline outline-1 rounded-lg px-2 h-3/4 my-auto'>
-          <p className="p-0 m-0">Connect Your Wallet!</p>
+        <motion.button onClick={() => setIsAuthModalVisible(true)} whileHover={{backgroundColor: '#2F2F2F', outlineColor: '#4E4E4E'}} className='bg-[#202020] outline-[#343536] outline outline-1 rounded-lg w-[150px]'>
+          <p className="m-0">Connect Your Wallet!</p>
         </motion.button >
         <Modal
           visible={isAuthModalVisible}
@@ -64,9 +64,12 @@ function Account() {
             padding: "15px",
             fontSize: "17px",
             fontWeight: "500",
+            background: '#202020',
+            color: 'white'
           }}
           style={{ fontSize: "16px", fontWeight: "500" }}
           width="340px"
+          className="outline outline-1 outline-[#343536] rounded-lg shadow-lg"
         >
           <div
             style={{
@@ -75,13 +78,15 @@ function Account() {
               justifyContent: "center",
               fontWeight: "700",
               fontSize: "20px",
+              color: 'white'
             }}
           >
             Connect Wallet
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr",  }}>
             {connectors.map(({ title, icon, connectorId }, key) => (
               <div
+                className="text-white"
                 style={styles.connector}
                 key={key}
                 onClick={async () => {
@@ -95,7 +100,7 @@ function Account() {
                 }}
               >
                 <img src={icon} alt={title} style={styles.icon} />
-                <Text style={{ fontSize: "14px" }}>{title}</Text>
+                <Text style={{ fontSize: "14px", color: 'white' }}>{title}</Text>
               </div>
             ))}
           </div>
@@ -105,10 +110,10 @@ function Account() {
   }
 
   return (
-    <>
-      <motion.div style={styles.account} className='outline outline-1 outline-[#343536] align-middle rounded-2xl my-auto' onClick={() => setIsModalVisible(true)} whileHover={{backgroundColor: '#2F2F2F', outlineColor: '#4E4E4E'}}>
+    <div className="w-[100px]">
+      <motion.div style={styles.account} className='outline outline-1 outline-[#343536] align-middle rounded-2xl w-[100px]' onClick={() => setIsModalVisible(true)} whileHover={{backgroundColor: '#2F2F2F', outlineColor: '#4E4E4E'}}>
         <p style={{ marginRight: "5px", ...styles.text }} className='my-auto'>
-          {getEllipsisTxt(account, 6)}
+          {getEllipsisTxt(account, 9)}...
         </p>
         <Blockie currentWallet scale={3} />
       </motion.div>
@@ -120,6 +125,7 @@ function Account() {
           padding: "15px",
           fontSize: "17px",
           fontWeight: "500",
+          color: 'black'
         }}
         style={{ fontSize: "16px", fontWeight: "500" }}
         width="400px"
@@ -159,6 +165,7 @@ function Account() {
             borderRadius: "0.5rem",
             fontSize: "16px",
             fontWeight: "500",
+            color: 'white'
           }}
           onClick={async () => {
             await logout();
@@ -169,7 +176,7 @@ function Account() {
           Disconnect Wallet
         </Button>
       </Modal>
-    </>
+    </div>
   );
 }
 

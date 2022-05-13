@@ -17,11 +17,13 @@ contract PostMessage {
         bytes32 categoryId;
     }
 
-    mapping (address => mapping (bytes32 => uint80)) private reputationRegistry;
-    mapping (bytes32 => string) private categoryRegistry;
-    mapping (bytes32 => string) private contentRegistry;
-    mapping (bytes32 => postMessage) private postRegistry;
-    mapping (address => mapping (bytes32 => bool)) private voteRegistry;
+    mapping (address => mapping (bytes32 => uint80)) internal reputationRegistry;
+    mapping (bytes32 => string) internal categoryRegistry;
+    mapping (bytes32 => string) internal contentRegistry;
+    mapping (bytes32 => postMessage) internal postRegistry;
+    mapping (address => mapping (bytes32 => bool)) internal voteRegistry;
+    mapping (address => address[] ) public followers;
+    mapping (address => address[] ) public following;
 
     address Admin;
 
@@ -108,5 +110,13 @@ contract PostMessage {
             postRegistry[_postId].contentId,
             postRegistry[_postId].votes,
             postRegistry[_postId].categoryId);
+    }
+
+    function getFollowers(address _user) public view returns (address[] memory){
+        return followers[_user];
+    }
+
+    function getFollowing(address _user) public view returns (address[] memory){
+        return following[_user];
     }
 }

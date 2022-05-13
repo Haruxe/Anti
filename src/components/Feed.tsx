@@ -1,12 +1,21 @@
+import Moralis from 'moralis';
 import { useEffect } from "react";
 import { useState } from "react";
+import { useMoralis } from 'react-moralis';
 import Post from "../content/Post"
 import Sidebar from "../content/Sidebar"
 
+const appId = process.env.REACT_APP_MORALIS_APPLICATION_ID;
+const serverUrl = process.env.REACT_APP_MORALIS_SERVER_URL;
 
 function Feed() {
-
     const [sidebarVisible, setSidebarVisible] = useState(false);
+    const { isAuthenticated, user } = useMoralis();
+    
+    useEffect(() => {
+     FetchFeed();
+    }, [user]);
+    debugger
 
     useEffect(() => {
         function handleResize() {
@@ -36,15 +45,25 @@ function Feed() {
         </>
         )
     }
+
+    async function FetchFeed(){
+        const Posts = await Moralis.Object.extend('Posts')
+        const Users = await Moralis.Object.extend('_User')
+        const queryUser = new Moralis.Query(Users)
+        queryUser.equalTo('accounts', user.attributes.ethAddress)
+        let usersFollowing = await queryUser.find();
+        let totalPosts;
+        for (let i = 0; i < usersFollowing.length; i++){
+            const query = new Moralis.Query(Posts);
+            query.equalTo('user', usersFollowing[i]);
+            totalPosts.push(query.find());
+        }
+        debugger
+    }
+
     return (
-    <div className='p-5 flex flex-row'>
+    <div className='p-5 flex flex-row ml-[250px]'>
         <div className='w-full h-full flex flex-col p-5 space-y-5'>
-            <Post />
-            <Post />
-            <Post />
-            <Post />
-            <Post />
-            <Post />
             <Post />
         </div>
         {sidebarVisible && <SidebarContent />}

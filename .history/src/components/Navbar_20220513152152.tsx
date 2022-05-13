@@ -34,13 +34,7 @@ function Navbar() {
                   </div>
             </div>
             <div className='flex flex-col space-y-10'>
-              <motion.button className='tracking-widest mx-auto' whileHover={{scale: 1.1}}>
-                <Link to='/Profile'>
-                <div className='flex flex-row space-x-2 align-middle mx-auto'>
-                  <p className='my-auto text-white'>Profile Settings</p>
-                </div>
-                </Link>
-              </motion.button>
+                <h1>Hi!</h1>
             </div>
             </div>
         </div> 

@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion';
 import { Plus, X } from 'styled-icons/bootstrap';
-import { MoralisProvider, useMoralis } from 'react-moralis';
 import Moralis from 'moralis';
 
 
 function Modal() {
+    
     function ClosePost() {
         // @dev de-blurs the page
         const blurRoot = document.getElementById('page');
@@ -39,24 +39,22 @@ function Modal() {
     }
 
     async function postMessage() {
-        const PostObject = Moralis.Object.extend("Post");
-        const post = new PostObject();
-        const owner = account;
-        const data = document.getElementById('postContent').value;
-        post.set('owner', owner);
-        post.set('data', data)
-
         const metadata = {
-            owner: owner,
-            data: data
+            'title': 'This Is The Title',
+            'content': document.getElementById('postContent').value,
+            'comments': 'none',
+            'upvotes': 0,
+            'downvotes': 0,
+            'uploadDate': Date.now
         };
 
-        const metadataFile = new Moralis.File('metadata.json', data.json());
+        const metadataFile = new Moralis.File('metadata.json', { base64: btoa(JSON.stringify(metadata))});
         await metadataFile.saveIPFS();
-        post.set('ipfs_url', metadataFile);
-        
-        await post.save();
-        return post;
+
+        const Post = Moralis.Object.extend("Posts");
+        const post = new Post();
+        await post.save({ipfs_url: metadataFile, 'account': Moralis.User.current});
+        ClosePost();
     }
 
   return (
