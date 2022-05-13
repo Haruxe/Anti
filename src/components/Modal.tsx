@@ -5,6 +5,7 @@ import Moralis from 'moralis';
 
 
 function Modal() {
+    
     function ClosePost() {
         // @dev de-blurs the page
         const blurRoot = document.getElementById('page');
@@ -39,11 +40,12 @@ function Modal() {
 
     async function postMessage() {
         const metadata = {
-            title: 'This Is The Title',
-            content: document.getElementById('postContent').value,
-            comments: 'none',
-            upvotes: 0,
-            downvotes: 0
+            'title': 'This Is The Title',
+            'content': document.getElementById('postContent').value,
+            'comments': 'none',
+            'upvotes': 0,
+            'downvotes': 0,
+            'uploadDate': Date.now
         };
 
         const metadataFile = new Moralis.File('metadata.json', { base64: btoa(JSON.stringify(metadata))});
@@ -51,7 +53,7 @@ function Modal() {
 
         const Post = Moralis.Object.extend("Posts");
         const post = new Post();
-        await post.save({ipfs_url: metadataFile, owner: Moralis.User.current});
+        await post.save({ipfs_url: metadataFile, 'account': Moralis.User.current});
         ClosePost();
     }
 

@@ -110,10 +110,10 @@ function Account() {
   }
 
   return (
-    <>
-      <motion.div style={styles.account} className='outline outline-1 outline-[#343536] align-middle rounded-2xl my-auto' onClick={() => setIsModalVisible(true)} whileHover={{backgroundColor: '#2F2F2F', outlineColor: '#4E4E4E'}}>
+    <div className="w-[100px]">
+      <motion.div style={styles.account} className='outline outline-1 outline-[#343536] align-middle rounded-2xl w-[100px]' onClick={() => setIsModalVisible(true)} whileHover={{backgroundColor: '#2F2F2F', outlineColor: '#4E4E4E'}}>
         <p style={{ marginRight: "5px", ...styles.text }} className='my-auto'>
-          {getEllipsisTxt(account, 6)}
+          {getEllipsisTxt(account, 9)}...
         </p>
         <Blockie currentWallet scale={3} />
       </motion.div>
@@ -125,7 +125,7 @@ function Account() {
           padding: "15px",
           fontSize: "17px",
           fontWeight: "500",
-          color: 'white'
+          color: 'black'
         }}
         style={{ fontSize: "16px", fontWeight: "500" }}
         width="400px"
@@ -176,7 +176,7 @@ function Account() {
           Disconnect Wallet
         </Button>
       </Modal>
-    </>
+    </div>
   );
 }
 
