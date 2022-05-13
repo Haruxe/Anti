@@ -4,7 +4,6 @@ import { useMoralis } from "react-moralis";
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import NonAuthenticated from "./pages/NonAuthenticated";
-import Profile from './pages/Profile';
 
 const App = ({isServerInfo}) => {
   
@@ -26,7 +25,6 @@ const App = ({isServerInfo}) => {
           <Route path='/' element={<Home />} />
           <Route path='/home' element={<Home />} />
           <Route path='*' element={<NotFound />} />
-          <Route path='/Profile' element={<Profile />} />
           <Route path='/NonAuthenticated' element={<NonAuthenticated />} />
         </Routes>
       </Router>

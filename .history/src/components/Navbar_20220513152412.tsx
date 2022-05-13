@@ -5,6 +5,7 @@ import "antd/dist/antd.css";
 import Account from "./Account/Account";
 import Chains from "./Chains/Chains";
 import NativeBalance from './NativeBalance';
+import Profile from '../pages/Profile';
 import '../index.css';
 import { Network } from 'styled-icons/entypo';
 import { AccountCircle } from 'styled-icons/material';
