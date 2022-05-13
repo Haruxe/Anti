@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion';
 import { Plus, X } from 'styled-icons/bootstrap';
-import { useNewMoralisObject } from 'react-moralis';
 import Moralis from 'moralis';
 
 
@@ -52,9 +51,7 @@ function Modal() {
 
         const Post = Moralis.Object.extend("Posts");
         const post = new Post();
-        await post.save({ipfs_url: metadataFile, owner: '0x00000000000000000000'});
-        debugger
-        console.log(post);
+        await post.save({ipfs_url: metadataFile, owner: Moralis.User.current});
         ClosePost();
     }
 

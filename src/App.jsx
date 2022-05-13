@@ -22,14 +22,12 @@ const App = ({isServerInfo}) => {
     <div id='modal' />
     <div id='page'>
       <Router>
-        <Navbar />
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/home' element={<Home />} />
           <Route path='*' element={<NotFound />} />
           <Route path='/NonAuthenticated' element={<NonAuthenticated />} />
         </Routes>
-        {isAuthenticated ? <Navigate to="/home" /> : <Navigate to="/NonAuthenticated" />}
       </Router>
     </div>
     </>

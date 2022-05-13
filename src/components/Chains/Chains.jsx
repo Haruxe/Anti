@@ -109,7 +109,7 @@ function Chains() {
   if (!chainId || !isAuthenticated) return null;
 
   return (
-    <div className="my-auto">
+    <div className="mx-auto">
       <Dropdown overlay={menu} trigger={["click"]}>
         <motion.button 
           key={selected?.key}

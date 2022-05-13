@@ -36,8 +36,9 @@ function Feed() {
         </>
         )
     }
+
     return (
-    <div className='p-5 flex flex-row'>
+    <div className='p-5 flex flex-row ml-[250px]'>
         <div className='w-full h-full flex flex-col p-5 space-y-5'>
             <Post />
             <Post />

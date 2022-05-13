@@ -6,25 +6,33 @@ import Account from "./Account/Account";
 import Chains from "./Chains/Chains";
 import NativeBalance from './NativeBalance';
 import '../index.css';
+import { Network } from 'styled-icons/entypo';
+import { AccountCircle } from 'styled-icons/material';
 
 function Navbar() {
   return (
     <div>
-      <div className='bg-[#202020] outline outline-1 outline-[#343536] w-screen h-[3rem] grid grid-flow-col px-5'>
-            <div className='my-auto text-4xl space-x-10 flex flex-row'>
-              <motion.button className='tracking-widest' whileHover={{scale: 1.1}}>
+    <div className='bg-[#202020] outline outline-1 outline-[#343536] fixed h-full w-[250px] flex flex-col px-5 justify-center place-content-start space-y-10 top-0 '>
+            <div className='h-full mt-7 space-y-10'>
+            <div className='text-4xl flex flex-row '>
+              <motion.button className='tracking-widest mx-auto' whileHover={{scale: 1.1}}>
                   <Link to='/home'>
-                  <div className='flex flex-row space-x-2 align-middle'>
+                  <div className='flex flex-row space-x-2 align-middle mx-auto'>
                     <Triangle className='w-7 fill-white mt-1'/>
                     <p className='my-auto text-white'>nti</p>
                   </div>
                   </Link>
               </motion.button>
             </div>
-            <div className='flex flex-row justify-self-end space-x-5'>
+            <div className='flex flex-col space-y-10'>
                   <NativeBalance />
-                  <Account />
-                  <Chains />
+                  <div className='flex flex-row space-x-3'>
+                    <AccountCircle className='w-7'/><Account />
+                  </div>
+                  <div className='flex flex-row space-x-3'>
+                    <Network className='w-7'/><Chains />
+                  </div>
+            </div>
             </div>
         </div> 
     </div>
