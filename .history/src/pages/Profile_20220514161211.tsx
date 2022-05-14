@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import './CSS/Profile.css'
 import { defaultImgs } from "../defaultimgs";
+// import { useMoralis } from "react-moralis";
 import Moralis from "moralis";
 import { motion } from 'framer-motion';
 
@@ -16,6 +17,7 @@ function Profile() {
 
     return (
         <>
+        <div className='flex justify-center space-x-4 px-4'>
             <img className="profileBanner" src={user.attributes.banner ? user.attributes.banner : defaultImgs[1]}></img>
             <div className="pfpContainer">
                 <img className="profilePFP" src={user.attributes.pfp ? user.attributes.pfp : defaultImgs[0]}></img>
@@ -29,14 +31,6 @@ function Profile() {
                     </div>
                     </Link>
                 </motion.button>
-                &nbsp;
-                <motion.button className='tracking-widest mx-auto' whileHover={{scale: 1}}>
-                    <Link to='/Home'>
-                    <div className='profileEdit'>
-                        Home
-                    </div>
-                    </Link>
-                </motion.button>
                 <div className="profileBio">
                     Bio!
                 {/* {user.attributes.bio} */}
@@ -46,7 +40,9 @@ function Profile() {
                     Your Posts!
                     </div>
                 </div>
+
             </div>
+        </div>
         </>
     )
 }

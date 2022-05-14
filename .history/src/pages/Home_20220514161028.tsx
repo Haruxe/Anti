@@ -1,5 +1,6 @@
 import '../index.css';
 import Feed from '../components/Feed';
+import FeedTitle from '../content/FeedTitle';
 import AddPost from '../components/AddPost';
 import Navbar from '../components/Navbar';
 
@@ -11,7 +12,7 @@ function Home() {
         </div>
         <div className='bg-[#202020] outline outline-1 outline-[#343536] w-[1300px] mb-10 h-auto rounded-sm flex justify-center flex-row'>
             <Navbar />
-            <Feed />
+           <Feed />
         </div>
     </div>
   )

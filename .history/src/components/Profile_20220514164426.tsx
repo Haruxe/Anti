@@ -29,9 +29,8 @@ function Profile() {
                     </div>
                     </Link>
                 </motion.button>
-                &nbsp;
                 <motion.button className='tracking-widest mx-auto' whileHover={{scale: 1}}>
-                    <Link to='/Home'>
+                    <Link to='/Settings'>
                     <div className='profileEdit'>
                         Home
                     </div>

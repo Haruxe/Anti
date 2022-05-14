@@ -1,11 +1,14 @@
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import { useEffect } from "react";
 import { useMoralis } from "react-moralis";
+import AddPost from './components/AddPost';
+import Navbar from "./components/Navbar";
+import Feed from "./components/Feed";
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import NonAuthenticated from "./pages/NonAuthenticated";
-import Profile from './pages/Profile';
-import Settings from "./pages/Settings";
+import Profile from './components/Profile';
+import Settings from "./components/Settings";
 
 const App = ({isServerInfo}) => {
   

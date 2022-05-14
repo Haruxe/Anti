@@ -4,8 +4,8 @@ import { useMoralis } from "react-moralis";
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import NonAuthenticated from "./pages/NonAuthenticated";
-import Profile from './pages/Profile';
-import Settings from "./pages/Settings";
+import Profile from './components/Profile';
+import Settings from "./components/Settings";
 
 const App = ({isServerInfo}) => {
   
@@ -20,6 +20,7 @@ const App = ({isServerInfo}) => {
 
   return (
     <>
+
     <div id='modal' />
     <div id='page'>
       <Router>

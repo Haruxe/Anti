@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion } from 'framer-motion.d.ts';
 import { Link } from 'react-router-dom';
 import { Triangle } from 'styled-icons/bootstrap';
 import "antd/dist/antd.css";

@@ -29,14 +29,6 @@ function Profile() {
                     </div>
                     </Link>
                 </motion.button>
-                &nbsp;
-                <motion.button className='tracking-widest mx-auto' whileHover={{scale: 1}}>
-                    <Link to='/Home'>
-                    <div className='profileEdit'>
-                        Home
-                    </div>
-                    </Link>
-                </motion.button>
                 <div className="profileBio">
                     Bio!
                 {/* {user.attributes.bio} */}
@@ -46,6 +38,13 @@ function Profile() {
                     Your Posts!
                     </div>
                 </div>
+                <motion.button className='tracking-widest mx-auto' whileHover={{scale: 1}}>
+                    <Link to='/Home'>
+                    <div className='profileEdit'>
+                        Back to Home
+                    </div>
+                    </Link>
+                </motion.button>
             </div>
         </>
     )

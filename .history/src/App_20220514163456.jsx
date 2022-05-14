@@ -1,11 +1,14 @@
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import { useEffect } from "react";
 import { useMoralis } from "react-moralis";
+import AddPost from './components/AddPost';
+import Navbar from "./components/Navbar";
+import Feed from "./components/Feed";
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import NonAuthenticated from "./pages/NonAuthenticated";
-import Profile from './pages/Profile';
-import Settings from "./pages/Settings";
+import Profile from './components/Profile';
+import Settings from "./components/Settings";
 
 const App = ({isServerInfo}) => {
   
@@ -22,6 +25,24 @@ const App = ({isServerInfo}) => {
     <>
     <div id='modal' />
     <div id='page'>
+      <div className='flex justify-center space-x-4 px-4'>
+          <div className='mt-5'>
+              <AddPost />
+          </div>
+          <div className='bg-[#202020] outline outline-1 outline-[#343536] w-[1300px] mb-10 h-auto rounded-sm flex justify-center flex-row'>
+              <Navbar />
+              <Feed />
+              {/* <Router>
+                <Routes>
+                  <Route path="/" element={<Feed />} />
+                  <Route path="Profile" element={<Profile />} />
+                </Routes>
+              </Router> */}
+          </div>
+      </div>
+    </div>
+    {/* <div id='modal' />
+    <div id='page'>
       <Router>
         <Routes>
           <Route path='/' element={<Home />} />
@@ -32,7 +53,7 @@ const App = ({isServerInfo}) => {
           <Route path='/NonAuthenticated' element={<NonAuthenticated />} />
         </Routes>
       </Router>
-    </div>
+    </div> */}
     </>
   );
 

@@ -1,7 +1,12 @@
+import React from "react";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import '../index.css';
 import Feed from '../components/Feed';
+import FeedTitle from '../content/FeedTitle';
 import AddPost from '../components/AddPost';
 import Navbar from '../components/Navbar';
+import Profile from '../components/Profile';
+import Settings from '../components/Settings';
 
 function Home() {
   return (
