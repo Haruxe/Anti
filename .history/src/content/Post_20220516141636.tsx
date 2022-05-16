@@ -47,9 +47,9 @@ function Post({profile}) {
         {postArr?.map((e) => {
             return (
                 <>
-                    <div className='flex flex-col bg-[#202020] rounded-sm outline outline-1 outline-[#343536]'>
-                        <div className='w-[700px] h-full flex flex-col px-2 space-y-5'>
-                            <motion.div className=' w-full h-full flex flex-column p-4 space-y-5 align-bottom space-x-5'>
+                    <div className='p-5 flex flex-col ml-[250px]'>
+                        <div className='w-full h-full flex flex-col p-5 space-y-5'>
+                            <motion.div className='bg-[#0000003f] rounded-sm outline outline-1 outline-[#343536] w-full h-full flex flex-column p-4 space-y-5 align-bottom space-x-5'>
                                 <div className='flex flex-col place-content-start space-y-3 mt-6'>
                                     <motion.button whileHover={{color: '#777777'}} transition={{duration: 0.2}}>
                                     <Upvote className='w-10 cursor-pointer'/>
@@ -59,38 +59,29 @@ function Post({profile}) {
                                     </motion.button>
                                 </div>
                                 <div className='align-middle space-y-5'>
-                                <motion.div className='flex flex-row space-x-5 text-xl' >
-                                    <img src={e.attributes.postPfp ? e.attributes.postPfp : defaultImgs[0]} alt='pfp' className='w-14 h-14 cursor-pointer rounded-full'></img>
-                                    <div>
-                                    <div className="flex flex-col space-y-2">
-                                        <p className='m-0'>
-                                        {e.attributes.postUserName.slice(0, 6)} <span className='text-slate-400 text-sm'>{e.attributes.postAcc.slice(0, 4)}...${e.attributes.postAcc.slice(38)}</span>
-                                        </p>
-                                        <div className='text-slate-400 text-sm'>{
-                                            `
+                                <motion.div >
+                                    <img src={e.attributes.postPfp ? e.attributes.postPfp : defaultImgs[0]}></img>
+                                    <div className="who">
+                                    {e.attributes.postUserName.slice(0, 6)}
+                                    <div className="accWhen">{
+                                            `${e.attributes.postAcc.slice(0, 4)}...${e.attributes.postAcc.slice(38)} · 
                                             ${e.attributes.createdAt.toLocaleString('en-us', { min: 'numeric' })}
                                             `  
                                         }
                                         </div>
                                     </div>
-                                    </div>
-                                    
                                 </motion.div>
                                 
-                                <div className='postContent text-xl text-left'>
-                                    <p className='text-2xl font-bold'>
-                                    {e.attributes.postTitle} 
-                                    </p>
-                                    <p className='text-lg text-slate-200'>
+                                <div className='postContent'>
+                                    {e.attributes.postTitle}
+                                    <br />
                                     {e.attributes.postContent}
-                                    </p>
-                                    <img src={e.attributes.postImage} className='h-[200px]'/>
                                     <br />
                                     <a href={e.attributes.postUrl} target="_blank">{e.attributes.postUrl}</a>
                                     <br />
-                                    {e.attributes.postImg && (
+                                    {e.attributes.tweetImg && (
                                         <img
-                                        src={e.attributes.postImg}
+                                        src={e.attributes.tweetImg}
                                         className="postImg"
                                         ></img>
                                     )}
