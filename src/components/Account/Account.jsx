@@ -9,6 +9,7 @@ import { getExplorer } from "../helpers/networks";
 import Text from "antd/lib/typography/Text";
 import { connectors } from "./config";
 import {motion} from 'framer-motion';
+import { NetworkChart } from "styled-icons/boxicons-regular";
 const styles = {
   account: {
     height: "42px",
@@ -53,7 +54,7 @@ function Account() {
   if (!isAuthenticated || account == null) {
     return (
       <>
-        <motion.button onClick={() => setIsAuthModalVisible(true)} whileHover={{backgroundColor: '#2F2F2F', outlineColor: '#4E4E4E'}} className='bg-[#202020] outline-[#343536] outline outline-1 rounded-lg w-[150px]'>
+        <motion.button onClick={() => setIsAuthModalVisible(true)} whileHover={{backgroundColor: '#2F2F2F', outlineColor: '#4E4E4E'}} className='bg-[#202020] outline-[#343536] outline outline-1 rounded-lg w-[150px] mx-auto justify-start'>
           <p className="m-0">Connect Your Wallet!</p>
         </motion.button >
         <Modal
@@ -110,12 +111,16 @@ function Account() {
   }
 
   return (
-    <div className="w-[100px]">
-      <motion.div style={styles.account} className='outline outline-1 outline-[#343536] align-middle rounded-2xl w-[100px]' onClick={() => setIsModalVisible(true)} whileHover={{backgroundColor: '#2F2F2F', outlineColor: '#4E4E4E'}}>
-        <p style={{ marginRight: "5px", ...styles.text }} className='my-auto'>
-          {getEllipsisTxt(account, 9)}...
+    <div className="mx-auto w-full bg-[#202020] ">
+      <motion.div className='outline outline-1 cursor-pointer outline-[#343536] align-middle flex flex-row rounded-lg text-xl ' onClick={() => setIsModalVisible(true)} whileHover={{backgroundColor: '#2F2F2F', outlineColor: '#4E4E4E'}}>
+        
+        <p className='my-auto px-7 py-3 flex flex-row mx-auto space-x-3 align-middle '>
+          <NetworkChart className="w-7" />
+          <p className="my-auto ">
+            {getEllipsisTxt(account, 7)}
+          </p>
         </p>
-        <Blockie currentWallet scale={3} />
+        
       </motion.div>
       <Modal
         visible={isModalVisible}

@@ -4,6 +4,8 @@ import { DownOutlined } from "@ant-design/icons";
 import { AvaxLogo, PolygonLogo, BSCLogo, ETHLogo } from "./Logos";
 import { useChain, useMoralis } from "react-moralis";
 import { motion } from 'framer-motion';
+import { Chain, Matic } from "styled-icons/crypto";
+import { Ethereum } from "styled-icons/fa-brands";
 
 const styles = {
   item: {
@@ -20,32 +22,32 @@ const menuItems = [
   // {
   //   key: "0x1",
   //   value: "Ethereum",
-  //   icon: <ETHLogo />,
+  //   icon: <Ethereum />,
   // },
   {
     key: "0x539",
     value: "Local Chain",
-    icon: <ETHLogo />,
+    icon: <Ethereum className="w-7 h-7 flex-0 self-start"/>,
   },
   // {
   //   key: "0x3",
   //   value: "Ropsten Testnet",
-  //   icon: <ETHLogo />,
+  //   icon: <Ethereum />,
   // },
   {
     key: "0x4",
-    value: "Rinkeby Testnet",
-    icon: <ETHLogo />,
+    value: "Rinkeby",
+    icon: <Ethereum className="w-7 h-7 flex-0 self-start"/>,
   },
   // {
   //   key: "0x2a",
   //   value: "Kovan Testnet",
-  //   icon: <ETHLogo />,
+  //   icon: <Ethereum />,
   // },
   // {
   //   key: "0x5",
   //   value: "Goerli Testnet",
-  //   icon: <ETHLogo />,
+  //   icon: <Ethereum />,
   // },
   // {
   //   key: "0x38",
@@ -65,7 +67,7 @@ const menuItems = [
   {
     key: "0x13881",
     value: "Mumbai",
-    icon: <PolygonLogo />,
+    icon: <Matic className="w-7 h-7 flex-0 self-start"/>,
   },
   // {
   //   key: "0xa86a",
@@ -97,9 +99,9 @@ function Chains() {
   };
 
   const menu = (
-    <Menu onClick={handleMenuClick}>
+    <Menu onClick={handleMenuClick} className='align-middle my-auto'>
       {menuItems.map((item) => (
-        <Menu.Item key={item.key} icon={item.icon} style={styles.item}>
+        <Menu.Item key={item.key} icon={item.icon} style={styles.item} className='my-auto'>
           <span style={{ marginLeft: "5px" }}>{item.value}</span>
         </Menu.Item>
       ))}
@@ -109,16 +111,22 @@ function Chains() {
   if (!chainId || !isAuthenticated) return null;
 
   return (
-    <div className="mx-auto">
+    <div className="mx-auto w-full justify-center">
       <Dropdown overlay={menu} trigger={["click"]}>
         <motion.button 
           key={selected?.key}
           icon={selected?.icon}
-          style={{ ...styles.button, ...styles.item }}
-          whileHover={{backgroundColor: '#2F2F2F', outlineColor: '#4E4E4E'}} className='bg-[#202020] outline-[#343536] outline outline-1 rounded-lg my-auto'
+          whileHover={{backgroundColor: '#2F2F2F', outlineColor: '#4E4E4E'}} className='w-full bg-[#202020] outline-[#343536] outline outline-1 rounded-lg my-auto text-xl tracking-widest px-7 py-3 flex flex-row mx-auto space-x-3 align-middle justify-start'
         >
-          <span style={{ marginLeft: "5px" }}>{selected?.value}</span>
-          <DownOutlined />
+          <div className="self-start">
+          {selected?.icon ? selected?.icon : <Chain className="w-7 h-7 flex-0 self-start"/>}
+          </div>
+          <p className="my-auto align-middle tracking-widest">
+          {selected?.value ? selected?.value : <p className="text-xl m-0">
+            Chain
+          </p>}
+          </p>
+          
         </motion.button>
       </Dropdown>
     </div>
