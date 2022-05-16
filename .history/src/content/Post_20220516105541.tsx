@@ -76,9 +76,6 @@ function Post({profile}) {
                                     {e.attributes.postTitle}
                                     <br />
                                     {e.attributes.postContent}
-                                    <br />
-                                    {/* {e.attributes.postUrl} */}
-                                    <a href={e.attributes.postUrl} target="_blank">{e.attributes.postUrl}</a>
                                     {/* <img src={defaultImgs[0]} className="postImg"></img> */}
                                 </div>
                                 <div className='flex flex-row justify-start space-x-20'>

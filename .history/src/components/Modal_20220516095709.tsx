@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react'
 import { motion } from 'framer-motion';
-import { Plus, X, Image } from 'styled-icons/bootstrap';
+import { Plus, X } from 'styled-icons/bootstrap';
 import Moralis from "moralis"
 // import { useMoralis, useWeb3ExecuteFunction} from 'react-moralis';
 
@@ -60,7 +60,6 @@ function Modal() {
         const metadata = {
             'title': document.getElementById('postTitle').value,
             'content': document.getElementById('postContent').value,
-            'Url': document.getElementById('postUrl').value,
             'comments': 'none',
             'upvotes': 0,
             'downvotes': 0,
@@ -74,7 +73,6 @@ function Modal() {
         const newPost = new Post();
         newPost.set("postTitle", document.getElementById('postTitle').value)
         newPost.set("postContent", document.getElementById('postContent').value)
-        newPost.set("postUrl", document.getElementById('postUrl').value)
         newPost.set("postPfp", user.attributes.pfp);
         newPost.set("postAcc", user.attributes.ethAddress);
         newPost.set("postUserName", user.attributes.username);
@@ -108,24 +106,21 @@ function Modal() {
                     </div>
                     <textarea className='mx-auto w-full outline outline-1 outline-[#343536] resize-none h-full bg-[#181818] text-white p-4 rounded-sm shadow-lg' placeholder='Your project name' id='postTitle'/>
                     <textarea className='mx-auto w-full outline outline-1 outline-[#343536] resize-none h-full bg-[#181818] text-white p-4 rounded-sm shadow-lg' placeholder='Project description' id='postContent'/>
-                    <textarea className='mx-auto w-full outline outline-1 outline-[#343536] resize-none h-full bg-[#181818] text-white p-4 rounded-sm shadow-lg' placeholder='Project Url link' id='postUrl'/>
-                    <div className="imgDiv" onClick={onImageClick}>
                     <input
                         type="file"
-                        name="file"
+                        name="imgFile"
                         ref={inputFile}
                         onChange={changeHandler}
                         style={{ display: "none"}}
-                        />
-                        <Image className='w-10 self-end'/>
-                    </div>
+                    />
                     <Tags />
                     <motion.button className='px-6 py-3 bg-white text-black self-end rounded-sm outline outline-1 outline-[#343536]' onClick={postMessage}>
                         Post
                     </motion.button>
                 </div>
              </div>
-        </motion.div>  
+        </motion.div>
+        
     )
 }
 

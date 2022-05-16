@@ -60,7 +60,6 @@ function Modal() {
         const metadata = {
             'title': document.getElementById('postTitle').value,
             'content': document.getElementById('postContent').value,
-            'Url': document.getElementById('postUrl').value,
             'comments': 'none',
             'upvotes': 0,
             'downvotes': 0,
@@ -74,7 +73,6 @@ function Modal() {
         const newPost = new Post();
         newPost.set("postTitle", document.getElementById('postTitle').value)
         newPost.set("postContent", document.getElementById('postContent').value)
-        newPost.set("postUrl", document.getElementById('postUrl').value)
         newPost.set("postPfp", user.attributes.pfp);
         newPost.set("postAcc", user.attributes.ethAddress);
         newPost.set("postUserName", user.attributes.username);
@@ -108,7 +106,6 @@ function Modal() {
                     </div>
                     <textarea className='mx-auto w-full outline outline-1 outline-[#343536] resize-none h-full bg-[#181818] text-white p-4 rounded-sm shadow-lg' placeholder='Your project name' id='postTitle'/>
                     <textarea className='mx-auto w-full outline outline-1 outline-[#343536] resize-none h-full bg-[#181818] text-white p-4 rounded-sm shadow-lg' placeholder='Project description' id='postContent'/>
-                    <textarea className='mx-auto w-full outline outline-1 outline-[#343536] resize-none h-full bg-[#181818] text-white p-4 rounded-sm shadow-lg' placeholder='Project Url link' id='postUrl'/>
                     <div className="imgDiv" onClick={onImageClick}>
                     <input
                         type="file"
