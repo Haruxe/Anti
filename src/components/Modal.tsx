@@ -14,6 +14,7 @@ function Modal() {
     const user = Moralis.User.current();
     const inputFile = useRef(null);
     const [selectedFile, setSelectedFile] = useState();
+    
     // const contractProcessor = useWeb3ExecuteFunction();
 
     // const inputFile = useRef(null);
@@ -56,11 +57,14 @@ function Modal() {
 
     async function postMessage() {
         // if(!post) return;
+        const fileReader = new FileReader();
+        fileReader.readAsArrayBuffer(document.getElementById('postImage').value);
 
         const metadata = {
             'title': document.getElementById('postTitle').value,
             'content': document.getElementById('postContent').value,
             'Url': document.getElementById('postUrl').value,
+            'Image': document.getElementById('postImage').value,
             'comments': 'none',
             'upvotes': 0,
             'downvotes': 0,
@@ -78,6 +82,7 @@ function Modal() {
         newPost.set("postPfp", user.attributes.pfp);
         newPost.set("postAcc", user.attributes.ethAddress);
         newPost.set("postUserName", user.attributes.username);
+        newPost.set("postImage", document.getElementById('postImage').value);
         await newPost.save({ipfs_url: metadataFile, 'account': Moralis.User.current});
         ClosePost();
         window.location.reload();
@@ -89,14 +94,13 @@ function Modal() {
     
     const changeHandler = (event) => {
         const img = event.target.files[0];
-        setTheFile(img);
         setSelectedFile(URL.createObjectURL(img));
     };
 
   return (
         <motion.div className='h-full w-full align-middle justify-center fixed z-40' animate={{scale: 1}} initial={{scale: 0}} exit={{scale: 0}}>
             <div className='flex justify-center h-screen'>
-                <div className='bg-[#1A1A1B] w-[50rem] outline outline-1 outline-[#343536] flex flex-col space-y-10 h-[30rem] p-8 m-auto rounded-md justify-self-center self-center'>
+                <div className='bg-[#1A1A1B] w-[50rem] h-auto outline outline-1 outline-[#343536] flex flex-col space-y-10 p-8 m-auto rounded-md justify-self-center self-center'>
                     <div className='flex'>
                         <h1 className='align-middle my-auto text-white text-lg'>
                         New Post
@@ -106,18 +110,18 @@ function Modal() {
                             </X>
                         </motion.button>
                     </div>
-                    <textarea className='mx-auto w-full outline outline-1 outline-[#343536] resize-none h-full bg-[#181818] text-white p-4 rounded-sm shadow-lg' placeholder='Your project name' id='postTitle'/>
-                    <textarea className='mx-auto w-full outline outline-1 outline-[#343536] resize-none h-full bg-[#181818] text-white p-4 rounded-sm shadow-lg' placeholder='Project description' id='postContent'/>
+                    <input className='mx-auto w-full outline outline-1 outline-[#343536] resize-none bg-[#181818] text-white p-4 rounded-sm shadow-lg' placeholder='Project Name' id='postTitle'/>
+                    <textarea className='mx-auto w-full outline outline-1 outline-[#343536] resize-none h-full bg-[#181818] text-white p-4 rounded-sm shadow-lg' placeholder='Tell us about your project!' id='postContent'/>
                     <textarea className='mx-auto w-full outline outline-1 outline-[#343536] resize-none h-full bg-[#181818] text-white p-4 rounded-sm shadow-lg' placeholder='Project Url link' id='postUrl'/>
-                    <div className="imgDiv" onClick={onImageClick}>
+                    <div className="imgDiv w-[80px]">
                     <input
                         type="file"
-                        name="file"
-                        ref={inputFile}
+                        name="image"
+                        id='postImage'
+                        accept='image/*'
+                        className='w-20'
                         onChange={changeHandler}
-                        style={{ display: "none"}}
-                        />
-                        <Image className='w-10 self-end'/>
+                    />
                     </div>
                     <Tags />
                     <motion.button className='px-6 py-3 bg-white text-black self-end rounded-sm outline outline-1 outline-[#343536]' onClick={postMessage}>
