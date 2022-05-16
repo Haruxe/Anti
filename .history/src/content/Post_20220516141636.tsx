@@ -79,9 +79,9 @@ function Post({profile}) {
                                     <br />
                                     <a href={e.attributes.postUrl} target="_blank">{e.attributes.postUrl}</a>
                                     <br />
-                                    {e.attributes.postImg && (
+                                    {e.attributes.tweetImg && (
                                         <img
-                                        src={e.attributes.postImg}
+                                        src={e.attributes.tweetImg}
                                         className="postImg"
                                         ></img>
                                     )}

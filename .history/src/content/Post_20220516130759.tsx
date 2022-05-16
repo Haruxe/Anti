@@ -78,13 +78,7 @@ function Post({profile}) {
                                     {e.attributes.postContent}
                                     <br />
                                     <a href={e.attributes.postUrl} target="_blank">{e.attributes.postUrl}</a>
-                                    <br />
-                                    {e.attributes.postImg && (
-                                        <img
-                                        src={e.attributes.postImg}
-                                        className="postImg"
-                                        ></img>
-                                    )}
+                                    {/* <img src={defaultImgs[0]} className="postImg"></img> */}
                                 </div>
                                 <div className='flex flex-row justify-start space-x-20'>
                                 <motion.button>

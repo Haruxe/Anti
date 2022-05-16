@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react'
 import { motion } from 'framer-motion';
 import { Plus, X, Image } from 'styled-icons/bootstrap';
 import Moralis from "moralis"
-// import { PolygonLogo } from './Chains/Logos';
+import { PolygonLogo } from './Chains/Logos';
 import './CSS/Modal.css'
 // import { useMoralis, useWeb3ExecuteFunction} from 'react-moralis';
 
@@ -55,6 +55,7 @@ function Modal() {
     }
 
     async function postMessage() {
+        // if(!post) return;
 
         const metadata = {
             'title': document.getElementById('postTitle').value,
@@ -101,7 +102,7 @@ function Modal() {
     };
 
   return (
-        <motion.div className='h-full w-full align-middle justify-center ' animate={{scale: 1}} initial={{scale: 0}} exit={{scale: 0}}>
+        <motion.div className='h-full w-full align-middle justify-center fixed z-60' animate={{scale: 1}} initial={{scale: 0}} exit={{scale: 0}}>
             <div className='flex justify-center h-screen'>
                 <div className='bg-[#1A1A1B] w-[50rem] outline outline-1 outline-[#343536] flex flex-col space-y-10 h-[30rem] p-8 m-auto rounded-md justify-self-center self-center'>
                     <div className='flex'>

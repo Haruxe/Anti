@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react'
 import { motion } from 'framer-motion';
 import { Plus, X, Image } from 'styled-icons/bootstrap';
 import Moralis from "moralis"
-// import { PolygonLogo } from './Chains/Logos';
+import { PolygonLogo } from './Chains/Logos';
 import './CSS/Modal.css'
 // import { useMoralis, useWeb3ExecuteFunction} from 'react-moralis';
 
