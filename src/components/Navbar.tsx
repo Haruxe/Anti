@@ -8,8 +8,13 @@ import '../index.css';
 import { Prism } from 'styled-icons/ionicons-outline';
 import { EmojiLaughing } from 'styled-icons/bootstrap';
 import AddPost from './AddPost';
+import { useMoralis } from 'react-moralis';
+const appId = process.env.REACT_APP_MORALIS_APPLICATION_ID;
+const serverUrl = process.env.REACT_APP_MORALIS_SERVER_URL;
 
 function Navbar() {
+  const { Moralis, account } = useMoralis();
+  Moralis.start({serverUrl, appId})
   return (
     <div>
     <div className=' fixed h-full w-[250px] flex flex-col px-5 justify-center place-content-start space-y-10 top-10'>
@@ -30,7 +35,7 @@ function Navbar() {
             </div>
             
             <div className='flex flex-col space-y-8 '>
-            <Link to='/profile'>
+            <Link to={'/u/' + account}>
               <motion.button  whileHover={{backgroundColor: '#2F2F2F', outlineColor: '#4E4E4E'}} className='bg-[#202020] outline-[#343536] outline outline-1 rounded-lg tracking-widest px-7 py-3 w-full'>
                 
                 <div className='flex flex-row justify-start space-x-4 align-middle'>

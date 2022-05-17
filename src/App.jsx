@@ -41,11 +41,10 @@ const App = ({isServerInfo}) => {
       <div id='modal'>
         <Router>
           <Routes>
-            <Route path='/' element={<HomeRedirect />} />
             <Route path='/home' element={<Home />} />
-            <Route path='*' element={<HomeRedirect />} />
-            <Route path='/profile/*' element={<Profile />} />
+            <Route path='/u/*' element={<Profile />} />
             <Route path='/settings' element={<Settings />} />
+            <Route path='*' element={<HomeRedirect />} />
           </Routes>
         </Router>
       </div>

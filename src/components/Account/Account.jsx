@@ -54,7 +54,7 @@ function Account() {
   if (!isAuthenticated || account == null) {
     return (
       <>
-        <motion.button onClick={() => setIsAuthModalVisible(true)} whileHover={{backgroundColor: '#2F2F2F', outlineColor: '#4E4E4E'}} className='bg-[#202020] outline-[#343536] outline outline-1 rounded-lg w-[150px] mx-auto justify-start'>
+        <motion.button onClick={() => setIsAuthModalVisible(true)} whileHover={{backgroundColor: '#2F2F2F', outlineColor: '#4E4E4E'}} className='bg-[#202020] outline-[#343536] outline outline-1 rounded-lg mx-auto justify-start w-full'>
           <p className="m-0">Connect Your Wallet!</p>
         </motion.button >
         <Modal
