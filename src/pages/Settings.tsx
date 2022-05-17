@@ -88,22 +88,21 @@ const Settings = () => {
   }
 
   return (
-    <>
-      <h1 className="text-white">Profile Settings</h1>
+    <div className='w-full h-screen justify-center'>
+    <div className='p-5 w-[1300px] mx-auto bg-[#202020] outline-1 outline outline-[#343536] h-full'>
+      <h1 className="text-white text-2xl tracking-wide">Profile Settings</h1>
       <div className="settingsPage">
         <Input
           placeholder="Name"
           autosize={true}
           onChange={(e)=> setUsername(e.target.value)}
         />
-
         <Input
           placeholder="Bio"
           onChange={(e)=> setBio(e.target.value)}
         />
       </div>
-
-      <div className="pfp">
+      <div className="pfp text-2xl tracking-wide">
           Profile Image (Your NFTs)
 
           <div className="pfpOptions">
@@ -123,7 +122,7 @@ const Settings = () => {
             })}
           </div>
 
-          <div className="pfp">
+          <div className="pfp text-white">
           Profile Banner
           <div className="pfpOptions">
             <img
@@ -140,20 +139,26 @@ const Settings = () => {
             />
           </div>
         </div>
-        &nbsp;
-        <div className="save" onClick={() => saveEdits()}>
-          Save
+        <div className='flex place-content-end mt-5'>
+        <div className='flex flex-col space-y-4 w-[200px] '>
+          <motion.button onClick={() => saveEdits()} className='bg-blue-300 rounded-md p-5 text-black align-center'>
+            <p className='my-auto text-2xl tracking-wide'>
+            Save
+            </p>
+          </motion.button >
+          <button className='bg-blue-300 rounded-md p-5 text-black align-center'>
+          <Link to='/Home'>
+          <p className='my-auto text-2xl tracking-wide text-black'>
+              Home
+          </p>
+          </Link>
+          </button>
+        </div>
         </div>
         &nbsp;
-        <motion.div className='tracking-widest mx-auto' whileHover={{scale: 1}}>
-          <Link to='/Home'>
-          <div className="home">
-              Home
-          </div>
-          </Link>
-        </motion.div>
       </div>
-    </>
+    </div>
+    </div>
   )
 }
 

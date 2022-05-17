@@ -16,40 +16,46 @@ function Profile() {
     const user = Moralis.User.current();
 
     return (
-        <>
-            <img className="profileBanner" src={user.attributes.banner ? user.attributes.banner : defaultImgs[1]}></img>
+        <div className="justify-center w-full">
+        <div className="w-[1300px] mx-auto my-5">
+            <img className="profileBanner rounded-md" src={user.attributes.banner ? user.attributes.banner : defaultImgs[1]} ></img>
             <div className="pfpContainer">
                 <img className="profilePFP" src={user.attributes.pfp ? user.attributes.pfp : defaultImgs[0]}></img>
                 <div className="profileName">{user.attributes.username.slice(0, 6)}</div>
                 <div className="profileWallet">{`${user.attributes.ethAddress.slice(0, 4)}...
                 ${user.attributes.ethAddress.slice(38)}`}</div>
+                
                 <div className="profileBio">
                 {user.attributes.bio}
                 </div>
-                <motion.button className='tracking-widest mx-auto' whileHover={{scale: 1}}>
-                    <Link to='/Settings'>
-                    <div>
+
+                <div className="flex flex-col place-items-start p-4">
+                <motion.button className='tracking-widest'>
+                    <Link to='/settings'>
+                    <p>
                         Edit Profile
-                    </div>
+                    </p>
                     </Link>
                 </motion.button>
                 &nbsp;
-                <motion.button className='tracking-widest mx-auto' whileHover={{scale: 1}}>
-                    <Link to='/Home'>
-                    <div>
+                <motion.button className='tracking-widest'>
+                    <Link to='/home'>
+                    <p>
                         Home
-                    </div>
+                    </p>
                     </Link>
                 &nbsp;
                 </motion.button>
+                </div>
                 <div className="profileTabs">
                     <div className="profileTab">
-                    Your Posts!
+                    Your Posts
                     </div>
                 </div>
             </div>
             <Post profile={true} />
-        </>
+        </div>
+        </div>
     )
 }
 

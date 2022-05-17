@@ -84,16 +84,15 @@ function Post({profile}) {
                                     <p className='text-lg text-slate-200'>
                                     {e.attributes.postContent}
                                     </p>
-                                    <img src={e.attributes.postImage} className='h-[200px]'/>
-                                    <br />
-                                    <a href={e.attributes.postUrl} target="_blank">{e.attributes.postUrl}</a>
-                                    <br />
+                                    
                                     {e.attributes.postImg && (
                                         <img
                                         src={e.attributes.postImg}
-                                        className="postImg"
+                                        className="rounded-sm"
                                         ></img>
                                     )}
+                                    <a href={e.attributes.postUrl} target="_blank">Link</a>
+                                    <br />
                                 </div>
                                 <div className='flex flex-row justify-start space-x-20'>
                                 <motion.button>

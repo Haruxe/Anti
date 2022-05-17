@@ -57,7 +57,7 @@ function Feed () {
 
     return (
         <div className='p-5 flex flex-row  ml-[220px]'>
-        <div className='w-full h-full flex flex-col p-5 space-y-2'>
+        <div className='w-full h-full flex flex-col p-5 space-y-3'>
             <Post profile={false} />
         </div>
         {sidebarVisible && <SidebarContent />}

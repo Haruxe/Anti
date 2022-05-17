@@ -28,15 +28,18 @@ function Navbar() {
                     <Account />
                   </div>
             </div>
+            
             <div className='flex flex-col space-y-8 '>
-              <motion.button  whileHover={{backgroundColor: '#2F2F2F', outlineColor: '#4E4E4E'}} className='bg-[#202020] outline-[#343536] outline outline-1 rounded-lg tracking-widest px-7 py-3 '>
-                <Link to='/Profile'>
+            <Link to='/profile'>
+              <motion.button  whileHover={{backgroundColor: '#2F2F2F', outlineColor: '#4E4E4E'}} className='bg-[#202020] outline-[#343536] outline outline-1 rounded-lg tracking-widest px-7 py-3 w-full'>
+                
                 <div className='flex flex-row justify-start space-x-4 align-middle'>
                   <EmojiLaughing className='w-7 text-white' />
                   <p className='my-auto text-white text-left text-xl'>Profile</p>
                 </div>
-                </Link>
+                
               </motion.button>
+              </Link>
               <div className='flex flex-row space-x-3'>
                     <Chains />
                   </div>

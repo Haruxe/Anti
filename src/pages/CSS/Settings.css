@@ -6,7 +6,6 @@
 }
 
 .pfp {
-    color:#68738D;
     padding-left: 10px;
 }
 
@@ -45,37 +44,5 @@
 }
 
 .banner:hover {
-    cursor:pointer;
-}
-
-.save {
-    background-color: #1DA1F2;
-    padding: 10px 20px;
-    border-radius: 1000px;
-    color: white;
-    font-weight: 600;
-    width: 50px;
-    display: flex;
-    justify-content: center;
-    margin-left: 80%;
-}
-
-.save:hover{
-    cursor:pointer;
-}
-
-.home {
-    background-color: #1DA1F2;
-    padding: 10px 20px;
-    border-radius: 1000px;
-    color: white;
-    font-weight: 600;
-    width: 50px;
-    display: flex;
-    justify-content: center;
-    margin-left: 80%;
-}
-
-.home:hover{
     cursor:pointer;
 }
