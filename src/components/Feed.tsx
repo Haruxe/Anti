@@ -1,15 +1,17 @@
 import React from "react"
-import { useMoralis } from "react-moralis"
 import { useEffect, useState } from "react";
 import "./CSS/PostInFeed.css";
 import Post from "../content/Post"
 import Sidebar from "../content/Sidebar"
+import { ClipLoader } from "react-spinners";
 
 const appId = process.env.REACT_APP_MORALIS_APPLICATION_ID;
 const serverUrl = process.env.REACT_APP_MORALIS_SERVER_URL;
 
 function Feed () {
     const [sidebarVisible, setSidebarVisible] = useState(true);
+    const [loading, setLoading] = useState(true);
+    const [feed, setFeed] = useState(<></>);
 
     // const { Moralis, account } = useMoralis();
     // Moralis.start({serverUrl, appId})
@@ -28,15 +30,20 @@ function Feed () {
     })
 
     useEffect(() => {
-        function handleResize() {
-            if (window.innerWidth < 1300){
-                setSidebarVisible(false);
-            }
-            if (window.innerWidth > 1300){
-                setSidebarVisible(true);
-            }
-        }
+        LoadContent()
     }, [])
+
+    async function LoadContent() {
+        setFeed(
+        <div className='p-5 flex flex-row  ml-[220px]'>
+        <div className='w-full h-full flex flex-col p-5 space-y-3'>
+            <Post profile={false} />
+            <br/>
+        </div>
+        {sidebarVisible && <SidebarContent />}
+    </div>)
+        setLoading(false)
+    }
 
     const SidebarContent = () => {
         return(
@@ -56,12 +63,20 @@ function Feed () {
     }
 
     return (
-        <div className='p-5 flex flex-row  ml-[220px]'>
-        <div className='w-full h-full flex flex-col p-5 space-y-3'>
-            <Post profile={false} />
-        </div>
-        {sidebarVisible && <SidebarContent />}
-    </div> 
+        <>
+        {loading ? 
+            <div className="justify-center items-center flex text-center w-full h-full ml-[220px]">
+          <ClipLoader
+          size={60}
+          color={'#FFFFFF'}
+          loading={loading}
+          /> 
+          </div> 
+          :(
+        <div>
+            {feed}
+        </div>)}
+        </>
     )
 }
 
