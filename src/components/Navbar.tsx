@@ -34,7 +34,7 @@ function Navbar() {
                   </div>
             </div>
             
-            { isAuthenticated ? <div className='flex flex-col space-y-8 '>
+            <div className='flex flex-col space-y-8 '>
             <Link to={'/u/' + account}>
               <motion.button  whileHover={{backgroundColor: '#2F2F2F', outlineColor: '#4E4E4E'}} className='bg-[#202020] outline-[#343536] outline outline-1 rounded-lg tracking-widest px-7 py-3 w-full'>
                 
@@ -48,12 +48,12 @@ function Navbar() {
               <div className='flex flex-row space-x-3'>
                     <Chains />
                   </div>
-                  <AddPost />
             </div>
-            : <></>}
+            <AddPost />
             </div>
+            
+            
         </div> 
-        
     </div>
 
   )
