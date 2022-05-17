@@ -14,7 +14,6 @@ function Feed () {
     const queryCategories = useMoralisQuery("Categories");
     const fetchedCategories = JSON.parse(JSON.stringify(queryCategories.data, ["categoryId", "category"]));
     const {selectedCategory} = useMoralisDapp();
-    let result = null;
     // console.log(fetchedCategories)
 
     // const { Moralis, account } = useMoralis();
@@ -47,23 +46,23 @@ function Feed () {
     const SidebarContent = () => {
         return(
             <>
-            <div className="flex auto flex-col pt-5 space-y-5 w-[300px]">
-                <div className="flex-col space-y-3">
-                    <Sidebar categories={fetchedCategories}/>
-                </div>
-            </div>
-            </>
+        <div className="flex auto flex-col pt-5 space-y-5 w-[300px]">
+        <div className="flex-col space-y-3">
+            <Sidebar categories={fetchedCategories}/>
+        </div>
+        </div>
+        </>
         )
     }
 
     return (
         <div className='p-5 flex flex-row  ml-[220px]'>
-            <div className='w-full h-full flex flex-col p-5 space-y-2'>
-                <h4 className="text-white">{selectedCategory["category"]}</h4>
-                <Post profile={false} />
-            </div>
-            {sidebarVisible && <SidebarContent />}
-        </div> 
+        <div className='w-full h-full flex flex-col p-5 space-y-2'>
+            <h4 className="text-white">{selectedCategory["category"]}</h4>
+            <Post profile={false} />
+        </div>
+        {sidebarVisible && <SidebarContent />}
+    </div> 
     )
 }
 

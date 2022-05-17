@@ -56,15 +56,29 @@ function Feed () {
         )
     }
 
-    return (
-        <div className='p-5 flex flex-row  ml-[220px]'>
-            <div className='w-full h-full flex flex-col p-5 space-y-2'>
-                <h4 className="text-white">{selectedCategory["category"]}</h4>
-                <Post profile={false} />
-            </div>
-            {sidebarVisible && <SidebarContent />}
-        </div> 
-    )
+    if (selectedCategory["category"] === "") {
+        result = (
+            <div className='p-5 flex flex-row  ml-[220px]'>
+                <div className='w-full h-full flex flex-col p-5 space-y-2'>
+                <h3 className="text-white">Choose a Category</h3>
+                    <Post profile={false} />
+                </div>
+                {sidebarVisible && <SidebarContent />}
+            </div> 
+        );
+    } else {
+        result = (
+            <div className='p-5 flex flex-row  ml-[220px]'>
+                <div className='w-full h-full flex flex-col p-5 space-y-2'>
+                    <h4 className="text-white">{selectedCategory["category"]}</h4>
+                    <Post profile={false} />
+                </div>
+                {sidebarVisible && <SidebarContent />}
+            </div> 
+        )
+    }
+
+    return result;
 }
 
 export default Feed
