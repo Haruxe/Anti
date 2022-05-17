@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { X } from 'styled-icons/bootstrap';
 import { Add as AddSign } from 'styled-icons/material';
 import Modal from './Modal';
 // import Moralis from 'moralis';
@@ -19,18 +18,16 @@ function AddPost() {
 
     const Add = () => {
       return(
-      <div className='bg-[#202020] rounded-2xl p-2 outline outline-1 outline-[#343536] fixed top-0 left-0 m-5'>
-        <motion.button whileHover={{cursor: 'pointer'}} onClick={MakePost}>
-            <AddSign className='w-[3rem]'/>
+        <motion.button  onClick={MakePost} className='flex flex-row align-middle space-x-3 px-7 py-3 cursor-pointer bg-[#202020] rounded-lg outline outline-1 outline-[#343536] w-full' whileHover={{backgroundColor: '#2F2F2F', outlineColor: '#4E4E4E'}}>
+            <AddSign className='w-7'/>
+            <p className='text-xl my-auto'>
+              Create
+            </p>
         </motion.button>
-      </div>
       )
     }
   return (
-    <>
     <Add />
-    </>
-    
   )
 }
 

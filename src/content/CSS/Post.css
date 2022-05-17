@@ -47,8 +47,3 @@
     flex-direction: column;
     gap:10px;
 }
-
-.postImg {
-    width: 75%;
-    border-radius: 10px;
-}
