@@ -8,9 +8,12 @@ import '../index.css';
 import { Prism } from 'styled-icons/ionicons-outline';
 import { EmojiLaughing } from 'styled-icons/bootstrap';
 import AddPost from './AddPost';
+<<<<<<< HEAD
 import { useMoralis } from 'react-moralis';
 const appId = process.env.REACT_APP_MORALIS_APPLICATION_ID;
 const serverUrl = process.env.REACT_APP_MORALIS_SERVER_URL;
+=======
+>>>>>>> b961810 (Loading Screen ETC)
 
 function Navbar() {
   const { Moralis, account } = useMoralis();
