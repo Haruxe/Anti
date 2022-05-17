@@ -61,7 +61,7 @@ function Modal() {
             'title': document.getElementById('postTitle').value,
             'content': document.getElementById('postContent').value,
             'Url': document.getElementById('postUrl').value,
-            'Image': theFile,
+            'Image': document.getElementById('postImage').value,
             'comments': 'none',
             'upvotes': 0,
             'downvotes': 0,
@@ -89,6 +89,7 @@ function Modal() {
 
         await newPost.save({ipfs_url: metadataFile, 'account': Moralis.User.current});
         ClosePost();
+        window.location.reload();
     }
 
     const onImageClick = () => {
@@ -109,7 +110,8 @@ function Modal() {
                         New Post
                         </h1>
                         <motion.button className='self-end ml-auto' onClick={ClosePost} whileHover={{scale: 1.05}}>
-                            <X className='w-10 self-end' />
+                            <X className='w-10 self-end'>
+                            </X>
                         </motion.button>
                     </div>
                     <input className='mx-auto w-full outline outline-1 outline-[#343536] resize-none bg-[#181818] text-white p-4 rounded-sm shadow-lg' placeholder='Project Name' id='postTitle'/>
@@ -125,7 +127,6 @@ function Modal() {
                             ref={inputFile}
                             onChange={changeHandler}
                             style={{ display: "none"}}
-                            id='postImg'
                         />
                         <Image className='w-10 self-end'/>
 

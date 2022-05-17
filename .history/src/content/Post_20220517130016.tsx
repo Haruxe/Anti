@@ -1,29 +1,36 @@
 import React from 'react';
 import { useEffect, useState } from "react";
+import { Comment, Verified } from 'styled-icons/material';
+import { Profile } from 'styled-icons/remix-line';
 import { motion } from 'framer-motion';
 import { Downvote, Upvote } from 'styled-icons/boxicons-regular';
+import { CommentAdd } from 'styled-icons/fluentui-system-filled';
 import { Share } from 'styled-icons/bootstrap';
 import { CommentAlt } from 'styled-icons/fa-regular';
 import { defaultImgs } from '../defaultimgs';
 import './CSS/Post.css';
-import { Moralis } from "moralis"
-import { Link } from 'react-router-dom';
+import { useMoralis } from "react-moralis"
 
 function Post({profile}) {
+
+  const { Moralis, account } = useMoralis();
+  const user = Moralis.User.current();
+  console.log(user)
 
   const [postArr, setPostArr] = useState();
 
     useEffect(() => {
         async function getPosts() {
             try {
-                const Posts = await Moralis.Object.extend("Posts");
+                const Posts = Moralis.Object.extend("Posts");
                 const query = new Moralis.Query(Posts);
                 if (profile) {
-                    query.equalTo("postAcc", window.location.href.split('/')[4])
+                    query.equalTo("postAcc", account)
                 }
                 const results = await query.find();
 
                 setPostArr(results);
+                console.log(results);
             } catch (error) {
                 console.log(error)
             }
@@ -37,7 +44,7 @@ function Post({profile}) {
             return (
                 <>
                     <div className='flex flex-col bg-[#202020] rounded-sm outline outline-1 outline-[#343536]'>
-                        <div className='w-[800px] h-full flex flex-col px-2 space-y-5'>
+                        <div className='w-[700px] h-full flex flex-col px-2 space-y-5'>
                             <motion.div className=' w-full h-full flex flex-column p-4 space-y-5 align-bottom space-x-5'>
                                 <div className='flex flex-col place-content-start space-y-3 mt-6'>
                                     <motion.button whileHover={{color: '#777777'}} transition={{duration: 0.2}}>
@@ -49,19 +56,15 @@ function Post({profile}) {
                                 </div>
                                 <div className='align-middle space-y-5'>
                                 <motion.div className='flex flex-row space-x-5 text-xl' >
-                                    <Link to={'/u/' + e?.attributes?.postAcc}>
-                                    <img src={e?.attributes?.postPfp ? e?.attributes?.postPfp : defaultImgs[0]} alt='pfp' className='w-14 h-14 cursor-pointer rounded-full'></img>
-                                    </Link>
+                                    <img src={e.attributes.postPfp ? e.attributes.postPfp : defaultImgs[0]} alt='pfp' className='w-14 h-14 cursor-pointer rounded-full'></img>
                                     <div>
                                     <div className="flex flex-col space-y-2">
-                                        <Link to={'/u/' + e?.attributes.postAcc}>
-                                        <p className='m-0 text-white'>
-                                        {e?.attributes.postUserName?.slice(0, 6)} <span className='text-slate-400 text-sm'>{e?.attributes.postAcc.slice(0, 4)}...${e.attributes.postAcc.slice(38)}</span>
+                                        <p className='m-0'>
+                                        {e.attributes.postUserName.slice(0, 6)} <span className='text-slate-400 text-sm'>{e.attributes.postAcc.slice(0, 4)}...${e.attributes.postAcc.slice(38)}</span>
                                         </p>
-                                        </Link>
                                         <div className='text-slate-400 text-sm'>{
                                             `
-                                            ${e?.attributes.createdAt?.toLocaleString('en-us', { min: 'numeric' })}
+                                            ${e.attributes.createdAt.toLocaleString('en-us', { min: 'numeric' })}
                                             `  
                                         }
                                         </div>
@@ -81,11 +84,11 @@ function Post({profile}) {
                                     {e.attributes.postImg && (
                                         <img
                                         src={e.attributes.postImg}
-                                        className="rounded-sm"
+                                        className="postImg"
                                         ></img>
                                     )}
-                                    <a href={e.attributes.postUrl} target="_blank">Link</a>
                                     <br />
+                                    <a href={e.attributes.postUrl} target="_blank">{e.attributes.postUrl}</a>
                                 </div>
                                 <div className='flex flex-row justify-start space-x-20'>
                                 <motion.button>

@@ -2,7 +2,7 @@ import React, { StrictMode } from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import { MoralisProvider } from "react-moralis";
-import { MoralisDappProvider } from "./MoralisDappProvider/MoralisDappProvider";
+import { MoralisDappProvider } from "./providers/MoralisDappProvider/MoralisDappProvider";
 import "./index.css";
 import Home from "./pages/Home"
 

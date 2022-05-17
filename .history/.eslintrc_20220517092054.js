@@ -5,6 +5,9 @@ module.exports = {
       mocha: true,
       node: true,
     },
+    "extends": [
+      "react-hooks",
+    ],
     "plugins": [
       "react-hooks"
     ],

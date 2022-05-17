@@ -5,11 +5,11 @@ module.exports = {
       mocha: true,
       node: true,
     },
-    "plugins": [
-      "react-hooks"
+    extends: [
     ],
     parser: "@typescript-eslint/parser",
     parserOptions: {
       ecmaVersion: 12,
     },
+    plugins: ["react", "react-hooks",],
   };
