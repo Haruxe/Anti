@@ -5,11 +5,9 @@ import Account from "./Account/Account";
 import Chains from "./Chains/Chains";
 import NativeBalance from './NativeBalance';
 import '../index.css';
-import { Network } from 'styled-icons/entypo';
-import { AccountCircle } from 'styled-icons/material';
 import { Prism } from 'styled-icons/ionicons-outline';
-import { Profile } from 'styled-icons/remix-line';
 import { EmojiLaughing } from 'styled-icons/bootstrap';
+import AddPost from './AddPost';
 
 function Navbar() {
   return (
@@ -19,8 +17,8 @@ function Navbar() {
             <div className='text-4xl flex flex-row '>
               <div className='tracking-widest mx-auto' >
                   <div className='flex flex-row space-x-2 align-middle mx-auto'>
-                    <Prism className='w-7 fill-white text-white mt-1'/>
-                    <p className='my-auto text-white'>nti</p>
+                    <Prism className='w-12 fill-white text-white mt-1'/>
+                    <p className='my-auto text-white text-6xl'>nti</p>
                   </div>
               </div>
             </div>
@@ -43,7 +41,9 @@ function Navbar() {
                     <Chains />
                   </div>
             </div>
+            <AddPost />
             </div>
+            
             
         </div> 
     </div>
