@@ -1,6 +1,5 @@
 import React from "react";
 import { useMoralis, useMoralisQuery } from "react-moralis";
-import { useMoralisDapp } from "../MoralisDappProvider/MoralisDappProvider";
 import { useEffect, useState } from "react";
 import "./CSS/PostInFeed.css";
 import Post from "../content/Post";
@@ -13,9 +12,7 @@ function Feed () {
     const [sidebarVisible, setSidebarVisible] = useState(true);
     const queryCategories = useMoralisQuery("Categories");
     const fetchedCategories = JSON.parse(JSON.stringify(queryCategories.data, ["categoryId", "category"]));
-    const {selectedCategory} = useMoralisDapp();
-    let result = null;
-    // console.log(fetchedCategories)
+    console.log(fetchedCategories)
 
     // const { Moralis, account } = useMoralis();
     // Moralis.start({serverUrl, appId})
@@ -47,23 +44,27 @@ function Feed () {
     const SidebarContent = () => {
         return(
             <>
-            <div className="flex auto flex-col pt-5 space-y-5 w-[300px]">
-                <div className="flex-col space-y-3">
-                    <Sidebar categories={fetchedCategories}/>
-                </div>
-            </div>
-            </>
+        <div className="flex auto flex-col pt-5 space-y-5 w-[300px]">
+        <div className="flex-col space-y-3">
+            <Sidebar />
+            <Sidebar />
+            <Sidebar />
+            <Sidebar />
+            <Sidebar />
+            <Sidebar />
+        </div>
+        </div>
+        </>
         )
     }
 
     return (
         <div className='p-5 flex flex-row  ml-[220px]'>
-            <div className='w-full h-full flex flex-col p-5 space-y-2'>
-                <h4 className="text-white">{selectedCategory["category"]}</h4>
-                <Post profile={false} />
-            </div>
-            {sidebarVisible && <SidebarContent />}
-        </div> 
+        <div className='w-full h-full flex flex-col p-5 space-y-2'>
+            <Post profile={false} />
+        </div>
+        {sidebarVisible && <SidebarContent />}
+    </div> 
     )
 }
 

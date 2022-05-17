@@ -11,11 +11,15 @@ import { defaultImgs } from '../defaultimgs';
 import './CSS/Post.css';
 import { useMoralis } from "react-moralis"
 
+const appId = process.env.REACT_APP_MORALIS_APPLICATION_ID;
+const serverUrl = process.env.REACT_APP_MORALIS_SERVER_URL;
+
 function Post({profile}) {
 
   const { Moralis, account } = useMoralis();
+  Moralis.start({serverUrl, appId})
   const user = Moralis.User.current();
-  console.log(user)
+//   console.log(user)
 
   const [postArr, setPostArr] = useState();
 
@@ -80,6 +84,9 @@ function Post({profile}) {
                                     <p className='text-lg text-slate-200'>
                                     {e.attributes.postContent}
                                     </p>
+                                    {/* <img src={e.attributes.postImage} className='h-[200px]'/> */}
+                                    <br />
+                                    <a href={e.attributes.postUrl} target="_blank">{e.attributes.postUrl}</a>
                                     <br />
                                     {e.attributes.postImg && (
                                         <img
@@ -87,8 +94,6 @@ function Post({profile}) {
                                         className="postImg"
                                         ></img>
                                     )}
-                                    <br />
-                                    <a href={e.attributes.postUrl} target="_blank">{e.attributes.postUrl}</a>
                                 </div>
                                 <div className='flex flex-row justify-start space-x-20'>
                                 <motion.button>

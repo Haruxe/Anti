@@ -1,12 +1,12 @@
 {
   "_format": "hh-sol-cache-2",
   "files": {
-    "/Users/bryce_palichuk/Documents/GitHub/MediaSite/contracts/MainContract.sol": {
-      "lastModificationDate": 1652152598260,
-      "contentHash": "28ae10e3097da9582fe326a5f8509c8a",
-      "sourceName": "contracts/MainContract.sol",
+    "/Users/bryce_palichuk/Documents/GitHub/MediaSite/contracts/PostMessage.sol": {
+      "lastModificationDate": 1652742989566,
+      "contentHash": "85ecf584f7c38e5fa1ea44ae28aa356f",
+      "sourceName": "contracts/PostMessage.sol",
       "solcConfig": {
-        "version": "0.8.4",
+        "version": "0.8.0",
         "settings": {
           "optimizer": {
             "enabled": false,
@@ -33,7 +33,7 @@
         "^0.8.0"
       ],
       "artifacts": [
-        "MainContract"
+        "PostMessage"
       ]
     }
   }

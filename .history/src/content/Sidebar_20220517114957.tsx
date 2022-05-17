@@ -19,7 +19,7 @@ function Sidebar({categories}) {
         mode="inline">
             <Menu.ItemGroup key="categories" title="Categories">
                 {categories.map((category) => (
-                  <Menu.Item key={category["categoryId"]}>{category["category"]}</Menu.Item>
+                    <Menu.Item key={category["categoryId"]}>{category["category"]}</Menu.Item>
                 ))}
             </Menu.ItemGroup>
         </Menu>
