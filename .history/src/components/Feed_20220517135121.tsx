@@ -13,6 +13,10 @@ function Feed () {
     const {selectedCategory} = useMoralisDapp();
     // console.log(fetchedCategories)
 
+    // const { Moralis, account } = useMoralis();
+    // Moralis.start({serverUrl, appId})
+    // const user = Moralis.User.current();
+    
     useEffect(() => {
         function handleResize() {
             if (window.innerWidth < 1300){

@@ -1,5 +1,5 @@
 import React from "react";
-import { useMoralisQuery } from "react-moralis";
+import { useMoralis, useMoralisQuery } from "react-moralis";
 import { useMoralisDapp } from "../MoralisDappProvider/MoralisDappProvider";
 import { useEffect, useState } from "react";
 import "./CSS/PostInFeed.css";
@@ -11,8 +11,12 @@ function Feed () {
     const queryCategories = useMoralisQuery("Categories");
     const fetchedCategories = JSON.parse(JSON.stringify(queryCategories.data, ["categoryId", "category"]));
     const {selectedCategory} = useMoralisDapp();
-    // console.log(fetchedCategories)
+    console.log(fetchedCategories)
 
+    // const { Moralis, account } = useMoralis();
+    // Moralis.start({serverUrl, appId})
+    // const user = Moralis.User.current();
+    
     useEffect(() => {
         function handleResize() {
             if (window.innerWidth < 1300){

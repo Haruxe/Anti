@@ -4,15 +4,15 @@ import { Plus, X, Image } from 'styled-icons/bootstrap';
 import {message} from "antd";
 // import { PolygonLogo } from './Chains/Logos';
 import './CSS/Modal.css'
-import { useMoralis, useMoralisFile, useWeb3ExecuteFunction } from 'react-moralis';
+import { useMoralisFile, useWeb3ExecuteFunction} from 'react-moralis';
 import { useMoralisDapp } from '../MoralisDappProvider/MoralisDappProvider';
-// import Moralis from 'moralis';
+import Moralis from 'moralis';
 
+// const appId = process.env.REACT_APP_MORALIS_APPLICATION_ID;
+// const serverUrl = process.env.REACT_APP_MORALIS_SERVER_URL;
 
 function Modal() {
-    
-    const { Moralis } = useMoralis();
-    const user = Moralis.User.current();
+    // Moralis.start({serverUrl, appId})
     const {contractABI, contractAddress, selectedCategory} = useMoralisDapp();
     const contractABIJson = JSON.parse(contractABI);
     const ipfsProcessor = useMoralisFile();
@@ -21,11 +21,11 @@ function Modal() {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [url, setUrl] = useState('');
-    const [category, setCategory] = useState('');
-    const inputFile = useRef(null);
-    const [selectedFile, setSelectedFile] = useState('');
-    const [theFile, setTheFile] = useState('');
-    const [post, setPost] = useState();
+    // const [category, setCategory] = useState('');
+    // const inputFile = useRef(null);
+    // const [selectedFile, setSelectedFile] = useState('');
+    // const [theFile, setTheFile] = useState('');
+    // const [post, setPost] = useState();
 
     function ClosePost() {
         // @dev de-blurs the page
@@ -38,8 +38,7 @@ function Modal() {
     }
 
     async function addPostToBlockchain(post) {
-
-        await Moralis.enableWeb3();
+        
         const contentUri = await processContent(post);
         const categoryId = selectedCategory["categoryId"];
         const options = {
@@ -47,7 +46,7 @@ function Modal() {
             functionName: "createPost",
             abi: contractABIJson,
             params: {
-                _parentId: "0xc5bd07976cb0704ae6be0eaee9652ee37944bd01ab4b2f552b47b8cbee456225",
+                _parentId: "0x91",
                 _contentUri: contentUri,
                 _categoryId: categoryId
             },
@@ -58,7 +57,6 @@ function Modal() {
             onError: (error) => message.error(error),
         });
         debugger
-        postMessage();
         // ClosePost();
     }
 
@@ -132,15 +130,15 @@ function Modal() {
         ClosePost();
     }
 
-    const onImageClick = () => {
-        inputFile.current.click();
-    };
+    // const onImageClick = () => {
+    //     inputFile.current.click();
+    // };
     
-    const changeHandler = (event) => {
-        const img = event.target.files[0];
-        setTheFile(img);
-        setSelectedFile(URL.createObjectURL(img));
-    };
+    // const changeHandler = (event) => {
+    //     const img = event.target.files[0];
+    //     setTheFile(img);
+    //     setSelectedFile(URL.createObjectURL(img));
+    // };
 
     // const clearForm = () =>{
     //     setTitle();
@@ -179,7 +177,7 @@ function Modal() {
                         <option value="DAOs">DAOs</option>
                         <option value="Metaverse">Metaverse</option>
                     </select> */}
-                    {selectedFile && (
+                    {/* {selectedFile && (
                     <img src={selectedFile} className="postImg"></img>
                     )}
                     <div className="imgDiv" onClick={onImageClick}>
@@ -191,7 +189,7 @@ function Modal() {
                             style={{ display: "none"}}
                         />
                         <Image className='w-10 self-end'/>
-                    </div>
+                    </div> */}
                     {/* <Tags /> */}
                     <motion.button className='px-6 py-3 bg-white text-black self-end rounded-sm outline outline-1 outline-[#343536]' onClick={postMessage}>
                         Post

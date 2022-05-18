@@ -11,8 +11,9 @@ function Feed () {
     const queryCategories = useMoralisQuery("Categories");
     const fetchedCategories = JSON.parse(JSON.stringify(queryCategories.data, ["categoryId", "category"]));
     const {selectedCategory} = useMoralisDapp();
+    const [showPost, setShowPost] = useState(false);
     // console.log(fetchedCategories)
-
+    
     useEffect(() => {
         function handleResize() {
             if (window.innerWidth < 1300){

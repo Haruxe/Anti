@@ -16,7 +16,6 @@ function Modal() {
     const {contractABI, contractAddress, selectedCategory} = useMoralisDapp();
     const contractABIJson = JSON.parse(contractABI);
     const ipfsProcessor = useMoralisFile();
-    const contractProcessor = useWeb3ExecuteFunction();
 
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
@@ -53,10 +52,8 @@ function Modal() {
             },
         }
         console.log(options)
-        await contractProcessor.fetch({params:options,
-            onSuccess: () => message.success("success"),
-            onError: (error) => message.error(error),
-        });
+        const transaction = useWeb3ExecuteFunction(options);
+        console.log(transaction)
         debugger
         postMessage();
         // ClosePost();

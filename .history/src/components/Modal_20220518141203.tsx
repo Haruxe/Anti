@@ -7,6 +7,7 @@ import './CSS/Modal.css'
 import { useMoralis, useMoralisFile, useWeb3ExecuteFunction } from 'react-moralis';
 import { useMoralisDapp } from '../MoralisDappProvider/MoralisDappProvider';
 // import Moralis from 'moralis';
+import { useWeb3Contract } from './hooks/useWeb3Contract';
 
 
 function Modal() {
@@ -16,7 +17,7 @@ function Modal() {
     const {contractABI, contractAddress, selectedCategory} = useMoralisDapp();
     const contractABIJson = JSON.parse(contractABI);
     const ipfsProcessor = useMoralisFile();
-    const contractProcessor = useWeb3ExecuteFunction();
+    const contractProcessor = useWeb3Contract();
 
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
@@ -47,18 +48,19 @@ function Modal() {
             functionName: "createPost",
             abi: contractABIJson,
             params: {
-                _parentId: "0xc5bd07976cb0704ae6be0eaee9652ee37944bd01ab4b2f552b47b8cbee456225",
+                _parentId: "0x91",
                 _contentUri: contentUri,
                 _categoryId: categoryId
             },
         }
         console.log(options)
-        await contractProcessor.fetch({params:options,
+        await contractProcessor.fetch({
+            params:options,
             onSuccess: () => message.success("success"),
             onError: (error) => message.error(error),
         });
-        debugger
         postMessage();
+        debugger
         // ClosePost();
     }
 

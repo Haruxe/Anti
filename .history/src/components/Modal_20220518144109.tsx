@@ -57,7 +57,6 @@ function Modal() {
             onSuccess: () => message.success("success"),
             onError: (error) => message.error(error),
         });
-        debugger
         postMessage();
         // ClosePost();
     }

@@ -11,7 +11,7 @@ import { useMoralisDapp } from '../MoralisDappProvider/MoralisDappProvider';
 
 function Modal() {
     
-    const { Moralis } = useMoralis();
+    const { Moralis, enableWeb3 } = useMoralis();
     const user = Moralis.User.current();
     const {contractABI, contractAddress, selectedCategory} = useMoralisDapp();
     const contractABIJson = JSON.parse(contractABI);
@@ -38,8 +38,8 @@ function Modal() {
     }
 
     async function addPostToBlockchain(post) {
-
-        await Moralis.enableWeb3();
+        
+        enableWeb3()
         const contentUri = await processContent(post);
         const categoryId = selectedCategory["categoryId"];
         const options = {
@@ -47,18 +47,19 @@ function Modal() {
             functionName: "createPost",
             abi: contractABIJson,
             params: {
-                _parentId: "0xc5bd07976cb0704ae6be0eaee9652ee37944bd01ab4b2f552b47b8cbee456225",
+                _parentId: "0x91",
                 _contentUri: contentUri,
                 _categoryId: categoryId
             },
         }
         console.log(options)
-        await contractProcessor.fetch({params:options,
+        await contractProcessor.fetch({
+            params:options,
             onSuccess: () => message.success("success"),
             onError: (error) => message.error(error),
         });
-        debugger
         postMessage();
+        debugger
         // ClosePost();
     }
 
