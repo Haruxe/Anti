@@ -42,7 +42,7 @@ function Search() {
     }
 
   return (
-        <div className='tracking-widest w-[300px] mt-7 p-4 space-y-2'>
+        <div className='tracking-widest w-[300px] mt-10  space-y-2'>
             <div className='w-full bg-[#202020] outline-[#343536] outline outline-1 flex flex-row p-2 rounded-md'>
                 <SearchAlt className='w-7 flex-none ml-4'/>
                 <input placeholder='Search Anti' className='p-2 bg-transparent w-full outline-none' id='searchBox' onChange={ChangeText}/>

@@ -74,7 +74,7 @@ function Profile() {
       };
     
       const saveEdits = async () => {
-        const User = Moralis.Object.extend("_User");
+        const User = await Moralis.Object.extend("_User");
         const query = new Moralis.Query(User);
         const myDetails = await query.first();
     
@@ -98,6 +98,7 @@ function Profile() {
         }
     
         await myDetails.save();
+        setEditMode(false)
         navigate('/u/' + user.attributes.ethAddress);
       }
 
@@ -145,7 +146,13 @@ function Profile() {
                 </motion.button>
             </div>
             <div className="px-5">
-                <img className="profilePFP" src={pfp}></img>
+                {editMode ? 
+
+                <img className="profilePFP brightness-75 cursor-pointer outline-dotted outline-[#343536]" src={pfp} /> : 
+
+                <img className="profilePFP" src={pfp} />
+                    
+                    }
                 <div className="profileName">{editMode ? <input placeholder={username} className='bg-transparent rounded-md outline outline-2 outline-[#343536] p-2' onChange={(e)=> setUsername(e.target.value)}/> : username}</div>
                 <div className="profileWallet">{address}</div>
                 <div className="profileBio mt-8 w-[1000px]">{ 
@@ -158,7 +165,7 @@ function Profile() {
                 <div className="flex flex-col place-items-start p-4 ml-5">
                 {user.attributes.ethAddress == fullAddress ?
                  editMode ? <motion.button whileHover={{backgroundColor: '#2F2F2F', outlineColor: '#4E4E4E'}} className='tracking-widest bg-[#202020] rounded-md outline outline-1 outline-[#343536]'>
-                 <button onClick={() => setEditMode(false)} className="flex flex-row space-x-3 align-middle text-white my-auto w-full py-3 px-5">
+                 <button onClick={() => saveEdits() } className="flex flex-row space-x-3 align-middle text-white my-auto w-full py-3 px-5">
                  <Save className="w-7 h-7 flex-none my-auto text-white" />
                  <p className="text-white text-xl my-auto">
                      Save Changes
