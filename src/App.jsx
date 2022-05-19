@@ -10,7 +10,8 @@ import HomeRedirect from "./pages/HomeRedirect";
 import { ClipLoader } from "react-spinners";
 
 const App = ({isServerInfo}) => {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [content, setContent] = useState(<></>);
   
   const { isWeb3Enabled, enableWeb3, isAuthenticated, isWeb3EnableLoading } =
     useMoralis();
@@ -23,13 +24,14 @@ const App = ({isServerInfo}) => {
 
   useEffect(() => {
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000)
+    setTimeout(() => setLoading(false), 400)
   }, [])
 
   return (
-    <>{loading ? 
+
+    <>
+
+    {loading ? 
       <div className="justify-center items-center flex text-center w-screen h-screen">
     <ClipLoader
     size={60}
@@ -37,7 +39,8 @@ const App = ({isServerInfo}) => {
     loading={loading}
     /> 
     </div>
-    : (isAuthenticated ? (
+    :
+    <div>
       <div id='modal'>
         <Router>
           <Routes>
@@ -48,11 +51,12 @@ const App = ({isServerInfo}) => {
           </Routes>
         </Router>
       </div>
-    ) : (
-      <NonAuthenticated />
-    ))}
+    </div>
+
+    }
     </>
-  );
+
+  )
 }
 
 export default App;

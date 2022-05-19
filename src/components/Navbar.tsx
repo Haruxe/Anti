@@ -12,8 +12,9 @@ import { useMoralis } from 'react-moralis';
 
 
 function Navbar() {
-  const { Moralis, account } = useMoralis();
-  
+  const { Moralis, account, isAuthenticated } = useMoralis();
+  Moralis.start({serverUrl, appId})
+
   return (
     <div>
     <div className=' fixed h-full w-[250px] flex flex-col px-5 justify-center place-content-start space-y-10 top-10'>

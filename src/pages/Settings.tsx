@@ -10,15 +10,17 @@ import { Input } from "antd";
 import { defaultImgs } from "../defaultimgs";
 import { useMoralis, useMoralisWeb3Api } from "react-moralis";
 import { motion } from 'framer-motion';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Settings = () => {
+  const navigate = useNavigate();
+  const { user } = useMoralis();
 
   // const pfps = [pfp1, pfp2, pfp3, pfp4, pfp5];
   const [pfps, setPfps] = useState([]);
   const [selectedPFP, setSelectedPFP] = useState();
   const inputFile = useRef(null);
-  const [selectedFile, setSelectedFile] = useState(defaultImgs[1]);
+  const [selectedFile, setSelectedFile] = useState(user.attributes.banner);
   const [theFile, setTheFile] = useState();
   const [username, setUsername] = useState();
   const [bio, setBio] = useState();
@@ -84,13 +86,13 @@ const Settings = () => {
     }
 
     await myDetails.save();
-    window.location.reload();
+    navigate('/u/' + user.attributes.ethAddress);
   }
 
   return (
     <div className='w-full h-screen justify-center'>
     <div className='p-5 w-[1300px] mx-auto bg-[#202020] outline-1 outline outline-[#343536] h-full'>
-      <h1 className="text-white text-2xl tracking-wide">Profile Settings</h1>
+      <h1 className="text-white text-lg tracking-wide">Profile Settings</h1>
       <div className="settingsPage">
         <Input
           placeholder="Name"
@@ -102,7 +104,7 @@ const Settings = () => {
           onChange={(e)=> setBio(e.target.value)}
         />
       </div>
-      <div className="pfp text-2xl tracking-wide">
+      <div className="pfp text-lg tracking-wide">
           Profile Image (Your NFTs)
 
           <div className="pfpOptions">
@@ -147,7 +149,7 @@ const Settings = () => {
             </p>
           </motion.button >
           <button className='bg-blue-300 rounded-md p-5 text-black align-center'>
-          <Link to='/Home'>
+          <Link to='/home'>
           <p className='my-auto text-2xl tracking-wide text-black'>
               Home
           </p>

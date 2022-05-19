@@ -19,10 +19,10 @@ function MoralisDappProvider({ children }) {
     Moralis.onAccountChanged(function (address) {
       setWalletAddress(address[0]);
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    
   }, []);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+  
   useEffect(() => {
     if(isWeb3Enabled){
     setChainId(provider?.chainId);
