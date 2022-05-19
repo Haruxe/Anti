@@ -9,10 +9,11 @@ import Post from "../content/Post";
 import { ClipLoader } from "react-spinners";
 import { useMoralis, useMoralisCloudFunction, useMoralisWeb3Api } from "react-moralis";
 import { Back, Save } from "styled-icons/bootstrap";
-import { Settings } from "styled-icons/material";
+import { Cancel, Settings } from "styled-icons/material";
+import ReactDOM from 'react-dom';
 
 function Profile() {
-
+    const { Moralis, isAuthenticated, account, user } = useMoralis();
     //For rendering
     const [loading, setLoading] = useState(true);
     const [banner, setBanner] = useState(defaultImgs[1]);
@@ -22,7 +23,6 @@ function Profile() {
     const [bio, setBio] = useState('');
     const [fullAddress, setFullAddress] = useState('0x000000000000')
     const { fetch } = useMoralisCloudFunction('getUser', {address: window.location.href.split('/')[4]})
-    const {user} = useMoralis();
 
     //For edit mode
     const [editMode, setEditMode] = useState(false);
@@ -34,10 +34,14 @@ function Profile() {
     const [newUsername, setNewUsername] = useState();
     const [newBio, setNewBio] = useState();
 
-    const { Moralis, isAuthenticated, account } = useMoralis();
     const Web3Api = useMoralisWeb3Api();
 
     const navigate = useNavigate();
+
+    const resolveLink = (url) => {
+        if (!url || !url.includes("ipfs://")) return url;
+        return url.replace("ipfs://", "https://gateway.ipfs.io/ipfs/");
+      };
 
     useEffect(() => {
     setLoading(true);
@@ -48,20 +52,21 @@ function Profile() {
 
         const fetchNFTs = async () => {
           const options = {
-            chain: "mumbai",
+            chain: "Mainnet",
             address: account
           }
     
-          const mumbaiNFTs = await Web3Api.account.getNFTs(options);
-          const images = mumbaiNFTs.result.map(
-            (e) => resolveLink(JSON.parse(e.metadata)?.image)
+          const NFTs = await Web3Api.account.getNFTs(options);
+          let images = [];
+          NFTs.result.map(
+            (e) => resolveLink(JSON.parse(e?.metadata)?.image) ? images.push(resolveLink(JSON.parse(e?.metadata)?.image)) : console.log('image not found')
           );
           setPfps(images);
         }
     
         fetchNFTs();
     
-      },[editMode])
+      },[])
 
       const onBannerClick = () => {
         inputFile.current.click();
@@ -99,7 +104,7 @@ function Profile() {
     
         await myDetails.save();
         setEditMode(false)
-        navigate('/u/' + user.attributes.ethAddress);
+        window.location.reload();
       }
 
     async function RenderPage(){
@@ -111,11 +116,36 @@ function Profile() {
         setBanner(user.attributes.banner ? user.attributes.banner : defaultImgs[1])
         setBio(user.attributes?.bio)
         setLoading(false);
+        setSelectedPFP(user.attributes.pfp);
     }
+
+    function onProfileClick(){
+        const modal = document.getElementById('profileModal');
+        modal.classList.remove('invisible');
+        const page = document.getElementById('profilePage')
+        page.classList.add('blur-md')
+    }
+
+    function onProfileClose(){
+        const modal = document.getElementById('profileModal');
+        modal.classList.add('invisible');
+        const page = document.getElementById('profilePage')
+        page.classList.remove('blur-md')
+    }
+
+    useEffect(() => {
+        if (editMode == true){
+        const bioInput = document.getElementById('bioInput');
+        bioInput.value = bio;
+        const usernameInput = document.getElementById('usernameInput');
+        usernameInput.value = username;            
+    }
+    }, [editMode])
     
 
     return (
         <>
+        <div id='profilePage'>
         {loading ? 
       <div className="justify-center items-center flex text-center w-screen h-screen">
     <ClipLoader
@@ -127,7 +157,6 @@ function Profile() {
         <div className="justify-center w-full">
         <div className="w-[1300px] mx-auto my-5">
             <div>
-                
             <img className={editMode ? "profileBanner rounded-md cursor-pointer brightness-75 outline-dotted outline-1 outline-white" : "profileBanner rounded-md"} onClick={editMode ? onBannerClick : () => {}} src={editMode ? selectedFile : banner} />
             {editMode && <input
               type="file"
@@ -147,19 +176,20 @@ function Profile() {
             </div>
             <div className="px-5">
                 {editMode ? 
+                <div className="profilePFP w-[130px] h-[130px]">
+                <img className=" brightness-75 outline-dotted outline-[#343536] rounded-full absolute" src={editMode ? selectedPFP : pfp} />
+                <button className="cursor-pointer w-full h-full absolute" onClick={onProfileClick} id='pfpButton'/> 
+                </div>
+                : 
 
-                <img className="profilePFP brightness-75 cursor-pointer outline-dotted outline-[#343536]" src={pfp} /> : 
-
-                <img className="profilePFP" src={pfp} />
-                    
-                    }
-                <div className="profileName">{editMode ? <input placeholder={username} className='bg-transparent rounded-md outline outline-2 outline-[#343536] p-2' onChange={(e)=> setUsername(e.target.value)}/> : username}</div>
+                <img className="profilePFP" src={pfp} />}
+                <div className="profileName">{editMode ? <input placeholder={username} className='bg-transparent rounded-md outline outline-2 outline-[#343536] p-2' onChange={(e)=> setUsername(e.target.value)} id='usernameInput'/> : username}</div>
                 <div className="profileWallet">{address}</div>
                 <div className="profileBio mt-8 w-[1000px]">{ 
                 editMode 
 
                 ? 
-                    <textarea placeholder={bio ? bio : 'I haven\'t set my bio yet!'} className='bg-transparent rounded-md outline outline-2 outline-[#343536] p-2 w-full resize-none h-[200px]' onChange={(e)=> setBio(e.target.value)}/>
+                    <textarea placeholder={bio ? bio : 'I haven\'t set my bio yet!'} className='bg-transparent rounded-md outline outline-2 outline-[#343536] p-2 w-full resize-none h-[200px]' onChange={(e)=> setBio(e.target.value)} id='bioInput'/>
                 :
                  bio ? bio : 'I haven\'t set my bio yet!'}</div>
                 <div className="flex flex-col place-items-start p-4 ml-5">
@@ -182,6 +212,14 @@ function Profile() {
                     </button>
                 </motion.button>
                 : <></>}
+                {editMode ? <motion.button whileHover={{backgroundColor: '#2F2F2F', outlineColor: '#4E4E4E'}} className='tracking-widest bg-[#202020] mt-5 rounded-md outline outline-1 outline-[#343536]'>
+                 <button onClick={() => setEditMode(false) } className="flex flex-row space-x-3 align-middle text-white my-auto w-full py-3 px-5">
+                 <Cancel className="w-7 h-7 flex-none my-auto text-white" />
+                 <p className="text-white text-xl my-auto">
+                     Cancel
+                 </p>
+                 </button>
+             </motion.button> : <></>}
                 &nbsp;
                 </div>
                 <div className="profileTabs">
@@ -195,8 +233,27 @@ function Profile() {
             </div>
         </div>
         </div>)}
+        </div>
+            <div className="bg-[#202020] rounded-md outline outline-1 outline-[#343536] top-1/4 left-1/4 fixed p-5 invisible flex flex-col" id='profileModal'>
+                  <div className="grid grid-cols-6">
+                  {pfps.map((e,i) => {
+              return(
+                <>
+                <img
+                src={e}
+                className={
+                  selectedPFP === e ? "pfpOptionSelected" : "pfpOption"
+                }
+                onClick={() => {setSelectedPFP(pfps[i]);}}
+                ></img>
+                </>
+              )
+            })}
+            </div>
+            <button className="bg-[#202020] rounded-md outline outline-1 outline-[#343536] w-20 h-12 self-end text-xl" onClick={onProfileClose}>Save</button>
+            </div>
         </>
-        )
-        }
+    )
+                }
 
 export default Profile;

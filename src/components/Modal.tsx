@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react'
 import { motion } from 'framer-motion';
-import { Plus, X, Image } from 'styled-icons/bootstrap';
+import { Plus, X, Image, PlusCircle } from 'styled-icons/bootstrap';
 import {message} from "antd";
 // import { PolygonLogo } from './Chains/Logos';
 import './CSS/Modal.css'
@@ -164,7 +164,7 @@ function Modal() {
     }
 
   return (
-        <motion.div className='h-full w-full align-middle justify-center ' animate={{scale: 1}} initial={{scale: 0}} exit={{scale: 0}}>
+        <motion.div className='h-full w-full align-middle justify-center' animate={{scale: 1}} initial={{scale: 0}} exit={{scale: 0}}>
             <div className='flex justify-center h-screen'>
                 <div className='bg-[#1A1A1B] w-[50rem] h-auto outline outline-1 outline-[#343536] flex flex-col space-y-10 p-8 m-auto rounded-md justify-self-center self-center'>
                     <div className='flex'>
@@ -175,9 +175,9 @@ function Modal() {
                             <X className='w-10 self-end' />
                         </motion.button>
                     </div>
-                    <input className='mx-auto w-full outline outline-1 outline-[#343536] resize-none bg-[#181818] text-white p-4 rounded-sm shadow-lg' placeholder='Project Name' id='postTitle' value={title} onChange={(e) => setTitle(e.target.value)}/>
-                    <textarea className='mx-auto w-full outline outline-1 outline-[#343536] resize-none h-full bg-[#181818] text-white p-4 rounded-sm shadow-lg' placeholder='Tell us about your project!' id='postContent' value={content} onChange={(e) => setContent(e.target.value)}/>
-                    <textarea className='mx-auto w-full outline outline-1 outline-[#343536] resize-none h-full bg-[#181818] text-white p-4 rounded-sm shadow-lg' placeholder='Project Url link' id='postUrl' value={url} onChange={(e) => setUrl(e.target.value)}/>
+                    <input className='mx-auto w-full resize-none text-white bg-transparent outline-none text-xl p-3' placeholder='Project Name' id='postTitle' value={title} onChange={(e) => setTitle(e.target.value)}/>
+                    <textarea className='mx-auto w-full h-[200px]  outline-[#343536] bg-[#181818] outline outline-1 p-3 resize-none ' placeholder='Body' id='postContent' value={content} onChange={(e) => setContent(e.target.value)}/>
+                    <textarea className='mx-auto w-full outline outline-1 outline-[#343536] resize-none h-full bg-[#181818] text-white p-4 rounded-sm shadow-lg' placeholder='Link to Project (Optional)' id='postUrl' value={url} onChange={(e) => setUrl(e.target.value)}/>
                     {/* <div>
                         <select className="form-control" placeholder="Choose a category" value={category} onChange={(e) => setCategory(e.target.value)}>
                             <option className="text-black" value='Choose a category'>Choose a category</option>
@@ -188,9 +188,11 @@ function Modal() {
                         </select>
                     </div> */}
                     {selectedFile && (
-                    <img src={selectedFile} className="postImg"></img>
+                        <div className='h-auto'>
+                            <img src={selectedFile} onClick={onImageClick} className='cursor-pointer max-h-52'/>
+                        </div>
                     )}
-                    <div className="imgDiv" onClick={onImageClick}>
+                    <div onClick={onImageClick} className='self-start flex flex-row space-x-4'>
                         <input
                             type="file"
                             name="file"
@@ -199,15 +201,20 @@ function Modal() {
                             style={{ display: "none"}}
                             id='postImg'
                         />
-                        <Image className='w-10 self-end'/>
+                        <PlusCircle className='w-10 self-end cursor-pointer rounded-full'/>
+                        <p className='text-xl my-auto'>
+                            Add Media
+                        </p>
                     </div>
                     {/* <Tags /> */}
-                    <motion.button className='px-6 py-3 bg-white text-black self-end rounded-sm outline outline-1 outline-[#343536]' onClick={postMessage}>
+                    <div className='self-end flex flex-col space-y-4'>
+                    <motion.button whileHover={{backgroundColor: '#2F2F2F', outlineColor: '#4E4E4E'}} className='tracking-widest bg-[#202020] rounded-md outline outline-1 outline-[#343536] py-3 px-5 align-middle justify-center shadow-xl self-end' onClick={postMessage}>
                         Post
                     </motion.button>
-                    <motion.button className='px-6 py-3 bg-white text-black self-end rounded-sm outline outline-1 outline-[#343536]' onClick={onSubmit}>
+                    <motion.button whileHover={{backgroundColor: '#2F2F2F', outlineColor: '#4E4E4E'}} className='tracking-widest bg-[#202020] rounded-md outline outline-1 outline-[#343536] py-3 px-5 align-middle justify-center shadow-xl self-end' onClick={onSubmit}>
                         Post on Blockchain
                     </motion.button>
+                    </div>
                 </div>
             </div>
         </motion.div>  
