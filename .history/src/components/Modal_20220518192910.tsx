@@ -62,13 +62,6 @@ function Modal() {
     }
 
     const processContent = async (content) => {
-        
-        if (theFile) {
-            const data = theFile;
-            const file = new Moralis.File(data.name, data);
-            await file.saveIPFS();
-        }
-
         const ipfsResult = await ipfsProcessor.saveFile(
             "post.json",
             { base64: btoa(JSON.stringify(content)) },
@@ -134,7 +127,7 @@ function Modal() {
             newPost.set("postImg", file.ipfs());
         }
 
-        await newPost.save({ipfs_url: metadataFile, 'account': user});
+        await newPost.save({ipfs_url: metadataFile, 'account': Moralis.User.current});
         ClosePost();
     }
 
@@ -159,7 +152,7 @@ function Modal() {
         // if(!validateForm()){
         //     return message.error("Remember to add the title and the content of your post")
         // }
-        addPostToBlockchain({title, content, url, selectedFile})
+        addPostToBlockchain({title, content, url})
         // clearForm();
     }
 

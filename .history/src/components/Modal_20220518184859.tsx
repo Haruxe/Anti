@@ -25,7 +25,7 @@ function Modal() {
     const inputFile = useRef(null);
     const [selectedFile, setSelectedFile] = useState('');
     const [theFile, setTheFile] = useState('');
-    const [post, setPost] = useState('');
+    const [post, setPost] = useState();
 
     function ClosePost() {
         // @dev de-blurs the page
@@ -47,7 +47,7 @@ function Modal() {
             functionName: "createPost",
             abi: contractABIJson,
             params: {
-                _parentId: "0xc5bd07976cb0704ae6be0eaee9652ee37944bd01ab4b2f552b47b8cbee456225", // Need to still understand better how this works with the childId for the comments
+                _parentId: "0xc5bd07976cb0704ae6be0eaee9652ee37944bd01ab4b2f552b47b8cbee456225",
                 _contentUri: contentUri,
                 _categoryId: categoryId
             },
@@ -59,16 +59,10 @@ function Modal() {
         });
         debugger
         postMessage();
+        // ClosePost();
     }
 
     const processContent = async (content) => {
-        
-        if (theFile) {
-            const data = theFile;
-            const file = new Moralis.File(data.name, data);
-            await file.saveIPFS();
-        }
-
         const ipfsResult = await ipfsProcessor.saveFile(
             "post.json",
             { base64: btoa(JSON.stringify(content)) },
@@ -134,7 +128,7 @@ function Modal() {
             newPost.set("postImg", file.ipfs());
         }
 
-        await newPost.save({ipfs_url: metadataFile, 'account': user});
+        await newPost.save({ipfs_url: metadataFile, 'account': Moralis.User.current});
         ClosePost();
     }
 
@@ -142,8 +136,8 @@ function Modal() {
         inputFile.current.click();
     };
     
-    const changeHandler = (e) => {
-        const img = e.target.files[0];
+    const changeHandler = (event) => {
+        const img = event.target.files[0];
         setTheFile(img);
         setSelectedFile(URL.createObjectURL(img));
     };
@@ -159,7 +153,7 @@ function Modal() {
         // if(!validateForm()){
         //     return message.error("Remember to add the title and the content of your post")
         // }
-        addPostToBlockchain({title, content, url, selectedFile})
+        addPostToBlockchain({title, content, url})
         // clearForm();
     }
 
@@ -178,15 +172,13 @@ function Modal() {
                     <input className='mx-auto w-full outline outline-1 outline-[#343536] resize-none bg-[#181818] text-white p-4 rounded-sm shadow-lg' placeholder='Project Name' id='postTitle' value={title} onChange={(e) => setTitle(e.target.value)}/>
                     <textarea className='mx-auto w-full outline outline-1 outline-[#343536] resize-none h-full bg-[#181818] text-white p-4 rounded-sm shadow-lg' placeholder='Tell us about your project!' id='postContent' value={content} onChange={(e) => setContent(e.target.value)}/>
                     <textarea className='mx-auto w-full outline outline-1 outline-[#343536] resize-none h-full bg-[#181818] text-white p-4 rounded-sm shadow-lg' placeholder='Project Url link' id='postUrl' value={url} onChange={(e) => setUrl(e.target.value)}/>
-                    {/* <div>
-                        <select className="form-control" placeholder="Choose a category" value={category} onChange={(e) => setCategory(e.target.value)}>
-                            <option className="text-black" value='Choose a category'>Choose a category</option>
-                            <option value="Defi">Defi</option>
-                            <option value="NFTs">NFTs</option>
-                            <option value="DAOs">DAOs</option>
-                            <option value="Metaverse">Metaverse</option>
-                        </select>
-                    </div> */}
+                    <select type="text" placeholder="Choose a category" value={category}>
+                        <option value=''>Choose a category</option>
+                        <option value="Defi">Defi</option>
+                        <option value="NFTs">NFTs</option>
+                        <option value="DAOs">DAOs</option>
+                        <option value="Metaverse">Metaverse</option>
+                    </select>
                     {selectedFile && (
                     <img src={selectedFile} className="postImg"></img>
                     )}

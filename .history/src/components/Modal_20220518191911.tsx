@@ -47,7 +47,7 @@ function Modal() {
             functionName: "createPost",
             abi: contractABIJson,
             params: {
-                _parentId: "0xc5bd07976cb0704ae6be0eaee9652ee37944bd01ab4b2f552b47b8cbee456225", // Need to still understand better how this works with the childId for the comments
+                _parentId: "0x91", // Need to still understand better how this works with the childId for the comments
                 _contentUri: contentUri,
                 _categoryId: categoryId
             },
@@ -57,18 +57,10 @@ function Modal() {
             onSuccess: () => message.success("success"),
             onError: (error) => message.error(error),
         });
-        debugger
         postMessage();
     }
 
     const processContent = async (content) => {
-        
-        if (theFile) {
-            const data = theFile;
-            const file = new Moralis.File(data.name, data);
-            await file.saveIPFS();
-        }
-
         const ipfsResult = await ipfsProcessor.saveFile(
             "post.json",
             { base64: btoa(JSON.stringify(content)) },
@@ -134,7 +126,7 @@ function Modal() {
             newPost.set("postImg", file.ipfs());
         }
 
-        await newPost.save({ipfs_url: metadataFile, 'account': user});
+        await newPost.save({ipfs_url: metadataFile, 'account': Moralis.User.current});
         ClosePost();
     }
 
@@ -159,7 +151,7 @@ function Modal() {
         // if(!validateForm()){
         //     return message.error("Remember to add the title and the content of your post")
         // }
-        addPostToBlockchain({title, content, url, selectedFile})
+        addPostToBlockchain({title, content, url, theFile})
         // clearForm();
     }
 
