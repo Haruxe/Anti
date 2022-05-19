@@ -10,10 +10,8 @@ import { EmojiLaughing } from 'styled-icons/bootstrap';
 import AddPost from './AddPost';
 import { useMoralis } from 'react-moralis';
 
-
 function Navbar() {
-  const { Moralis, account, isAuthenticated } = useMoralis();
-  Moralis.start({serverUrl, appId})
+  const { account } = useMoralis();
 
   return (
     <div>
