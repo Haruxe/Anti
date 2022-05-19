@@ -2,9 +2,12 @@ import React, { useState, useRef } from 'react'
 import { motion } from 'framer-motion';
 import { Plus, X, Image } from 'styled-icons/bootstrap';
 import {message} from "antd";
+// import { PolygonLogo } from './Chains/Logos';
 import './CSS/Modal.css'
 import { useMoralis, useMoralisFile, useWeb3ExecuteFunction } from 'react-moralis';
 import { useMoralisDapp } from '../MoralisDappProvider/MoralisDappProvider';
+import { SaveFillDimensions } from '@styled-icons/bootstrap/SaveFill';
+// import Moralis from 'moralis';
 
 
 function Modal() {
@@ -37,22 +40,7 @@ function Modal() {
 
     async function addPostToBlockchain(post) {
 
-        const blockchainPost = Moralis.Object.extend("blockchainPosts");
-        const newBlockchainPost = new blockchainPost();
-        newBlockchainPost.set("postTitle", document.getElementById('postTitle').value)
-        newBlockchainPost.set("postContent", document.getElementById('postContent').value)
-        newBlockchainPost.set("postUrl", document.getElementById('postUrl').value)
-        newBlockchainPost.set("postCategory", document.getElementById('postCategory').value)
-        newBlockchainPost.set("postPfp", user.attributes.pfp);
-        newBlockchainPost.set("postAcc", user.attributes.ethAddress);
-        newBlockchainPost.set("postUserName", user.attributes.username);
-        
-        const data = theFile;
-        const file = new Moralis.File(data.name, data);
-        await file.saveIPFS();
-        newBlockchainPost.set("postImg", file.ipfs());
-
-        const contentUri = await processContent(newBlockchainPost);
+        const contentUri = await processContent(post);
         const categoryId = selectedCategory["categoryId"];
         const options = {
             contractAddress: contractAddress,
@@ -125,7 +113,6 @@ function Modal() {
         newPost.set("postTitle", document.getElementById('postTitle').value)
         newPost.set("postContent", document.getElementById('postContent').value)
         newPost.set("postUrl", document.getElementById('postUrl').value)
-        newPost.set("postCategory", document.getElementById('postCategory').value)
         newPost.set("postPfp", user.attributes.pfp);
         newPost.set("postAcc", user.attributes.ethAddress);
         newPost.set("postUserName", user.attributes.username);
@@ -145,11 +132,11 @@ function Modal() {
         inputFile.current.click();
     };
     
-    const changeHandler = (e) => {
-        const img = e.target.files[0];
-        setTheFile(img);
-        setSelectedFile(URL.createObjectURL(img));
-    };
+    // const changeHandler = (e) => {
+    //     const img = e.target.files[0];
+    //     setTheFile(img);
+    //     setSelectedFile(URL.createObjectURL(img));
+    // };
 
     // const clearForm = () =>{
     //     setTitle();
@@ -158,12 +145,29 @@ function Modal() {
     // }
 
     function onSubmit(e){
-    
+        
+        // if (theFile) {
+        //     const data = theFile;
+        //     const saveFile = new Moralis.File(data.name, data);
+        //     return saveFile
+        // }
+        // console.log(saveFile)
+        // debugger
+
+        const metadata = {
+
+            'title': document.getElementById('postTitle').value,
+            'content': document.getElementById('postContent').value,
+            'url': document.getElementById('postUrl').value,
+            'category': document.getElementById('postCategory').value,
+            'image': document.getElementsByName('file').value
+        };
+
         e.preventDefault();
         // if(!validateForm()){
         //     return message.error("Remember to add the title and the content of your post")
         // }
-        addPostToBlockchain({title, content, url, category, theFile})
+        addPostToBlockchain(metadata)
         // clearForm();
     }
 
@@ -200,7 +204,10 @@ function Modal() {
                             name="file"
                             ref={inputFile}
                             accept="image/png, image/jpeg"
-                            onChange={changeHandler}
+                            onChange={(e) => (
+                                setTheFile(e.target.files[0]),
+                                setSelectedFile(URL.createObjectURL(e.target.files[0]))
+                            )}
                             style={{ display: "none"}}
                             id='postImg'
                         />

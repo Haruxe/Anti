@@ -42,7 +42,7 @@ function Modal() {
         newBlockchainPost.set("postTitle", document.getElementById('postTitle').value)
         newBlockchainPost.set("postContent", document.getElementById('postContent').value)
         newBlockchainPost.set("postUrl", document.getElementById('postUrl').value)
-        newBlockchainPost.set("postCategory", document.getElementById('postCategory').value)
+        newBlockchainPost.set("postCategory", document.getElementById('category').value)
         newBlockchainPost.set("postPfp", user.attributes.pfp);
         newBlockchainPost.set("postAcc", user.attributes.ethAddress);
         newBlockchainPost.set("postUserName", user.attributes.username);

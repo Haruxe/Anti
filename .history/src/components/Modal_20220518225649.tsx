@@ -2,9 +2,11 @@ import React, { useState, useRef } from 'react'
 import { motion } from 'framer-motion';
 import { Plus, X, Image } from 'styled-icons/bootstrap';
 import {message} from "antd";
+// import { PolygonLogo } from './Chains/Logos';
 import './CSS/Modal.css'
 import { useMoralis, useMoralisFile, useWeb3ExecuteFunction } from 'react-moralis';
 import { useMoralisDapp } from '../MoralisDappProvider/MoralisDappProvider';
+// import Moralis from 'moralis';
 
 
 function Modal() {
@@ -37,22 +39,8 @@ function Modal() {
 
     async function addPostToBlockchain(post) {
 
-        const blockchainPost = Moralis.Object.extend("blockchainPosts");
-        const newBlockchainPost = new blockchainPost();
-        newBlockchainPost.set("postTitle", document.getElementById('postTitle').value)
-        newBlockchainPost.set("postContent", document.getElementById('postContent').value)
-        newBlockchainPost.set("postUrl", document.getElementById('postUrl').value)
-        newBlockchainPost.set("postCategory", document.getElementById('postCategory').value)
-        newBlockchainPost.set("postPfp", user.attributes.pfp);
-        newBlockchainPost.set("postAcc", user.attributes.ethAddress);
-        newBlockchainPost.set("postUserName", user.attributes.username);
-        
-        const data = theFile;
-        const file = new Moralis.File(data.name, data);
-        await file.saveIPFS();
-        newBlockchainPost.set("postImg", file.ipfs());
-
-        const contentUri = await processContent(newBlockchainPost);
+        await Moralis.enableWeb3();
+        const contentUri = await processContent(post);
         const categoryId = selectedCategory["categoryId"];
         const options = {
             contractAddress: contractAddress,
@@ -69,7 +57,7 @@ function Modal() {
             onSuccess: () => message.success("success"),
             onError: (error) => message.error(error),
         });
-        
+        debugger
         postMessage();
     }
 
@@ -112,8 +100,8 @@ function Modal() {
         const metadata = {
             'title': document.getElementById('postTitle').value,
             'content': document.getElementById('postContent').value,
-            'url': document.getElementById('postUrl').value,
-            'category': document.getElementById('postCategory').value,
+            'Url': document.getElementById('postUrl').value,
+            'Image': document.getElementById('postImg').value,
         };
 
         const metadataFile = new Moralis.File('metadata.json', { base64: btoa(JSON.stringify(metadata))});
@@ -125,7 +113,6 @@ function Modal() {
         newPost.set("postTitle", document.getElementById('postTitle').value)
         newPost.set("postContent", document.getElementById('postContent').value)
         newPost.set("postUrl", document.getElementById('postUrl').value)
-        newPost.set("postCategory", document.getElementById('postCategory').value)
         newPost.set("postPfp", user.attributes.pfp);
         newPost.set("postAcc", user.attributes.ethAddress);
         newPost.set("postUserName", user.attributes.username);
@@ -158,12 +145,20 @@ function Modal() {
     // }
 
     function onSubmit(e){
-    
+
+        const metadata = {
+            'title': document.getElementById('postTitle').value,
+            'content': document.getElementById('postContent').value,
+            'url': document.getElementById('postUrl').value,
+            'category': document.getElementById('postCategory').value,
+            'image': document.getElementById('postImg').value
+        };
+
         e.preventDefault();
         // if(!validateForm()){
         //     return message.error("Remember to add the title and the content of your post")
         // }
-        addPostToBlockchain({title, content, url, category, theFile})
+        addPostToBlockchain(metadata)
         // clearForm();
     }
 
@@ -185,10 +180,10 @@ function Modal() {
                     <div>
                         <select id='postCategory' placeholder="Choose a category" value={category} onChange={(e) => setCategory(e.target.value)}>
                             <option className="text-black" value='Choose a category'>Choose a category</option>
-                            <option value="0x6de6b001f5f03f9fe3c98297f7e4d3295185b96a393c90398d0cdee4f2694df4">Defi</option>
-                            <option value="0xa77f1113be27aab7c22b1887b26f15208cdf0872d2aa5c9ba44722d3bf791329">NFTs</option>
-                            <option value="0x0fbb12a0dbec0b74ed070bdc5ff7eec11f01b14b8329ef73eff85ead4f785e50">DAOs</option>
-                            <option value="0x2038e9667e480ecd03325bcef24b3bdbd4037f6f75c7538a13e2bc2b568d14cd">Metaverse</option>
+                            <option value="Defi">Defi</option>
+                            <option value="NFTs">NFTs</option>
+                            <option value="DAOs">DAOs</option>
+                            <option value="Metaverse">Metaverse</option>
                         </select>
                     </div>
                     {selectedFile && (
@@ -199,7 +194,6 @@ function Modal() {
                             type="file"
                             name="file"
                             ref={inputFile}
-                            accept="image/png, image/jpeg"
                             onChange={changeHandler}
                             style={{ display: "none"}}
                             id='postImg'
