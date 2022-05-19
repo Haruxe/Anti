@@ -8,9 +8,6 @@ import CategoryBar from "../content/CategoryBar";
 import { ClipLoader } from "react-spinners";
 import Moralis from "moralis";
 
-const appId = process.env.REACT_APP_MORALIS_APPLICATION_ID;
-const serverUrl = process.env.REACT_APP_MORALIS_SERVER_URL;
-
 function Feed () {
     const [categoryVisible, setSidebarVisible] = useState(true);
     const [loading, setLoading] = useState(true);
@@ -19,10 +16,6 @@ function Feed () {
     let result = null;
     // console.log(fetchedCategories)
 
-    // const { Moralis, account } = useMoralis();
-    // Moralis.start({serverUrl, appId})
-    // const user = Moralis.User.current();
-    
     useEffect(() => {
         function handleResize() {
             if (window.innerWidth < 1300){

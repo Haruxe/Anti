@@ -107,7 +107,7 @@ function Modal() {
             'title': document.getElementById('postTitle').value,
             'content': document.getElementById('postContent').value,
             'Url': document.getElementById('postUrl').value,
-            'Image': theFile,
+            // 'Image': document.getElementById('postImage').value,
             'comments': 'none',
             'upvotes': 0,
             'downvotes': 0,
@@ -197,7 +197,6 @@ function Modal() {
                             ref={inputFile}
                             onChange={changeHandler}
                             style={{ display: "none"}}
-                            id='postImg'
                         />
                         <Image className='w-10 self-end'/>
                     </div>

@@ -47,7 +47,7 @@ function Modal() {
             functionName: "createPost",
             abi: contractABIJson,
             params: {
-                _parentId: "0xc5bd07976cb0704ae6be0eaee9652ee37944bd01ab4b2f552b47b8cbee456225", // Need to still understand better how this works with the childId for the comments
+                _parentId: "0x91", // Need to still understand better how this works with the childId for the comments
                 _contentUri: contentUri,
                 _categoryId: categoryId
             },
@@ -62,13 +62,6 @@ function Modal() {
     }
 
     const processContent = async (content) => {
-        
-        if (theFile) {
-            const data = theFile;
-            const file = new Moralis.File(data.name, data);
-            await file.saveIPFS();
-        }
-
         const ipfsResult = await ipfsProcessor.saveFile(
             "post.json",
             { base64: btoa(JSON.stringify(content)) },
@@ -107,7 +100,7 @@ function Modal() {
             'title': document.getElementById('postTitle').value,
             'content': document.getElementById('postContent').value,
             'Url': document.getElementById('postUrl').value,
-            'Image': theFile,
+            // 'Image': document.getElementById('postImage').value,
             'comments': 'none',
             'upvotes': 0,
             'downvotes': 0,
@@ -134,7 +127,7 @@ function Modal() {
             newPost.set("postImg", file.ipfs());
         }
 
-        await newPost.save({ipfs_url: metadataFile, 'account': user});
+        await newPost.save({ipfs_url: metadataFile, 'account': Moralis.User.current});
         ClosePost();
     }
 
@@ -159,7 +152,7 @@ function Modal() {
         // if(!validateForm()){
         //     return message.error("Remember to add the title and the content of your post")
         // }
-        addPostToBlockchain({title, content, url, selectedFile})
+        addPostToBlockchain({title, content, url})
         // clearForm();
     }
 
@@ -187,7 +180,7 @@ function Modal() {
                             <option value="Metaverse">Metaverse</option>
                         </select>
                     </div> */}
-                    {selectedFile && (
+                    {/* {selectedFile && (
                     <img src={selectedFile} className="postImg"></img>
                     )}
                     <div className="imgDiv" onClick={onImageClick}>
@@ -197,10 +190,9 @@ function Modal() {
                             ref={inputFile}
                             onChange={changeHandler}
                             style={{ display: "none"}}
-                            id='postImg'
                         />
                         <Image className='w-10 self-end'/>
-                    </div>
+                    </div> */}
                     {/* <Tags /> */}
                     <motion.button className='px-6 py-3 bg-white text-black self-end rounded-sm outline outline-1 outline-[#343536]' onClick={postMessage}>
                         Post

@@ -37,7 +37,7 @@ function Post({profile}) {
             return (
                 <>
                     <div className='flex flex-col bg-[#202020] rounded-sm outline outline-1 outline-[#343536]'>
-                        <div className='w-[800px] h-full flex flex-col px-2 space-y-5'>
+                        <div className='w-[700px] h-full flex flex-col px-2 space-y-5'>
                             <motion.div className=' w-full h-full flex flex-column p-4 space-y-5 align-bottom space-x-5'>
                                 <div className='flex flex-col place-content-start space-y-3 mt-6'>
                                     <motion.button whileHover={{color: '#777777'}} transition={{duration: 0.2}}>

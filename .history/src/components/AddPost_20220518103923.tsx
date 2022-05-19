@@ -3,8 +3,9 @@ import React, {StrictMode} from 'react';
 import ReactDOM from 'react-dom/client';
 import { Add as AddSign } from 'styled-icons/material';
 import Modal from './Modal';
+import Moralis from 'moralis';
 import { MoralisProvider } from "react-moralis";
-import { MoralisDappProvider } from "../MoralisDappProvider/MoralisDappProvider";
+import { MoralisDappProvider } from "./MoralisDappProvider/MoralisDappProvider";
 
 const APP_ID = process.env.REACT_APP_MORALIS_APPLICATION_ID;
 const SERVER_URL = process.env.REACT_APP_MORALIS_SERVER_URL;
@@ -35,7 +36,7 @@ function AddPost() {
         return (
           <MoralisProvider appId={APP_ID} serverUrl={SERVER_URL}>
             <MoralisDappProvider>
-              <Modal isServerInfo/>
+              <Modal />
             </MoralisDappProvider>
           </MoralisProvider>
         );
