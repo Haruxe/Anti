@@ -13,9 +13,9 @@ import { useMoralisQuery } from 'react-moralis';
 
 function Post({post, profile}) {
 
-    console.log(post)
+    const { contentId, postId, postOwner } = post;
+    console.log(contentId)
     const [postArr, setPostArr] = useState();
-    // console.log(postArr)
     // const [contentId, setContentId] = useState();
     // const [postId, setPostId] = useState();
     // const [postOwner, setPostOwner] = useState();
@@ -63,7 +63,7 @@ function Post({post, profile}) {
 
   return (
       <>
-        {postArr?.map((post) => {
+        {postArr?.map((e) => {
             return (
                 <>
                     <div className='flex flex-col bg-[#202020] rounded-sm outline outline-1 outline-[#343536]'>
@@ -80,19 +80,19 @@ function Post({post, profile}) {
                                 </div>
                                 <div className='align-middle space-y-5'>
                                 <motion.div className='flex flex-row space-x-5 text-xl' >
-                                    <Link to={'/u/' + post?.attributes?.postAcc}>
-                                    <img src={post?.attributes?.postPfp ? post?.attributes?.postPfp : defaultImgs[0]} alt='pfp' className='w-14 h-14 cursor-pointer rounded-full'></img>
+                                    <Link to={'/u/' + e?.attributes?.postAcc}>
+                                    <img src={e?.attributes?.postPfp ? e?.attributes?.postPfp : defaultImgs[0]} alt='pfp' className='w-14 h-14 cursor-pointer rounded-full'></img>
                                     </Link>
                                     <div>
                                     <div className="flex flex-col space-y-2">
-                                        <Link to={'/u/' + post?.attributes.postAcc}>
+                                        <Link to={'/u/' + e?.attributes.postAcc}>
                                         <p className='m-0 text-white'>
-                                        {post?.attributes.postUserName?.slice(0, 6)} <span className='text-slate-400 text-sm'>{post?.attributes.postAcc.slice(0, 4)}...${post.attributes.postAcc.slice(38)}</span>
+                                        {e?.attributes.postUserName?.slice(0, 6)} <span className='text-slate-400 text-sm'>{e?.attributes.postAcc.slice(0, 4)}...${e.attributes.postAcc.slice(38)}</span>
                                         </p>
                                         </Link>
                                         <div className='text-slate-400 text-sm'>{
                                             `
-                                            ${post?.attributes.createdAt?.toLocaleString('en-us', { min: 'numeric' })}
+                                            ${e?.attributes.createdAt?.toLocaleString('en-us', { min: 'numeric' })}
                                             `  
                                         }
                                         </div>
@@ -103,19 +103,19 @@ function Post({post, profile}) {
                                 
                                 <div className='postContent text-xl text-left'>
                                     <div className='text-2xl font-bold'>
-                                    {post.attributes.postTitle} 
+                                    {e.attributes.postTitle} 
                                     </div>
                                     <div className='text-lg text-slate-200'>
-                                    {post.attributes.postContent}
+                                    {e.attributes.postContent}
                                     </div>
                                     <br />
-                                    {post.attributes.postImg && (
+                                    {e.attributes.postImg && (
                                         <img
-                                        src={post.attributes.postImg}
+                                        src={e.attributes.postImg}
                                         className="rounded-sm"
                                         ></img>
                                     )}
-                                    <a href={post.attributes.postUrl} target="_blank">Link</a>
+                                    <a href={e.attributes.postUrl} target="_blank">Link</a>
                                     <br />
                                 </div>
                                 <div className='flex flex-row justify-start space-x-20'>

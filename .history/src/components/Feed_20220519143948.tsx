@@ -56,7 +56,7 @@ function Feed () {
             <div className='p-5 flex flex-row  ml-[220px]'>
             <div className='w-full h-full flex flex-col p-5 space-y-3'>
             <CategoryBar categories={categories}/>
-                <Posts profile={false}/>
+                <Posts />
             </div>
         </div> 
         </div>)}

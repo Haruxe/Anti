@@ -27,9 +27,9 @@ function Post({post, profile}) {
             try {
                 const Posts = await Moralis.Object.extend("Posts");
                 const query = new Moralis.Query(Posts);
-                if (profile) {
-                    query.equalTo("postAcc", window.location.href.split('/')[4])
-                }
+                // if (profile) {
+                //     query.equalTo("postAcc", window.location.href.split('/')[4])
+                // }
                 const results = await query.find();
 
                 setPostArr(results);

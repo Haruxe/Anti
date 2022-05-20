@@ -13,7 +13,7 @@ import { useMoralisQuery } from 'react-moralis';
 
 function Post({post, profile}) {
 
-    console.log(post)
+    // console.log(post)
     const [postArr, setPostArr] = useState();
     // console.log(postArr)
     // const [contentId, setContentId] = useState();
@@ -63,7 +63,7 @@ function Post({post, profile}) {
 
   return (
       <>
-        {postArr?.map((post) => {
+        {post?.map((post) => {
             return (
                 <>
                     <div className='flex flex-col bg-[#202020] rounded-sm outline outline-1 outline-[#343536]'>

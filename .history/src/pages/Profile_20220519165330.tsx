@@ -192,7 +192,7 @@ function Profile() {
                 </div>
             </div>
             <div className="space-y-3">
-                <Posts profile={false} />
+                <Posts profile={true} />
             </div>
         </div>
         </div>)}

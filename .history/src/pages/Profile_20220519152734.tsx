@@ -5,7 +5,7 @@ import { defaultImgs } from "../defaultimgs";
 import Moralis from "moralis";
 import { motion } from 'framer-motion';
 // import Feed from "../components/Feed";
-import Post from "../content/Post";
+// import Post from "../content/Post";
 import Posts from "../content/Posts"
 import { ClipLoader } from "react-spinners";
 import { useMoralis, useMoralisCloudFunction, useMoralisWeb3Api } from "react-moralis";
@@ -192,7 +192,7 @@ function Profile() {
                 </div>
             </div>
             <div className="space-y-3">
-                <Posts profile={false} />
+                <Posts profile={true}/>
             </div>
         </div>
         </div>)}

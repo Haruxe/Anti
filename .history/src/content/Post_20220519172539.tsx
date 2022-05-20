@@ -13,7 +13,7 @@ import { useMoralisQuery } from 'react-moralis';
 
 function Post({post, profile}) {
 
-    console.log(post)
+    // console.log(post)
     const [postArr, setPostArr] = useState();
     // console.log(postArr)
     // const [contentId, setContentId] = useState();
@@ -56,6 +56,12 @@ function Post({post, profile}) {
         }
         getBlockchainPosts();
     }, [profile]);
+
+    useEffect(() => {
+        async function getPostByCategory() {
+            set
+        }
+    })
     
     function vote(input) {
         message.success("message")

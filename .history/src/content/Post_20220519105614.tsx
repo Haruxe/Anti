@@ -1,5 +1,5 @@
 import React from 'react';
-import { useEffect, useState } from "react";
+import { useEffect, useState, createElement } from "react";
 import { motion } from 'framer-motion';
 import { Downvote, Upvote } from 'styled-icons/boxicons-regular';
 import { Share } from 'styled-icons/bootstrap';
@@ -9,19 +9,11 @@ import './CSS/Post.css';
 import { Moralis } from "moralis"
 import { Link } from 'react-router-dom';
 import { message } from 'antd';
-import { useMoralisQuery } from 'react-moralis';
 
-function Post({post, profile}) {
+function Post({profile}) {
 
-    console.log(post)
-    const [postArr, setPostArr] = useState();
-    // console.log(postArr)
-    // const [contentId, setContentId] = useState();
-    // const [postId, setPostId] = useState();
-    // const [postOwner, setPostOwner] = useState();
-    const [blockchainPostArr, setBlockchainPostArr] = useState();
+  const [postArr, setPostArr] = useState();
 
-  
     useEffect(() => {
         async function getPosts() {
             try {
@@ -39,31 +31,14 @@ function Post({post, profile}) {
         }
         getPosts();
     }, [profile]);
-   
-    useEffect(() => {
-        async function getBlockchainPosts() {
-            try {
-                const BlockchainPosts = await Moralis.Object.extend("BlockchainPosts");
-                const query = new Moralis.Query(BlockchainPosts);
-                if (profile) {
-                    query.equalTo("postOwner", window.location.href.split('/')[4])
-                }
-                const res = await query.find();
-                setBlockchainPostArr(res);
-            } catch (error) {
-                console.log(error)
-            }
-        }
-        getBlockchainPosts();
-    }, [profile]);
-    
-    function vote(input) {
+
+    function vote(message) {
         message.success("message")
     }
 
   return (
       <>
-        {postArr?.map((post) => {
+        {postArr?.map((e) => {
             return (
                 <>
                     <div className='flex flex-col bg-[#202020] rounded-sm outline outline-1 outline-[#343536]'>
@@ -73,26 +48,25 @@ function Post({post, profile}) {
                                     <motion.button whileHover={{color: '#777777'}} transition={{duration: 0.2}} onClick={() => vote("voteUp")}>
                                         <Upvote className='w-10 cursor-pointer' />
                                     </motion.button>
-                                    <span>0</span>
                                     <motion.button whileHover={{color: '#777777'}} transition={{duration: 0.2}} onClick={() => vote("voteDown")}>
                                         <Downvote className='w-10 cursor-pointer' />
                                     </motion.button>
                                 </div>
                                 <div className='align-middle space-y-5'>
                                 <motion.div className='flex flex-row space-x-5 text-xl' >
-                                    <Link to={'/u/' + post?.attributes?.postAcc}>
-                                    <img src={post?.attributes?.postPfp ? post?.attributes?.postPfp : defaultImgs[0]} alt='pfp' className='w-14 h-14 cursor-pointer rounded-full'></img>
+                                    <Link to={'/u/' + e?.attributes?.postAcc}>
+                                    <img src={e?.attributes?.postPfp ? e?.attributes?.postPfp : defaultImgs[0]} alt='pfp' className='w-14 h-14 cursor-pointer rounded-full'></img>
                                     </Link>
                                     <div>
                                     <div className="flex flex-col space-y-2">
-                                        <Link to={'/u/' + post?.attributes.postAcc}>
+                                        <Link to={'/u/' + e?.attributes.postAcc}>
                                         <p className='m-0 text-white'>
-                                        {post?.attributes.postUserName?.slice(0, 6)} <span className='text-slate-400 text-sm'>{post?.attributes.postAcc.slice(0, 4)}...${post.attributes.postAcc.slice(38)}</span>
+                                        {e?.attributes.postUserName?.slice(0, 6)} <span className='text-slate-400 text-sm'>{e?.attributes.postAcc.slice(0, 4)}...${e.attributes.postAcc.slice(38)}</span>
                                         </p>
                                         </Link>
                                         <div className='text-slate-400 text-sm'>{
                                             `
-                                            ${post?.attributes.createdAt?.toLocaleString('en-us', { min: 'numeric' })}
+                                            ${e?.attributes.createdAt?.toLocaleString('en-us', { min: 'numeric' })}
                                             `  
                                         }
                                         </div>
@@ -103,19 +77,19 @@ function Post({post, profile}) {
                                 
                                 <div className='postContent text-xl text-left'>
                                     <div className='text-2xl font-bold'>
-                                    {post.attributes.postTitle} 
+                                    {e.attributes.postTitle} 
                                     </div>
                                     <div className='text-lg text-slate-200'>
-                                    {post.attributes.postContent}
+                                    {e.attributes.postContent}
                                     </div>
                                     <br />
-                                    {post.attributes.postImg && (
+                                    {e.attributes.postImg && (
                                         <img
-                                        src={post.attributes.postImg}
+                                        src={e.attributes.postImg}
                                         className="rounded-sm"
                                         ></img>
                                     )}
-                                    <a href={post.attributes.postUrl} target="_blank">Link</a>
+                                    <a href={e.attributes.postUrl} target="_blank">Link</a>
                                     <br />
                                 </div>
                                 <div className='flex flex-row justify-start space-x-20'>
