@@ -19,9 +19,8 @@ const Posts = ({selectedCategory}) => {
     console.log(fetchedPosts)
 
     const emptyResult = (
-        <div>
-            <h3 className="text-white">Be the first to post here for</h3>
-            <h3>{selectedCategory["category"]} </h3>
+        <div className="justify-center w-full p-4">
+            <p className="text-white text-xl mx-auto">Nothing to see here!</p>
         </div>
     );
 

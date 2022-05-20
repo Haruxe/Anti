@@ -2,8 +2,6 @@ import { Route, BrowserRouter as Router, Routes, Navigate } from "react-router-d
 import { useEffect, useState } from "react";
 import { useMoralis } from "react-moralis";
 import Home from "./pages/Home";
-import NotFound from "./pages/NotFound";
-import NonAuthenticated from "./pages/NonAuthenticated";
 import Profile from './pages/Profile';
 import Settings from "./pages/Settings";
 import HomeRedirect from "./pages/HomeRedirect";
@@ -11,7 +9,6 @@ import { ClipLoader } from "react-spinners";
 
 const App = ({isServerInfo}) => {
   const [loading, setLoading] = useState(true);
-  const [content, setContent] = useState(<></>);
   
   const { isWeb3Enabled, enableWeb3, isAuthenticated, isWeb3EnableLoading } =
     useMoralis();
@@ -26,6 +23,8 @@ const App = ({isServerInfo}) => {
     setLoading(true);
     setTimeout(() => setLoading(false), 400)
   }, [])
+
+
 
   return (
 

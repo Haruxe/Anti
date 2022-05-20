@@ -1,6 +1,5 @@
 import { useMoralis } from "react-moralis";
 import { getEllipsisTxt } from "../helpers/formatters";
-import Blockie from "../Blockie";
 import { Button, Card, Modal } from "antd";
 import { useState } from "react";
 import Address from "../Address/Address";

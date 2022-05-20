@@ -62,6 +62,11 @@ function Profile({post}) {
           NFTs.result.map(
             (e) => resolveLink(JSON.parse(e?.metadata)?.image) ? images.push(resolveLink(JSON.parse(e?.metadata)?.image)) : console.log('image not found')
           );
+          images.push(defaultImgs[0])
+          images.push(defaultImgs[2])
+          images.push(defaultImgs[3])
+          images.push(defaultImgs[4])
+          images.push(defaultImgs[5])
           setPfps(images);
         }
     
@@ -117,7 +122,7 @@ function Profile({post}) {
         setBanner(user.attributes.banner ? user.attributes.banner : defaultImgs[1])
         setBio(user.attributes?.bio)
         setLoading(false);
-        setSelectedPFP(user.attributes.pfp);
+        setSelectedPFP(user.attributes.pfp ? user.attributes.pfp : defaultImgs[0]);
     }
 
     function onProfileClick(){
@@ -164,8 +169,9 @@ function Profile({post}) {
             <img className={editMode ? "profileBanner rounded-md cursor-pointer brightness-75 outline-dotted outline-1 outline-white" : "profileBanner rounded-md"} onClick={editMode ? onBannerClick : () => {}} src={editMode ? selectedFile : banner} />
             {editMode && <input
               type="file"
-              name="file"
+              name="banner"
               ref={inputFile}
+              accept='image/jpeg image/png'
               onChange={changeHandler}
               style={{ display: "none" }}
             />}
@@ -241,7 +247,7 @@ function Profile({post}) {
         </div>)}
         </div>
             <div className="bg-[#202020] rounded-md outline outline-1 outline-[#343536] top-1/4 left-1/4 fixed p-5 invisible flex flex-col" id='profileModal'>
-                  <div className="grid grid-cols-6">
+                  <div className="grid grid-cols-6 space-x-3">
                   {pfps.map((e,i) => {
               return(
                 <>
@@ -254,6 +260,7 @@ function Profile({post}) {
                 ></img>
                 </>
               )
+              
             })}
             </div>
             <button className="bg-[#202020] rounded-md outline outline-1 outline-[#343536] w-20 h-12 self-end text-xl" onClick={onProfileClose}>Save</button>

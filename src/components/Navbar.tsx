@@ -6,12 +6,18 @@ import Chains from "./Chains/Chains";
 import NativeBalance from './NativeBalance';
 import '../index.css';
 import { Prism } from 'styled-icons/ionicons-outline';
-import { EmojiLaughing } from 'styled-icons/bootstrap';
 import AddPost from './AddPost';
 import { useMoralis } from 'react-moralis';
+import { useEffect, useState } from 'react';
+import { defaultImgs } from '../defaultimgs';
 
 function Navbar() {
-  const { account } = useMoralis();
+  const { account, user } = useMoralis();
+  const [usersPfp, setUsersPfp] = useState(user ? user.attributes.pfp : defaultImgs[1]);
+
+  useEffect(() => {
+      setUsersPfp(user?.attributes.pfp)
+  }, [account])
 
   return (
     <div>
@@ -32,12 +38,14 @@ function Navbar() {
                   </div>
             </div>
             
-            <div className='flex flex-col space-y-8 '>
+            {user ? <div className='flex flex-col space-y-8 '>
+            
             <Link to={'/u/' + account}>
+              
               <motion.button  whileHover={{backgroundColor: '#2F2F2F', outlineColor: '#4E4E4E'}} className='bg-[#202020] outline-[#343536] outline outline-1 rounded-lg tracking-widest px-7 py-3 w-full'>
                 
                 <div className='flex flex-row justify-start space-x-4 align-middle'>
-                  <EmojiLaughing className='w-7 text-white' />
+                  <img src={usersPfp ? usersPfp : defaultImgs[1]} className='w-7 rounded-full text-white' />
                   <p className='my-auto text-white text-left text-xl'>Profile</p>
                 </div>
                 
@@ -46,9 +54,12 @@ function Navbar() {
               <div className='flex flex-row space-x-3'>
                     <Chains />
                   </div>
+                  <AddPost />
+            </div>: <></>}
+            
+            
             </div>
-            <AddPost />
-            </div>
+
             
             
         </div> 

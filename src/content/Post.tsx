@@ -127,24 +127,24 @@ function Post({post, profile}) {
             return (
                 <>
                     <div className='flex flex-col bg-[#202020] rounded-sm outline outline-1 outline-[#343536]'>
-                        <div className='w-[800px] h-full flex flex-col px-2 space-y-5'>
+                        <div className='w-full h-full flex flex-col px-2 space-y-5'>
                             <motion.div className=' w-full h-full flex flex-column p-4 space-y-5 align-bottom space-x-5'>
                                 <div className='flex flex-col place-content-start space-y-3 mt-6'>
                                 <Tooltip key="comment-basic-like" title="Vote Up">
                                     <span
-                                    style={{ fontSize: "15px", display: "flex", alignItems: "center", marginRight: "16px" }}
+                                    className='cursor-pointer'
                                     onClick={() => vote("voteUp")}
                                     >
-                                    {createElement(voteStatus === "liked" ? LikeFilled : LikeOutlined)} Vote Up
+                                    {createElement(voteStatus === "liked" ? LikeFilled : LikeOutlined)}
                                     </span>
-                                </Tooltip>,
-                                <span style={{ fontSize: "15px" }}><Votes postId={post} /></span>,
+                                </Tooltip>
+                                <span className='text-xl'><Votes postId={post} /></span>
                                 <Tooltip key="comment-basic-dislike" title="Dislike">
                                     <span
-                                    style={{ fontSize: "15px", display: "flex", alignItems: "center", marginLeft: "8px" }}
+                                    className='cursor-pointer'
                                     onClick={() => vote("voteDown")}
                                     >
-                                    {createElement(voteStatus === "disliked" ? DislikeFilled : DislikeOutlined)} Vote Down
+                                    {createElement(voteStatus === "disliked" ? DislikeFilled : DislikeOutlined)}
                                     </span>
                                 </Tooltip>
                                     {/* <motion.button whileHover={{color: '#777777'}} transition={{duration: 0.2}} onClick={() => vote("voteUp")}>
