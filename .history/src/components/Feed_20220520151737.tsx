@@ -28,7 +28,7 @@ function Feed () {
         window.addEventListener('resize', handleResize)
     })
 
-    const queryCategories = useMoralisQuery("CategoriesV");
+    const queryCategories = useMoralisQuery("Categories");
     const fetchedCategories = JSON.parse(JSON.stringify(queryCategories.data, ["categoryId", "category"]));
     // console.log(fetchedCategories)
 
@@ -59,7 +59,7 @@ function Feed () {
             <div className='p-5 flex flex-row  ml-[220px]'>
             <div className='w-full h-full flex flex-col p-5 space-y-3'>
             <CategoryBar categories={fetchedCategories}/>
-                <Posts selectedCategory={selectedCategory}/>
+                <Posts />
             </div>
         </div> 
         </div>

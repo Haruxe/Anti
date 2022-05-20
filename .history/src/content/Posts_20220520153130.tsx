@@ -9,7 +9,7 @@ const Posts = ({selectedCategory}) => {
     const queryPost = useMoralisQuery(
         "Posts",
         (query) => query.equalTo("postCategory", categoryId),
-        [selectedCategory],
+        [],
         { live: true }
     );
     // console.log(queryPost)

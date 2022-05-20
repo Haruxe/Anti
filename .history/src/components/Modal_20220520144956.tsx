@@ -70,7 +70,6 @@ function Modal() {
             onError: (error) => message.error(error),
         });
         
-        await newPost.save({'account': user})
         ClosePost();
     }
 

@@ -28,7 +28,7 @@ function Feed () {
         window.addEventListener('resize', handleResize)
     })
 
-    const queryCategories = useMoralisQuery("CategoriesV");
+    const queryCategories = useMoralisQuery("Categories");
     const fetchedCategories = JSON.parse(JSON.stringify(queryCategories.data, ["categoryId", "category"]));
     // console.log(fetchedCategories)
 

@@ -9,7 +9,7 @@ function CategoryBar({categories}) {
 
   function selectCategory(categoryId) {
     const selectedCategory = categories.filter((category) => category["categoryId"] === categoryId);
-    console.log(selectedCategory)
+    // console.log(selectedCategory)
     setSelectedCategory(selectedCategory[0]);
   }
 

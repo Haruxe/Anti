@@ -1,14 +1,23 @@
 import { useMoralisDapp } from "../MoralisDappProvider/MoralisDappProvider";
 import { useMoralisQuery } from "react-moralis";
+// import { motion } from "framer-motion";
+// import { Downvote, Upvote } from 'styled-icons/boxicons-regular';
+// import { Share } from 'styled-icons/bootstrap';
+// import { CommentAlt } from 'styled-icons/fa-regular';
+// import { defaultImgs } from '../defaultimgs';
+// import './CSS/Post.css';
+// import { Moralis } from "moralis"
+// import { Link } from 'react-router-dom';
+// import { message } from 'antd';
 import Post from './Post';
 
-const Posts = ({selectedCategory}) => {
-    const categoryId = selectedCategory.categoryId;
-    // console.log(categoryId)
+const Posts = ({profile}) => {
+    // const { selectedCategory } = useMoralisDapp();
+    // console.log(selectedCategory)
     
     const queryPost = useMoralisQuery(
         "Posts",
-        (query) => query.equalTo("postCategory", categoryId),
+        (query) => query.equalTo("categoryId", selectedCategory["categoryId"]),
         [selectedCategory],
         { live: true }
     );
@@ -16,7 +25,7 @@ const Posts = ({selectedCategory}) => {
 
     const fetchedPosts = JSON.parse(JSON.stringify(queryPost.data, ["postId", "contentId", "postOwner"])).reverse();
     const havePosts = fetchedPosts.length > 0 ? true : false;
-    console.log(fetchedPosts)
+    // console.log(fetchedPosts)
 
     const emptyResult = (
         <div>

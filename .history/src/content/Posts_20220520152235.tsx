@@ -2,14 +2,15 @@ import { useMoralisDapp } from "../MoralisDappProvider/MoralisDappProvider";
 import { useMoralisQuery } from "react-moralis";
 import Post from './Post';
 
-const Posts = ({selectedCategory}) => {
+const Posts = () => {
+    const { selectedCategory } = useMoralisDapp();
     const categoryId = selectedCategory.categoryId;
     // console.log(categoryId)
     
     const queryPost = useMoralisQuery(
         "Posts",
         (query) => query.equalTo("postCategory", categoryId),
-        [selectedCategory],
+        [],
         { live: true }
     );
     // console.log(queryPost)

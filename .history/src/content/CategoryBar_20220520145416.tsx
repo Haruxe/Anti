@@ -4,14 +4,17 @@ import {motion} from 'framer-motion';
 import { Menu } from 'antd';
 
 function CategoryBar({categories}) {
+  // console.log(categories)
   
   const { setSelectedCategory } = useMoralisDapp();
 
   function selectCategory(categoryId) {
     const selectedCategory = categories.filter((category) => category["categoryId"] === categoryId);
-    console.log(selectedCategory)
+    // console.log(selectedCategory)
     setSelectedCategory(selectedCategory[0]);
+    // console.log(setSelectedCategory)
   }
+  console.log(category)
 
   return (
     <div className="col-lg-3">

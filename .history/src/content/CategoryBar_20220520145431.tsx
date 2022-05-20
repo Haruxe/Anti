@@ -4,6 +4,7 @@ import {motion} from 'framer-motion';
 import { Menu } from 'antd';
 
 function CategoryBar({categories}) {
+  // console.log(categories)
   
   const { setSelectedCategory } = useMoralisDapp();
 
@@ -11,6 +12,7 @@ function CategoryBar({categories}) {
     const selectedCategory = categories.filter((category) => category["categoryId"] === categoryId);
     console.log(selectedCategory)
     setSelectedCategory(selectedCategory[0]);
+    // console.log(setSelectedCategory)
   }
 
   return (
