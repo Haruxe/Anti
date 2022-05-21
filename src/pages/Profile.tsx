@@ -50,17 +50,23 @@ function Profile({post}) {
 
     useEffect(() => {
 
-        const fetchNFTs = async () => {
+        async function fetchNFTs() {
           const options = {
-            chain: "Mainnet",
-            address: account
+            chain: 'eth'
           }
-    
           const NFTs = await Web3Api.account.getNFTs(options);
           let images = [];
+          let imageURIs = [];
           NFTs.result.map(
-            (e) => resolveLink(JSON.parse(e?.metadata)?.image) ? images.push(resolveLink(JSON.parse(e?.metadata)?.image)) : console.log('image not found')
+            (e) => {
+              imageURIs.push(e.token_uri)
+            }
           );
+          for (let i = 0; i < imageURIs.length - 1; i++){
+            const nft = await fetch(imageURIs[i]).then(res => {res?.json()}).then(res => {return res})
+            images.push(nft)
+            debugger
+          }
           images.push(defaultImgs[0])
           images.push(defaultImgs[2])
           images.push(defaultImgs[3])
@@ -149,7 +155,6 @@ function Profile({post}) {
     
     const { data } = useMoralisQuery("BlockchainPosts", (query) => query.equalTo("postOwner", user.attributes.ethAddress), [], { live: true });
     const fetchedPosts = JSON.parse(JSON.stringify(data, ["postId", "contentId", "postOwner"])).reverse();
-    console.log(fetchedPosts)
 
     return (
         <>

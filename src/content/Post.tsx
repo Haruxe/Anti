@@ -37,7 +37,6 @@ function Post({post, profile}) {
           return contentUri;
         }
         async function fetchIPFSDoc(ipfsHash) {
-          console.log(ipfsHash);
           const url = ipfsHash;
           const response = await fetch(url);
           return await response.json();
@@ -103,7 +102,7 @@ function Post({post, profile}) {
         });
     }
    
-    console.log(postArr)
+    
     // useEffect(() => {
     //     async function getBlockchainPosts() {
     //         try {
@@ -126,7 +125,7 @@ function Post({post, profile}) {
         {postArr?.map((e) => {
             return (
                 <>
-                    <div className='flex flex-col bg-[#202020] rounded-sm outline outline-1 outline-[#343536]'>
+                    <div className='flex flex-col bg-[#202020] rounded-md outline outline-1 outline-[#343536]'>
                         <div className='w-full h-full flex flex-col px-2 space-y-5'>
                             <motion.div className=' w-full h-full flex flex-column p-4 space-y-5 align-bottom space-x-5'>
                                 <div className='flex flex-col place-content-start space-y-3 mt-6'>

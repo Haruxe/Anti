@@ -24,11 +24,11 @@ const menuItems = [
   //   value: "Ethereum",
   //   icon: <Ethereum />,
   // },
-  {
-    key: "0x539",
-    value: "Local Chain",
-    icon: <Ethereum className="w-7 h-7 flex-0 self-start"/>,
-  },
+  //{
+  //  key: "0x539",
+  //  value: "Local Chain",
+  //  icon: <Ethereum className="w-7 h-7 flex-0 self-start"/>,
+  //},
   // {
   //   key: "0x3",
   //   value: "Ropsten Testnet",
@@ -85,6 +85,9 @@ function Chains() {
   const { switchNetwork, chainId, chain } = useChain();
   const { isAuthenticated } = useMoralis();
   const [selected, setSelected] = useState({});
+  if (!chain){
+    switchNetwork("0x13881");
+  }
 
   useEffect(() => {
     if (!chainId) return undefined;
@@ -99,10 +102,10 @@ function Chains() {
   };
 
   const menu = (
-    <Menu onClick={handleMenuClick} className='align-middle my-auto'>
+    <Menu onClick={handleMenuClick} className='align-middle my-auto' style={{borderRadius: '10px'}}>
       {menuItems.map((item) => (
         <Menu.Item key={item.key} icon={item.icon} style={styles.item} className='my-auto'>
-          <span style={{ marginLeft: "5px" }}>{item.value}</span>
+          <span style={{ marginLeft: "5px" }} className='my-auto'>{item.value}</span>
         </Menu.Item>
       ))}
     </Menu>
@@ -123,7 +126,7 @@ function Chains() {
           </div>
           <p className="my-auto align-middle tracking-widest">
           {selected?.value ? selected?.value : <p className="text-xl m-0">
-            Chain
+            Connect
           </p>}
           </p>
           

@@ -5,7 +5,7 @@ import Search from '../components/Search';
 
 function Home() {  
   return (
-    <div className='flex justify-center space-x-4'>
+    <div className='flex justify-center space-x-4' id='page'>
         <div className='mb-10 h-screen rounded-sm flex justify-center flex-row'>
             <Navbar />
             <Feed />

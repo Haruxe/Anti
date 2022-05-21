@@ -32,7 +32,7 @@ function Modal() {
         // @dev deletes modal
         const modal = document.getElementById('modal')?.lastChild;
         modal.remove();
-        window.location.reload()
+        window.location.reload();
     }
 
     async function addPostToBlockchain() {

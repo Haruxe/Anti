@@ -16,7 +16,6 @@ const Posts = ({selectedCategory}) => {
 
     const fetchedPosts = JSON.parse(JSON.stringify(queryPost.data, ["postId", "contentId", "postOwner"])).reverse();
     const havePosts = fetchedPosts.length > 0 ? true : false;
-    console.log(fetchedPosts)
 
     const emptyResult = (
         <div className="justify-center w-full p-4">
@@ -29,7 +28,7 @@ const Posts = ({selectedCategory}) => {
     // }
     
     const postResult = (
-        <div>
+        <div className="space-y-3">
             {fetchedPosts.map((post) => (
                 <Post key={post["postId"]} post={post} profile={false}/>
             ))}
