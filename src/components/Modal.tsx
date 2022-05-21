@@ -110,18 +110,18 @@ function Modal() {
                     <textarea className='mx-auto w-full h-[200px]  outline-[#343536] bg-[#181818] outline outline-1 p-3 resize-none ' placeholder='Body' id='postContent' value={content} onChange={(e) => setContent(e.target.value)}/>
                     <textarea className='mx-auto w-full outline outline-1 outline-[#343536] resize-none h-full bg-[#181818] text-white p-4 rounded-sm shadow-lg' placeholder='Link to Project (Optional)' id='postUrl' value={url} onChange={(e) => setUrl(e.target.value)}/>
                     <div>
-                        <select className="form-control" placeholder="Choose a category" id="postCategory" value={category} onChange={(e) => setCategory(e.target.value)}>
-                            <option className="text-black" value='Choose a category'>Choose a category</option>
-                            <option value="0x6de6b001f5f03f9fe3c98297f7e4d3295185b96a393c90398d0cdee4f2694df4">Defi</option>
+                        <select className="form-control bg-transparent text-lg" placeholder="Choose a category" id="postCategory" value={category} onChange={(e) => setCategory(e.target.value)}>
+                            <option className='bg-transparent' value='Choose a category'>Choose a category</option>
+                            <option value="0x6de6b001f5f03f9fe3c98297f7e4d3295185b96a393c90398d0cdee4f2694df4">DeFi</option>
                             <option value="0xa77f1113be27aab7c22b1887b26f15208cdf0872d2aa5c9ba44722d3bf791329">NFTs</option>
                             <option value="0x0fbb12a0dbec0b74ed070bdc5ff7eec11f01b14b8329ef73eff85ead4f785e50">DAOs</option>
                             <option value="0x2038e9667e480ecd03325bcef24b3bdbd4037f6f75c7538a13e2bc2b568d14cd">Metaverse</option>
                         </select>
                     </div>
                     {selectedFile && (
-                        <div className='h-auto'>
-                            <img src={selectedFile} onClick={onImageClick} className='cursor-pointer max-h-52'/>
-                        </div>
+                        <motion.div className='h-auto' whileHover={{filter: 'brightness(.7)'}}>
+                            <img src={selectedFile} onClick={() => setSelectedFile('')} className='cursor-pointer max-h-52'/>
+                        </motion.div>
                     )}
                     <div onClick={onImageClick} className='self-start flex flex-row space-x-4'>
                         <input
@@ -144,7 +144,7 @@ function Modal() {
                         Post
                     </motion.button> */}
                     <motion.button whileHover={{backgroundColor: '#2F2F2F', outlineColor: '#4E4E4E'}} className='tracking-widest bg-[#202020] rounded-md outline outline-1 outline-[#343536] py-3 px-5 align-middle justify-center shadow-xl self-end' onClick={addPostToBlockchain}>
-                        Post on Blockchain
+                        Post
                     </motion.button>
                     </div>
                 </div>

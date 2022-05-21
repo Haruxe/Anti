@@ -191,16 +191,10 @@ function Post({post, profile}) {
                                         className="rounded-sm"
                                         ></img>
                                     )}
-                                    <a href={e.attributes.postUrl} target="_blank">Link</a>
+                                    <a href={'//' + e.attributes.postUrl} target="_blank">Link</a>
                                     <br />
                                 </div>
                                 <div className='flex flex-row justify-start space-x-20'>
-                                <motion.button>
-                                    <CommentAlt className='w-8 my-auto' />
-                                </motion.button>
-                                <motion.button>
-                                    <Share className='w-6 my-auto' />
-                                </motion.button>
                                 </div>
                                 </div>
                             </motion.div>

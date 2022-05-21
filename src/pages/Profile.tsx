@@ -56,22 +56,12 @@ function Profile({post}) {
           }
           const NFTs = await Web3Api.account.getNFTs(options);
           let images = [];
-          let imageURIs = [];
           NFTs.result.map(
             (e) => {
-              imageURIs.push(e.token_uri)
+              images.push(resolveLink(JSON.parse(e.metadata)?.image) ? resolveLink(JSON.parse(e.metadata)?.image) : console.log('image error'))
             }
           );
-          for (let i = 0; i < imageURIs.length - 1; i++){
-            const nft = await fetch(imageURIs[i]).then(res => {res?.json()}).then(res => {return res})
-            images.push(nft)
-            debugger
-          }
           images.push(defaultImgs[0])
-          images.push(defaultImgs[2])
-          images.push(defaultImgs[3])
-          images.push(defaultImgs[4])
-          images.push(defaultImgs[5])
           setPfps(images);
         }
     
@@ -253,6 +243,7 @@ function Profile({post}) {
             <div className="bg-[#202020] rounded-md outline outline-1 outline-[#343536] top-1/4 left-1/4 fixed p-5 invisible flex flex-col" id='profileModal'>
                   <div className="grid grid-cols-6 space-x-3">
                   {pfps.map((e,i) => {
+                    if (e){
               return(
                 <>
                 <img
@@ -264,6 +255,7 @@ function Profile({post}) {
                 ></img>
                 </>
               )
+                    }
               
             })}
             </div>

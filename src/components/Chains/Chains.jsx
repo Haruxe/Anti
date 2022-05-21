@@ -34,11 +34,11 @@ const menuItems = [
   //   value: "Ropsten Testnet",
   //   icon: <Ethereum />,
   // },
-  {
-    key: "0x4",
-    value: "Rinkeby",
-    icon: <Ethereum className="w-7 h-7 flex-0 self-start"/>,
-  },
+  //{
+  //  key: "0x4",
+  //  value: "Rinkeby",
+  //  icon: <Ethereum className="w-7 h-7 flex-0 self-start"/>,
+  //},
   // {
   //   key: "0x2a",
   //   value: "Kovan Testnet",
@@ -129,7 +129,6 @@ function Chains() {
             Connect
           </p>}
           </p>
-          
         </motion.button>
       </Dropdown>
     </div>

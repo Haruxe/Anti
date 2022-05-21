@@ -6,10 +6,6 @@ import image5 from './images/pfp3.png';
 import image6 from './images/pfp4.png';
 
 export const defaultImgs = [
-  image1,
-  image2,
-  image3,
-  image4,
-  image5,
-  image6
+  "https://ipfs.moralis.io:2053/ipfs/QmNgA9MNWFfRaoKzBt21VghQopnKXBgVxzyGvv5qjsV4Vw/media/1",
+  "https://ipfs.moralis.io:2053/ipfs/QmNgA9MNWFfRaoKzBt21VghQopnKXBgVxzyGvv5qjsV4Vw/media/2",
 ];
