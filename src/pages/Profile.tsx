@@ -11,10 +11,9 @@ import { ClipLoader } from "react-spinners";
 import { useMoralis, useMoralisCloudFunction, useMoralisWeb3Api, useMoralisQuery } from "react-moralis";
 import { Back, Save } from "styled-icons/bootstrap";
 import { Cancel, Settings } from "styled-icons/material";
-import ReactDOM from 'react-dom';
 
 function Profile({post}) {
-    const { Moralis, isAuthenticated, account, user } = useMoralis();
+    const { Moralis, account, user } = useMoralis();
     //For rendering
     const [loading, setLoading] = useState(true);
     const [banner, setBanner] = useState(defaultImgs[1]);
@@ -23,7 +22,6 @@ function Profile({post}) {
     const [address, setAddress] = useState('');
     const [bio, setBio] = useState('');
     const [fullAddress, setFullAddress] = useState('0x000000000000')
-    const { fetch } = useMoralisCloudFunction('getUser', {address: window.location.href.split('/')[4]})
 
     //For edit mode
     const [editMode, setEditMode] = useState(false);
@@ -34,6 +32,7 @@ function Profile({post}) {
     const [theFile, setTheFile] = useState();
     const [newUsername, setNewUsername] = useState();
     const [newBio, setNewBio] = useState();
+    const {fetch} = useMoralisCloudFunction('getUser', {address: window.location.href.split('/')[4]})
 
     const Web3Api = useMoralisWeb3Api();
 
@@ -114,15 +113,15 @@ function Profile({post}) {
       }
 
     async function RenderPage(){
-        const user = await fetch();
-        setAddress(user.attributes?.ethAddress)
-        setFullAddress(user.attributes.ethAddress);
-        setUsername(user.attributes?.username?.slice(0, 6))
-        setPfp(user.attributes.pfp ? user.attributes.pfp : defaultImgs[0])
-        setBanner(user.attributes.banner ? user.attributes.banner : defaultImgs[1])
-        setBio(user.attributes?.bio)
+        const fetchedUser = await fetch();
+        setAddress(fetchedUser.attributes?.ethAddress)
+        setFullAddress(fetchedUser.attributes.ethAddress);
+        setUsername(fetchedUser.attributes?.username?.slice(0, 6))
+        setPfp(fetchedUser.attributes.pfp ? fetchedUser.attributes.pfp : defaultImgs[0])
+        setBanner(fetchedUser.attributes.banner ? fetchedUser.attributes.banner : defaultImgs[1])
+        setBio(fetchedUser.attributes?.bio)
         setLoading(false);
-        setSelectedPFP(user.attributes.pfp ? user.attributes.pfp : defaultImgs[0]);
+        setSelectedPFP(fetchedUser.attributes.pfp ? fetchedUser.attributes.pfp : defaultImgs[0]);
     }
 
     function onProfileClick(){

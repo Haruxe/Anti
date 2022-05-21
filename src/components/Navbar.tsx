@@ -26,8 +26,8 @@ function Navbar() {
             <div className='text-4xl flex flex-row '>
               <div className='tracking-widest mx-auto' >
                   <div className='flex flex-row space-x-2 align-middle mx-auto'>
-                    <Prism className='w-12 fill-white text-white mt-1'/>
-                    <p className='my-auto text-white text-6xl'>nti</p>
+                    <Prism className='w-12 fill-white text-white mt-3'/>
+                    <p className='my-auto text-white text-6xl'>nti<span className='text-sm tracking-tighter'>BETA</span></p>
                   </div>
               </div>
             </div>

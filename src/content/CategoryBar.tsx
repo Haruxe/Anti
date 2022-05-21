@@ -14,15 +14,18 @@ function CategoryBar({categories}) {
   }
 
   return (
-    <div className="col-lg-3">
+    <div className="col-lg-3 bg-transparent " style={{ background: 'transparent' }} >
             <Menu 
+            
             onClick={(e) => selectCategory(e.key)}
-            // style={{ ...glStyles.card, padding: "10px 0" }} 
+            style={{ background: 'transparent' }} 
+            className='rounded-lg text-white bg-transparent'
             mode="inline">
-                <Menu.ItemGroup key="categories" title="Categories">
+                <Menu.ItemGroup key="categories" className='bg-transparent text-white' style={{ background: 'transparent' }} >
                     {categories.map((category) => (
-                        <Menu.Item key={category["categoryId"]}>{category["category"]}</Menu.Item>
+                        <Menu.Item key={category["categoryId"]} className='text-white rounded-sm'><motion.div className='text-white'>{category["category"]}</motion.div></Menu.Item>
                     ))}
+                    <Menu.Item  className='text-white rounded-sm bg-transparent' ><motion.div className='text-white text-xl'>NFTs</motion.div></Menu.Item>
                 </Menu.ItemGroup>
             </Menu>
         </div>

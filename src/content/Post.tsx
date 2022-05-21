@@ -164,7 +164,7 @@ function Post({post, profile}) {
                                     <div className="flex flex-col space-y-2">
                                         <Link to={'/u/' + e?.attributes.postAcc}>
                                         <p className='m-0 text-white'>
-                                        {e?.attributes.postUserName?.slice(0, 6)} <span className='text-slate-400 text-sm'>{e?.attributes.postAcc.slice(0, 4)}...${e?.attributes.postAcc.slice(38)}</span>
+                                        {e?.attributes.postUserName?.slice(0, 6)} <span className='text-slate-400 text-sm'>{e?.attributes.postAcc?.slice(0, 4)}...${e?.attributes.postAcc?.slice(38)}</span>
                                         </p>
                                         </Link>
                                         <div className='text-slate-400 text-sm'>{

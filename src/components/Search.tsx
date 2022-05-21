@@ -19,9 +19,11 @@ function Search() {
 
     async function ChangeText() {
         const value = document.getElementById('searchBox').value;
-        const topFive = await fetch('https://f2qvi1w2lxsz.usemoralis.com:2053/server/functions/searchUsers?_ApplicationId=w2JrBC8heN0iN2xDfk2VOxPgOf5PFIXwlVYxeOu7&input=' + value)
+        if (value !== ''){
+        const topFive = await fetch('https://xmwmmjtl4nof.usemoralis.com:2053/server/functions/searchUsers?_ApplicationId=2b2E4Epka26DcaMAYl47THoeoL43kPa3Zx3FUobQ&input=' + value)
         .then((result) => {return result.json()})
         ShowTopResults(topFive);
+    }
     }
 
     function ShowTopResults(results) {
@@ -45,7 +47,7 @@ function Search() {
         <div className='tracking-widest w-[300px] mt-10  space-y-2'>
             <div className='w-full bg-[#202020] outline-[#343536] outline outline-1 flex flex-row p-2 rounded-md'>
                 <SearchAlt className='w-7 flex-none ml-4'/>
-                <input placeholder='Search Anti' className='p-2 bg-transparent w-full outline-none' id='searchBox' onChange={ChangeText}/>
+                <input placeholder='Search Users' className='p-2 bg-transparent w-full outline-none' id='searchBox' onChange={ChangeText}/>
             </div>
             <div id='searchResultRoot'/>
         </div>
