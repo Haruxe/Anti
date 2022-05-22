@@ -234,7 +234,9 @@ function Profile({post}) {
                 </div>
             </div>
             <div className="space-y-3">
-                  <Post post={fetchedPosts} profile={true}/>
+              {fetchedPosts.map((post) => (
+                  <Post post={post} profile={true}/>
+              ))}
             </div>
         </div>
         </div>)}

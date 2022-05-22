@@ -2,11 +2,11 @@ import React, { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import './CSS/Profile.css'
 import { defaultImgs } from "../defaultimgs";
-// import Moralis from "moralis";
+import Moralis from "moralis";
 import { motion } from 'framer-motion';
 // import Feed from "../components/Feed";
 import Post from "../content/Post";
-// import Posts from "../content/Posts"
+import Posts from "../content/Posts"
 import { ClipLoader } from "react-spinners";
 import { useMoralis, useMoralisCloudFunction, useMoralisWeb3Api, useMoralisQuery } from "react-moralis";
 import { Back, Save } from "styled-icons/bootstrap";
@@ -143,9 +143,8 @@ function Profile({post}) {
     }
     }, [editMode])
     
-    const { data } = useMoralisQuery("BlockchainInfo", (query) => query.equalTo("postOwner", user.attributes.ethAddress), [], { live: true });
+    const { data } = useMoralisQuery("BlockchainPosts", (query) => query.equalTo("postOwner", user.attributes.ethAddress), [], { live: true });
     const fetchedPosts = JSON.parse(JSON.stringify(data, ["postId", "contentId", "postOwner"])).reverse();
-    console.log(fetchedPosts)
 
     return (
         <>
@@ -234,7 +233,9 @@ function Profile({post}) {
                 </div>
             </div>
             <div className="space-y-3">
-                  <Post post={fetchedPosts} profile={true}/>
+              {fetchedPosts.map((post) => (
+                  <Post post={post} profile={true}/>
+              ))}
             </div>
         </div>
         </div>)}

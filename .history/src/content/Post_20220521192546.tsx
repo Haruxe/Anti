@@ -15,12 +15,13 @@ import { useMoralisQuery, useWeb3ExecuteFunction} from 'react-moralis';
 import { useMoralisDapp } from '../MoralisDappProvider/MoralisDappProvider';
 import Votes from './Votes';
 
-const Post = ({post, profile}) => {
+function Post({post, profile}) {
 
-    const { contentId, postId, postOwner } = post;
-    // console.log(post)
+    // const { contentId, postId, postOwner } = post;
+    const postOwner = useMoralisQuery("BlockchainInfo", (query) => query.equalTo("postOwner", post.postOwner))
+    console.log(postOwner)
     const [postContent, setPosContent] = useState({ title: "default", content: "default" });
-    const { data } = useMoralisQuery("Contents", (query) => query.equalTo("contentId", contentId), []);
+    const { data } = useMoralisQuery("Contents", (query) => query.equalTo("contentId", post.contentId));
     console.log(data)
     const [voteStatus, setVoteStatus] = useState();
     const { data: votes } = useMoralisQuery("Votes", (query) => query.equalTo("postId", post.postId), [], {

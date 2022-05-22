@@ -18,10 +18,10 @@ import Votes from './Votes';
 const Post = ({post, profile}) => {
 
     const { contentId, postId, postOwner } = post;
-    // console.log(post)
+    console.log(post)
     const [postContent, setPosContent] = useState({ title: "default", content: "default" });
-    const { data } = useMoralisQuery("Contents", (query) => query.equalTo("contentId", contentId), []);
-    console.log(data)
+    const { data } = useMoralisQuery("Contents", (query) => query.equalTo("contentId", post[0].contentId));
+    // console.log(data)
     const [voteStatus, setVoteStatus] = useState();
     const { data: votes } = useMoralisQuery("Votes", (query) => query.equalTo("postId", post.postId), [], {
         live: true,
