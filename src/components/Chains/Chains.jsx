@@ -24,21 +24,21 @@ const menuItems = [
   //   value: "Ethereum",
   //   icon: <Ethereum />,
   // },
-  {
-    key: "0x539",
-    value: "Local Chain",
-    icon: <Ethereum className="w-7 h-7 flex-0 self-start"/>,
-  },
+  //{
+  //  key: "0x539",
+  //  value: "Local Chain",
+  //  icon: <Ethereum className="w-7 h-7 flex-0 self-start"/>,
+  //},
   // {
   //   key: "0x3",
   //   value: "Ropsten Testnet",
   //   icon: <Ethereum />,
   // },
-  {
-    key: "0x4",
-    value: "Rinkeby",
-    icon: <Ethereum className="w-7 h-7 flex-0 self-start"/>,
-  },
+  //{
+  //  key: "0x4",
+  //  value: "Rinkeby",
+  //  icon: <Ethereum className="w-7 h-7 flex-0 self-start"/>,
+  //},
   // {
   //   key: "0x2a",
   //   value: "Kovan Testnet",
@@ -67,7 +67,7 @@ const menuItems = [
   {
     key: "0x13881",
     value: "Mumbai",
-    icon: <Matic className="w-7 h-7 flex-0 self-start"/>,
+    icon: <Matic className="w-7 h-7 flex-0 self-start "/>,
   },
   // {
   //   key: "0xa86a",
@@ -81,10 +81,13 @@ const menuItems = [
   // },
 ];
 
-function Chains() {
+function Chains(props) {
   const { switchNetwork, chainId, chain } = useChain();
   const { isAuthenticated } = useMoralis();
   const [selected, setSelected] = useState({});
+  if (!chain){
+    switchNetwork("0x13881");
+  }
 
   useEffect(() => {
     if (!chainId) return undefined;
@@ -99,10 +102,10 @@ function Chains() {
   };
 
   const menu = (
-    <Menu onClick={handleMenuClick} className='align-middle my-auto'>
+    <Menu onClick={handleMenuClick} className='align-middle my-auto' style={{borderRadius: '10px'}}>
       {menuItems.map((item) => (
         <Menu.Item key={item.key} icon={item.icon} style={styles.item} className='my-auto'>
-          <span style={{ marginLeft: "5px" }}>{item.value}</span>
+          <span style={{ marginLeft: "5px" }} className='my-auto'>{item.value}</span>
         </Menu.Item>
       ))}
     </Menu>
@@ -122,11 +125,10 @@ function Chains() {
           {selected?.icon ? selected?.icon : <Chain className="w-7 h-7 flex-0 self-start"/>}
           </div>
           <p className="my-auto align-middle tracking-widest">
-          {selected?.value ? selected?.value : <p className="text-xl m-0">
-            Chain
+          {selected?.value ? props.visible ? selected?.value : '' : <p className="text-xl m-0">
+            Connect
           </p>}
           </p>
-          
         </motion.button>
       </Dropdown>
     </div>

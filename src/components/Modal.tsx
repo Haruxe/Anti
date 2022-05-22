@@ -1,26 +1,31 @@
 import React, { useState, useRef } from 'react'
 import { motion } from 'framer-motion';
-import { Plus, X, Image } from 'styled-icons/bootstrap';
-import Moralis from "moralis"
-// import { PolygonLogo } from './Chains/Logos';
+import { Plus, X, Image, PlusCircle } from 'styled-icons/bootstrap';
+import {message} from "antd";
 import './CSS/Modal.css'
-// import { useMoralis, useWeb3ExecuteFunction} from 'react-moralis';
-
-// const appId = process.env.REACT_APP_MORALIS_APPLICATION_ID;
-// const serverUrl = process.env.REACT_APP_MORALIS_SERVER_URL;
+import { useMoralis, useMoralisFile, useWeb3ExecuteFunction } from 'react-moralis';
+import { useMoralisDapp } from '../MoralisDappProvider/MoralisDappProvider';
+import { ClipLoader } from "react-spinners";
 
 
 function Modal() {
-
-    // Moralis.start({serverUrl, appId})
+    
+    const { Moralis } = useMoralis();
     const user = Moralis.User.current();
+    const {contractABI, contractAddress, selectedCategory} = useMoralisDapp();
+    const contractABIJson = JSON.parse(contractABI);
+    const ipfsProcessor = useMoralisFile();
+    const contractProcessor = useWeb3ExecuteFunction();
 
-    // const contractProcessor = useWeb3ExecuteFunction();
-
+    const [title, setTitle] = useState('');
+    const [content, setContent] = useState('');
+    const [url, setUrl] = useState('');
+    const [category, setCategory] = useState('');
     const inputFile = useRef(null);
-    const [selectedFile, setSelectedFile] = useState();
-    const [theFile, setTheFile] = useState();
-    const [post, setPost] = useState();
+    const [selectedFile, setSelectedFile] = useState('');
+    const [theFile, setTheFile] = useState('');
+    const [posting, setPosting] = useState(false);
+    // const [post, setPost] = useState('');
 
     function ClosePost() {
         // @dev de-blurs the page
@@ -29,79 +34,71 @@ function Modal() {
         // @dev deletes modal
         const modal = document.getElementById('modal')?.lastChild;
         modal.remove();
-        window.location.reload()
+        window.location.reload();
     }
 
-    function Tag(props){
-        return(
-            <motion.div className='bg-[#1A1A1B] outline outline-1 flex shadow-lg space-x-1 flex-row align-middle outline-[#343536] rounded-2xl px-4 py-2 cursor-pointer' whileHover={{backgroundColor: '#2F2F2F', outlineColor: '#4E4E4E'}}>
-                <button>
-                    <Plus className='w-5 my-auto'/>
-                </button>
-                <h1 className='my-auto text-white text-lg'>
-                    {props.name}
-                </h1>
-            </motion.div>
-        )
-    }
+    async function addPostToBlockchain() {
 
-    const Tags = () => {
-        return(
-            <div className='flex flex-row space-x-5'>
-                <Tag name='Promotional' />
-                <Tag name='PSA' />
-                <Tag name='Mint' />
-            </div>
-        )
-    }
-
-    async function postMessage() {
-
-        const metadata = {
-            'title': document.getElementById('postTitle').value,
-            'content': document.getElementById('postContent').value,
-            'Url': document.getElementById('postUrl').value,
-            'Image': document.getElementById('postImage').value,
-            'comments': 'none',
-            'upvotes': 0,
-            'downvotes': 0,
-            'uploadDate': Date.now
-        };
-
-        const metadataFile = new Moralis.File('metadata.json', { base64: btoa(JSON.stringify(metadata))});
-        await metadataFile.saveIPFS();
+        setPosting(true);
 
         const Post = Moralis.Object.extend("Posts");
         const newPost = new Post();
         newPost.set("postTitle", document.getElementById('postTitle').value)
         newPost.set("postContent", document.getElementById('postContent').value)
         newPost.set("postUrl", document.getElementById('postUrl').value)
+        newPost.set("postCategory", document.getElementById('postCategory').value)
         newPost.set("postPfp", user.attributes.pfp);
         newPost.set("postAcc", user.attributes.ethAddress);
         newPost.set("postUserName", user.attributes.username);
+        
+        const data = theFile;
+        const file = new Moralis.File(data.name, data);
+        await file.saveIPFS();
+        newPost.set("postImg", file.ipfs());
 
-        if (theFile) {
-            const data = theFile;
-            const file = new Moralis.File(data.name, data);
-            await file.saveIPFS();
-            newPost.set("postImg", file.ipfs());
+        const contentUri = await processContent(newPost);
+        const categoryId = document.getElementById('postCategory').value;
+        const options = {
+            contractAddress: contractAddress,
+            functionName: "createPost",
+            abi: contractABIJson,
+            params: {
+                _parentId: "0xc5bd07976cb0704ae6be0eaee9652ee37944bd01ab4b2f552b47b8cbee456225", // Need to still understand better how this works with the childId for the comments
+                _contentUri: contentUri,
+                _categoryId: categoryId
+            },
         }
+        console.log(options)
+        await contractProcessor.fetch({params:options,
+            onSuccess: () => ClosePost(),
+            onError: (error) => setPosting(false)
+        });
+        
+        await newPost.save({'account': user})
+    }
 
-        await newPost.save({ipfs_url: metadataFile, 'account': Moralis.User.current});
-        ClosePost();
+    const processContent = async (content) => {
+
+        const ipfsResult = await ipfsProcessor.saveFile(
+            "post.json",
+            { base64: btoa(JSON.stringify(content)) },
+            { saveIPFS: true}
+        )
+        return ipfsResult._ipfs;
     }
 
     const onImageClick = () => {
         inputFile.current.click();
     };
     
-    const changeHandler = (event) => {
-        const img = event.target.files[0];
+    const changeHandler = (e) => {
+        const img = e.target.files[0];
+        setTheFile(img);
         setSelectedFile(URL.createObjectURL(img));
     };
 
   return (
-        <motion.div className='h-full w-full align-middle justify-center ' animate={{scale: 1}} initial={{scale: 0}} exit={{scale: 0}}>
+        <motion.div className='h-full w-full align-middle justify-center' animate={{scale: 1}} initial={{scale: 0}} exit={{scale: 0}}>
             <div className='flex justify-center h-screen'>
                 <div className='bg-[#1A1A1B] w-[50rem] h-auto outline outline-1 outline-[#343536] flex flex-col space-y-10 p-8 m-auto rounded-md justify-self-center self-center'>
                     <div className='flex'>
@@ -112,29 +109,51 @@ function Modal() {
                             <X className='w-10 self-end' />
                         </motion.button>
                     </div>
-                    <input className='mx-auto w-full outline outline-1 outline-[#343536] resize-none bg-[#181818] text-white p-4 rounded-sm shadow-lg' placeholder='Project Name' id='postTitle'/>
-                    <textarea className='mx-auto w-full outline outline-1 outline-[#343536] resize-none h-full bg-[#181818] text-white p-4 rounded-sm shadow-lg' placeholder='Tell us about your project!' id='postContent'/>
-                    <textarea className='mx-auto w-full outline outline-1 outline-[#343536] resize-none h-full bg-[#181818] text-white p-4 rounded-sm shadow-lg' placeholder='Project Url link' id='postUrl'/>
+                    <input className='mx-auto w-full resize-none text-white bg-transparent outline-none text-xl' placeholder='* Project Name' id='postTitle' value={title} onChange={(e) => setTitle(e.target.value)}/>
+                    <textarea className='mx-auto w-full h-[200px]  outline-[#343536] bg-[#181818] outline outline-1 p-3 resize-none ' placeholder='* Body' id='postContent' value={content} onChange={(e) => setContent(e.target.value)}/>
+                    <textarea className='mx-auto w-full outline outline-1 outline-[#343536] resize-none h-full bg-[#181818] text-white p-4 rounded-sm shadow-lg' placeholder='Link to Project (Optional)' id='postUrl' value={url} onChange={(e) => setUrl(e.target.value)}/>
+                    <div>
+                        * 
+                        <select className="form-control bg-transparent text-lg" placeholder="Choose a category" id="postCategory" value={category} onChange={(e) => setCategory(e.target.value)}>
+                            <option value="0x6de6b001f5f03f9fe3c98297f7e4d3295185b96a393c90398d0cdee4f2694df4">DeFi</option>
+                            <option value="0xa77f1113be27aab7c22b1887b26f15208cdf0872d2aa5c9ba44722d3bf791329">NFTs</option>
+                            <option value="0x0fbb12a0dbec0b74ed070bdc5ff7eec11f01b14b8329ef73eff85ead4f785e50">DAOs</option>
+                            <option value="0x2038e9667e480ecd03325bcef24b3bdbd4037f6f75c7538a13e2bc2b568d14cd">Metaverse</option>
+                            <option value="0x110861ee2dcc4d491b5a0a5af51d92eef615fe41ad22e8901688db04596f97f7">DApps</option>
+                            <option value="0x28b335832df970d0015f078d7815cdb26d5a627955bde36416546d0240bbd78a">Other</option>
+                        </select>
+                    </div>
                     {selectedFile && (
-                    <img src={selectedFile} className="postImg"></img>
+                        <motion.div className='h-auto' whileHover={{filter: 'brightness(.7)'}}>
+                            <img src={selectedFile} onClick={() => setSelectedFile('')} className='cursor-pointer max-h-52'/>
+                        </motion.div>
                     )}
-                    <div className="imgDiv" onClick={onImageClick}>
+                    <div onClick={onImageClick} className='self-start flex flex-row space-x-4'>
                         <input
                             type="file"
                             name="file"
                             ref={inputFile}
+                            accept="image/png, image/jpeg"
                             onChange={changeHandler}
                             style={{ display: "none"}}
+                            id='postImg'
                         />
-                        <Image className='w-10 self-end'/>
-
+                        <PlusCircle className='w-10 self-end cursor-pointer rounded-full'/>
+                        <p className='text-xl my-auto'>
+                            Add Media (Optional)
+                        </p>
                     </div>
-                    <Tags />
-                    <motion.button className='px-6 py-3 bg-white text-black self-end rounded-sm outline outline-1 outline-[#343536]' onClick={postMessage}>
+                    {/* <Tags /> */}
+                    <div className='self-end flex flex-col space-y-4'>
+                    {/* <motion.button whileHover={{backgroundColor: '#2F2F2F', outlineColor: '#4E4E4E'}} className='tracking-widest bg-[#202020] rounded-md outline outline-1 outline-[#343536] py-3 px-5 align-middle justify-center shadow-xl self-end' onClick={postMessage}>
                         Post
-                    </motion.button>
+                    </motion.button> */}
+                    {posting ? <ClipLoader color='white'/> : <motion.button whileHover={{backgroundColor: '#2F2F2F', outlineColor: '#4E4E4E'}} className='tracking-widest bg-[#202020] rounded-md outline outline-1 outline-[#343536] py-3 px-5 align-middle justify-center shadow-xl self-end' onClick={addPostToBlockchain}>
+                        Post
+                    </motion.button>}
+                    </div>
                 </div>
-             </div>
+            </div>
         </motion.div>  
     )
 }
