@@ -17,14 +17,11 @@ import Votes from './Votes';
 
 function Post({post, profile}) {
 
-    // const { contentId, postId, postOwner } = post;
-    const postOwner = useMoralisQuery("BlockchainInfo", (query) => query.equalTo("postOwner", post.postOwner))
-    console.log(post)
+    const { contentId, postId, postOwner } = post;
     const [postContent, setPosContent] = useState({ title: "default", content: "default" });
-    const { data } = useMoralisQuery("Contents", (query) => query.equalTo("contentId", post.contentId));
-    console.log(data)
+    const { data } = useMoralisQuery("Contents", (query) => query.equalTo("contentId", contentId));
     const [voteStatus, setVoteStatus] = useState();
-    const { data: votes } = useMoralisQuery("Votes", (query) => query.equalTo("postId", post.postId), [], {
+    const { data: votes } = useMoralisQuery("Votes", (query) => query.equalTo("postId", postId), [], {
         live: true,
     });
     const { walletAddress, contractABI, contractAddress} = useMoralisDapp();
@@ -124,7 +121,7 @@ function Post({post, profile}) {
     
   return (
       <>
-        {postArr?.map((e) => {
+        {post?.map((e) => {
             return (
                 <>
                     <div className='flex flex-col bg-[#202020] rounded-md outline outline-1 outline-[#343536]'>
@@ -193,7 +190,7 @@ function Post({post, profile}) {
                                         className="rounded-sm"
                                         ></img>
                                     )}
-                                    <a href={'://' + e.attributes.postUrl} target="_blank">Link</a>
+                                    <a href={'//' + e.attributes.postUrl} target="_blank">Link</a>
                                     <br />
                                 </div>
                                 <div className='flex flex-row justify-start space-x-20'>

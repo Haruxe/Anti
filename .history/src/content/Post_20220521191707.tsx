@@ -18,7 +18,6 @@ import Votes from './Votes';
 function Post({post, profile}) {
 
     // const { contentId, postId, postOwner } = post;
-    const postOwner = useMoralisQuery("BlockchainInfo", (query) => query.equalTo("postOwner", post.postOwner))
     console.log(post)
     const [postContent, setPosContent] = useState({ title: "default", content: "default" });
     const { data } = useMoralisQuery("Contents", (query) => query.equalTo("contentId", post.contentId));
@@ -86,7 +85,7 @@ function Post({post, profile}) {
     }, [profile]);
 
     async function vote(direction) {
-        if (walletAddress.toLowerCase() === postOwner.toLowerCase()) return message.error("You cannot vote on your posts");
+        if (walletAddress.toLowerCase() === post.postOwner.toLowerCase()) return message.error("You cannot vote on your posts");
         if (voteStatus) return message.error("Already voted");
         const options = {
             contractAddress: contractAddress,

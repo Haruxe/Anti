@@ -13,7 +13,7 @@ const Posts = () => {
 
     const fetchedPosts = JSON.parse(JSON.stringify(queryPost.data, ["postId", "contentId", "postOwner"])).reverse();
     const havePosts = fetchedPosts.length > 0 ? true : false;
-    // console.log(fetchedPosts)
+    console.log(fetchedPosts)
 
     const emptyResult = (
         <div className="justify-center w-full p-4">
@@ -27,7 +27,9 @@ const Posts = () => {
     
     const postResult = (
         <div>
-            <Post  post={fetchedPosts} profile={false}/>  
+            {fetchedPosts.map((post) => (
+                <Post  post={fetchedPosts} profile={false}/>
+            ))}   
         </div>  
     )
     

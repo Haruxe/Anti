@@ -32,21 +32,21 @@ function Feed () {
     const fetchedCategories = JSON.parse(JSON.stringify(queryCategories.data, ["categoryId", "category"]));
     // console.log(fetchedCategories)
 
-    // useEffect(() => {
-    //     LoadContent()
-    // }, [])
+    useEffect(() => {
+        LoadContent()
+    }, [])
 
-    // async function LoadContent() {
-    //     const Category = await Moralis.Object.extend('Categories')
-    //     const queryCategories = new Moralis.Query(Category)
-    //     const catObj = await queryCategories.find()
-    //     setCategories(catObj)
-    //     setLoading(false)
-    // }
+    async function LoadContent() {
+        const Category = await Moralis.Object.extend('Categories')
+        const queryCategories = new Moralis.Query(Category)
+        const catObj = await queryCategories.find()
+        setCategories(catObj)
+        setLoading(false)
+    }
 
     return (
         <>
-        {/* {loading ? 
+        {loading ? 
             <div className="justify-center items-center flex text-center w-full h-full ml-[220px]">
           <ClipLoader
           size={60}
@@ -54,7 +54,7 @@ function Feed () {
           loading={loading}
           /> 
           </div> 
-          :( */}
+          :(
         <div>
             <div className='p-5 flex flex-row  ml-[220px] w-[700px]'>
             <div className='w-full h-full flex flex-col p-5 space-y-3'>

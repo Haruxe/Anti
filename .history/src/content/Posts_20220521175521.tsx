@@ -7,9 +7,9 @@ const Posts = () => {
     // console.log(categoryId)
     
     const queryPost = useMoralisQuery(
-        "BlockchainInfo"
+        "Posts"
     );
-    // console.log(queryPost)
+    console.log(queryPost)
 
     const fetchedPosts = JSON.parse(JSON.stringify(queryPost.data, ["postId", "contentId", "postOwner"])).reverse();
     const havePosts = fetchedPosts.length > 0 ? true : false;
@@ -26,9 +26,7 @@ const Posts = () => {
     // }
     
     const postResult = (
-        <div>
-            <Post  post={fetchedPosts} profile={false}/>  
-        </div>  
+        <Post  post={post} profile={false}/>     
     )
     
     return havePosts ? postResult : emptyResult;

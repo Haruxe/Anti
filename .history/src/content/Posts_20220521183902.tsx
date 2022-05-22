@@ -9,11 +9,11 @@ const Posts = () => {
     const queryPost = useMoralisQuery(
         "BlockchainInfo"
     );
-    // console.log(queryPost)
+    console.log(queryPost)
 
     const fetchedPosts = JSON.parse(JSON.stringify(queryPost.data, ["postId", "contentId", "postOwner"])).reverse();
     const havePosts = fetchedPosts.length > 0 ? true : false;
-    // console.log(fetchedPosts)
+    console.log(fetchedPosts)
 
     const emptyResult = (
         <div className="justify-center w-full p-4">
@@ -26,9 +26,7 @@ const Posts = () => {
     // }
     
     const postResult = (
-        <div>
-            <Post  post={fetchedPosts} profile={false}/>  
-        </div>  
+        <Post  post={fetchedPosts} profile={false}/>     
     )
     
     return havePosts ? postResult : emptyResult;
