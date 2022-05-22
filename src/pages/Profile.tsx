@@ -9,8 +9,9 @@ import Post from "../content/Post";
 import Posts from "../content/Posts"
 import { ClipLoader } from "react-spinners";
 import { useMoralis, useMoralisCloudFunction, useMoralisWeb3Api, useMoralisQuery } from "react-moralis";
-import { Back, Save } from "styled-icons/bootstrap";
+import { Back, Discord, Reddit, Save, Twitter } from "styled-icons/bootstrap";
 import { Cancel, Settings } from "styled-icons/material";
+import { Sitemap } from "styled-icons/boxicons-regular";
 
 function Profile({post}) {
     const { Moralis, account, user } = useMoralis();
@@ -22,6 +23,9 @@ function Profile({post}) {
     const [address, setAddress] = useState('');
     const [bio, setBio] = useState('');
     const [fullAddress, setFullAddress] = useState('0x000000000000')
+    const [discord, setDiscord] = useState('')
+    const [twitter, setTwitter] = useState('')
+    const [website, setWebsite] = useState('')
 
     //For edit mode
     const [editMode, setEditMode] = useState(false);
@@ -87,6 +91,19 @@ function Profile({post}) {
         if (bio) {
           myDetails.set("bio", bio)
         }
+
+        if (twitter) {
+          myDetails.set('twitter', twitter)
+        }
+
+        if (website) {
+          myDetails.set('website', website)
+        }
+
+        if (discord) {
+          myDetails.set('discord', discord)
+        }
+        
     
         if (selectedPFP){
           myDetails.set("pfp", selectedPFP);
@@ -116,6 +133,9 @@ function Profile({post}) {
         setPfp(fetchedUser.attributes.pfp ? fetchedUser.attributes.pfp : defaultImgs[0])
         setBanner(fetchedUser.attributes.banner ? fetchedUser.attributes.banner : defaultImgs[1])
         setBio(fetchedUser.attributes?.bio)
+        setDiscord(fetchedUser.attributes?.discord);
+        setTwitter(fetchedUser.attributes?.twitter);
+        setWebsite(fetchedUser.attributes?.website);
         setLoading(false);
         setSelectedPFP(fetchedUser.attributes.pfp ? fetchedUser.attributes.pfp : defaultImgs[0]);
     }
@@ -137,13 +157,16 @@ function Profile({post}) {
     useEffect(() => {
         if (editMode == true){
         const bioInput = document.getElementById('bioInput');
-        bioInput.value = bio;
+        bioInput.value = bio ? bio : '';
         const usernameInput = document.getElementById('usernameInput');
-        usernameInput.value = username;            
+        usernameInput.value = username;    
+        twitterInput.value = twitter ? twitter : '';
+        websiteInput.value = website ? website : '';   
+        discordInput.value = discord ? discord : '';    
     }
     }, [editMode])
     
-    const { data } = useMoralisQuery("BlockchainPosts", (query) => query.equalTo("postOwner", user.attributes.ethAddress), [], { live: true });
+    const { data } = useMoralisQuery("BlockchainInfo", (query) => query.equalTo("postOwner", user.attributes.ethAddress), [], { live: true });
     const fetchedPosts = JSON.parse(JSON.stringify(data, ["postId", "contentId", "postOwner"])).reverse();
 
     return (
@@ -187,15 +210,38 @@ function Profile({post}) {
                 : 
 
                 <img className="profilePFP" src={pfp} />}
-                <div className="profileName">{editMode ? <input placeholder={username} className='bg-transparent rounded-md outline outline-2 outline-[#343536] p-2' onChange={(e)=> setUsername(e.target.value)} id='usernameInput'/> : username}</div>
+                <div className="profileName">{editMode ? <input placeholder='Username' className='bg-transparent rounded-md outline outline-2 outline-[#343536] p-2' onChange={(e)=> setUsername(e.target.value)} id='usernameInput'/> : username}</div>
                 <div className="profileWallet">{address}</div>
-                <div className="profileBio mt-8 w-[1000px]">{ 
+                <div className="flex flex-row space-x-10 mb-6 ml-8">
+                { editMode ? 
+                   <div className="flex flex-row space-x-3">
+                     <Sitemap className="w-7" /><input placeholder="Website" className="bg-transparent outline-none p-2" onChange={(e) => setWebsite(e.target.value)} id='websiteInput'/>
+                     </div> : 
+                     (website ? <div className="flex flex-row space-x-3">
+                    <a href={website.startsWith('http://') || website.startsWith('https://') ? website : 'http://' + website} className='my-auto' target='_blank'><Sitemap className="w-7" /></a><p className="my-auto text-md">{website}</p>
+                   </div> : <></> )
+                   }
+                  { editMode ? 
+                   <div className="flex flex-row space-x-3">
+                   <Discord className="w-7" /><input placeholder="Discord User ID" className="bg-transparent outline-none p-2" onChange={(e) => setDiscord(e.target.value)} id='discordInput'/>
+                   </div> : discord ? <div className="flex flex-row space-x-3">
+                    <a href={'https://discordapp.com/users/' + discord} className='my-auto' target='_blank'><Discord className="w-7" /></a><p className="my-auto text-md">{discord}</p>
+                   </div> : <></>}                   { editMode ? 
+                   <div className="flex flex-row space-x-3">
+                   <Twitter className="w-7" /><input placeholder="Twitter Handle" className="bg-transparent outline-none p-2" onChange={(e) => setTwitter(e.target.value)} id='twitterInput'/ >
+                   </div> : twitter ? <div className="flex flex-row space-x-3">
+                    <a href={'https://twitter.com/' + twitter} className='my-auto' target='_blank'><Twitter className="w-7" /></a><p className="my-auto text-md">{twitter}</p>
+                   </div> : <></>}
+                   
+                  </div>
+                <div className="profileBio mt-20 w-[1000px]">{ 
                 editMode 
 
                 ? 
-                    <textarea placeholder={bio ? bio : 'I haven\'t set my bio yet!'} className='bg-transparent rounded-md outline outline-2 outline-[#343536] p-2 w-full resize-none h-[200px]' onChange={(e)=> setBio(e.target.value)} id='bioInput'/>
+                    <textarea placeholder='About Me' className='bg-transparent rounded-md outline outline-2 outline-[#343536] p-2 w-full resize-none h-[200px]' onChange={(e)=> setBio(e.target.value)} id='bioInput'/>
                 :
                  bio ? bio : 'I haven\'t set my bio yet!'}</div>
+                 
                 <div className="flex flex-col place-items-start p-4 ml-5">
                 {user.attributes.ethAddress == fullAddress ?
                  editMode ? <motion.button whileHover={{backgroundColor: '#2F2F2F', outlineColor: '#4E4E4E'}} className='tracking-widest bg-[#202020] rounded-md outline outline-1 outline-[#343536]'>
@@ -233,15 +279,15 @@ function Profile({post}) {
                 </div>
             </div>
             <div className="space-y-3">
-              {fetchedPosts.map((post) => (
-                  <Post key={post["postId"]} post={post} profile={true}/>
-              ))}
+                  <Post post={fetchedPosts} profile={true}/>
             </div>
         </div>
         </div>)}
         </div>
             <div className="bg-[#202020] rounded-md outline outline-1 outline-[#343536] top-1/4 left-1/4 fixed p-5 invisible flex flex-col" id='profileModal'>
+              <span className="text-xl mb-5">My NFTs</span>
                   <div className="grid grid-cols-6 space-x-3">
+                    
                   {pfps.map((e,i) => {
                     if (e){
               return(

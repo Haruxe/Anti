@@ -1,10 +1,10 @@
 import React from 'react';
 import { useEffect, useState, createElement } from "react";
 import { motion } from 'framer-motion';
-import { Downvote, Upvote } from 'styled-icons/boxicons-regular';
+import { Check, Downvote, Upvote } from 'styled-icons/boxicons-regular';
 import { Comment, Tooltip, Avatar, message, Divider } from "antd";
 import { DislikeOutlined, LikeOutlined, DislikeFilled, LikeFilled } from "@ant-design/icons";
-import { Share } from 'styled-icons/bootstrap';
+import { Share, Tag } from 'styled-icons/bootstrap';
 import { CommentAlt } from 'styled-icons/fa-regular';
 import { defaultImgs } from '../defaultimgs';
 import './CSS/Post.css';
@@ -120,42 +120,47 @@ function Post({post, profile}) {
     //     getBlockchainPosts();
     // }, [profile]);
     
+    
   return (
       <>
         {postArr?.map((e) => {
-            return (
+            let categoryFlair = '';
+            switch (e.attributes.postCategory) {
+                case ('0x6de6b001f5f03f9fe3c98297f7e4d3295185b96a393c90398d0cdee4f2694df4'):
+                    categoryFlair = 'DeFi';
+                    break;
+                case ('0xa77f1113be27aab7c22b1887b26f15208cdf0872d2aa5c9ba44722d3bf791329'):
+                    categoryFlair = 'NFTs';
+                    break;
+                case ('0x0fbb12a0dbec0b74ed070bdc5ff7eec11f01b14b8329ef73eff85ead4f785e50'):
+                    categoryFlair = 'DAOs';
+                    break;
+                case ('0x2038e9667e480ecd03325bcef24b3bdbd4037f6f75c7538a13e2bc2b568d14cd'):
+                    categoryFlair = 'Metaverse';
+                    break;
+                case ('0x110861ee2dcc4d491b5a0a5af51d92eef615fe41ad22e8901688db04596f97f7'):
+                    categoryFlair = 'DApps';
+                    break;
+                case ('0x28b335832df970d0015f078d7815cdb26d5a627955bde36416546d0240bbd78a'):
+                    categoryFlair = 'Other';
+                    break;
+            }
+            return(
                 <>
                     <div className='flex flex-col bg-[#202020] rounded-md outline outline-1 outline-[#343536]'>
                         <div className='w-full h-full flex flex-col px-2 space-y-5'>
-                            <motion.div className=' w-full h-full flex flex-column p-4 space-y-5 align-bottom space-x-5'>
-                                <div className='flex flex-col place-content-start space-y-3 mt-6'>
-                                <Tooltip key="comment-basic-like" title="Vote Up">
-                                    <span
-                                    className='cursor-pointer'
-                                    onClick={() => vote("voteUp")}
-                                    >
-                                    {createElement(voteStatus === "liked" ? LikeFilled : LikeOutlined)}
-                                    </span>
-                                </Tooltip>
-                                <span className='text-xl'><Votes postId={post} /></span>
-                                <Tooltip key="comment-basic-dislike" title="Dislike">
-                                    <span
-                                    className='cursor-pointer'
-                                    onClick={() => vote("voteDown")}
-                                    >
-                                    {createElement(voteStatus === "disliked" ? DislikeFilled : DislikeOutlined)}
-                                    </span>
-                                </Tooltip>
-                                    {/* <motion.button whileHover={{color: '#777777'}} transition={{duration: 0.2}} onClick={() => vote("voteUp")}>
-                                        <Upvote className='w-10 cursor-pointer' />
-                                    </motion.button>
-                                    <span>0</span>
-                                    <motion.button whileHover={{color: '#777777'}} transition={{duration: 0.2}} onClick={() => vote("voteDown")}>
-                                        <Downvote className='w-10 cursor-pointer' />
-                                    </motion.button> */}
+                            <motion.div className=' w-full h-full flex flex-column p-8 space-y-5 align-bottom space-x-5'>
+                                <div className='align-middle space-y-5 w-full'>
+                                    <div className='flex justify-center'>
+                                    <div className='flex rounded-md space-x-4 text-lg'>
+                                    <Tag className='w-8'/><p className='my-auto'>{categoryFlair}</p>
+                                    </div>
                                 </div>
-                                <div className='align-middle space-y-5'>
+                                <div className='bg-slate-200 opacity-20 h-[3px] rounded-xl'>
+
+                                </div>
                                 <motion.div className='flex flex-row space-x-5 text-xl' >
+                                    
                                     <Link to={'/u/' + e?.attributes?.postAcc}>
                                     <img src={e?.attributes?.postPfp ? e?.attributes?.postPfp : defaultImgs[0]} alt='pfp' className='w-14 h-14 cursor-pointer rounded-full'></img>
                                     </Link>
@@ -184,25 +189,22 @@ function Post({post, profile}) {
                                     <div className='text-lg text-slate-200'>
                                     {e.attributes.postContent}
                                     </div>
-                                    <br />
                                     {e.attributes.postImg && (
                                         <img
                                         src={e.attributes.postImg}
                                         className="rounded-sm"
                                         ></img>
                                     )}
-                                    <a href={'//' + e.attributes.postUrl} target="_blank">Link</a>
-                                    <br />
+                                    <a href={e.attributes.postUrl.startsWith('http://') || e.attributes.postUrl.startsWith('https://') ? e.attributes.postUrl : 'http://' + e.attributes.postUrl} target="_blank" className='mt-4'>{e.attributes.postUrl}</a>
                                 </div>
-                                <div className='flex flex-row justify-start space-x-20'>
+                                
+                                
                                 </div>
-                                </div>
+                                
                             </motion.div>
                         </div>
                     </div>
-                </>
-            );
-        }).reverse()}
+                </>);}).reverse()}
     </>
   )
 }

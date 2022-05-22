@@ -44,7 +44,7 @@ const styles = {
   },
 };
 
-function Account() {
+function Account(props) {
   const { authenticate, isAuthenticated, account, chainId, logout } =
     useMoralis();
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -115,9 +115,9 @@ function Account() {
         
         <p className='my-auto px-7 py-3 flex flex-row mx-auto space-x-3 align-middle '>
           <NetworkChart className="w-7" />
-          <p className="my-auto ">
+          {props.visible ? <p className="my-auto ">
             {getEllipsisTxt(account, 7)}
-          </p>
+          </p> : <></>}
         </p>
         
       </motion.div>

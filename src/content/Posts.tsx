@@ -3,9 +3,6 @@ import { useMoralisQuery } from "react-moralis";
 import Post from './Post';
 
 const Posts = ({selectedCategory}) => {
-    const categoryId = selectedCategory.categoryId;
-    // console.log(categoryId)
-    
     const queryPost = useMoralisQuery(
         "Posts"
     );
@@ -25,11 +22,7 @@ const Posts = ({selectedCategory}) => {
     // }
     
     const postResult = (
-        <div className="space-y-3">
-            {fetchedPosts.map((post) => (
-                <Post key={post["postId"]} post={post} profile={false}/>
-            ))}
-        </div>        
+                <Post post={fetchedPosts} profile={false}/>     
     )
     
     return havePosts ? postResult : emptyResult;

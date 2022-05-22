@@ -67,7 +67,7 @@ const menuItems = [
   {
     key: "0x13881",
     value: "Mumbai",
-    icon: <Matic className="w-7 h-7 flex-0 self-start"/>,
+    icon: <Matic className="w-7 h-7 flex-0 self-start "/>,
   },
   // {
   //   key: "0xa86a",
@@ -81,7 +81,7 @@ const menuItems = [
   // },
 ];
 
-function Chains() {
+function Chains(props) {
   const { switchNetwork, chainId, chain } = useChain();
   const { isAuthenticated } = useMoralis();
   const [selected, setSelected] = useState({});
@@ -125,7 +125,7 @@ function Chains() {
           {selected?.icon ? selected?.icon : <Chain className="w-7 h-7 flex-0 self-start"/>}
           </div>
           <p className="my-auto align-middle tracking-widest">
-          {selected?.value ? selected?.value : <p className="text-xl m-0">
+          {selected?.value ? props.visible ? selected?.value : '' : <p className="text-xl m-0">
             Connect
           </p>}
           </p>

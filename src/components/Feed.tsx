@@ -56,7 +56,7 @@ function Feed () {
           </div> 
           :( */}
         <div>
-            <div className='p-5 flex flex-row  ml-[220px] w-[700px]'>
+            <div className='p-5 flex flex-row  ml-[220px] w-[900px]'>
             <div className='w-full h-full flex flex-col p-5 space-y-3'>
                 <Posts selectedCategory={selectedCategory}/>
             </div>

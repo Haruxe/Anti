@@ -9,7 +9,7 @@ import { MoralisDappProvider } from "../MoralisDappProvider/MoralisDappProvider"
 const APP_ID = process.env.REACT_APP_MORALIS_APPLICATION_ID;
 const SERVER_URL = process.env.REACT_APP_MORALIS_SERVER_URL;
 
-function AddPost() {
+function AddPost(props) {
     function MakePost() {
       // @dev blurs the page
       const blurRoot = document.getElementById('page');
@@ -47,10 +47,10 @@ function AddPost() {
     const Add = () => {
       return(
         <motion.button  onClick={MakePost} className='flex flex-row align-middle space-x-3 px-7 py-3 cursor-pointer bg-[#202020] rounded-lg outline outline-1 outline-[#343536] w-full' whileHover={{backgroundColor: '#2F2F2F', outlineColor: '#4E4E4E'}}>
-            <AddSign className='w-7'/>
-            <p className='text-xl my-auto'>
+            <AddSign className={props.visible ? 'w-7' : 'w-7 mx-auto'}/>
+            {props.visible ? <p className='text-xl my-auto'>
               Create
-            </p>
+            </p> : <></>}
         </motion.button>
       )
     }
