@@ -1,4 +1,4 @@
-Anti is a social media platform designed to aggregate social media accounts for developers in the Web3 space with NFT profile pictures. Developers can submit projects and links to them, with the posts being hosted on a combination of IPFS and the Polygon Network (Mumbai). When posting, users can set the flair/tag of the post, which helps others find their posts quicker. 
+Anti is a social media platform designed to aggregate social media accounts for developers in the Web3 space with NFT profile pictures. Developers can submit projects and links to them, with the posts being hosted on a combination of IPFS and the Polygon Network (Mumbai). When posting, users can set the flair/tag of the post, which helps others find their posts quicker. Youtube video description: https://www.youtube.com/watch?v=V8xgyfnKuFQ&ab_channel=JoshFrancisco
 Available Scripts
 
 In the project directory, you can run:
